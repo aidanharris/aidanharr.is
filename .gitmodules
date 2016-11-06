@@ -1,0 +1,3 @@
+[submodule "theme/simple/templates/devicons"]
+	path = theme/simple/templates/devicons
+	url = https://github.com/vorillaz/devicons

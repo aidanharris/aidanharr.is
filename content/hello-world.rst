@@ -5,6 +5,9 @@
 :category: Meta
 :slug: hello-world
 :status: published
+:thumbnail: uploads/2015/05/Hello_World_C.png
+:headingTheme: dark
+:headingIconFont: fa fa-info-circle
 
 I've meant to create this website for a while now but haven't had the
 time necessary to set the website up. I snapped up the snarky .io domain

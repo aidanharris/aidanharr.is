@@ -1,0 +1,25 @@
+{
+  "name": "aidanharris-material-design",
+  "version": "0.1.0",
+  "description": "A Wordpress theme using Google Material Design Lite",
+  "private": true,
+  "main": "https://local.wordpress.dev",
+  "scripts": {
+    "livereload": "node_modules/.bin/browser-sync start --proxy \"https://local.wordpress.dev\" --files \"**/*.js\" --files \"*.php\" --files \"**/*.php\" --files \"style.css\" --files \"sass/*.scss\" --files \"sass/*/*.scss\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aidanharris/gitsta.git"
+  },
+  "author": "Aidan Harris",
+  "license": "GPL2",
+  "bugs": {
+    "url": "https://github.com/aidanharris/gitsta/issues"
+  },
+  "homepage": "https://github.com/aidanharris/gitsta#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.2"
+  }
+}

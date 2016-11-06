@@ -6,6 +6,8 @@
 :slug: how-not-to-use-docker
 :status: published
 :thumbnail: uploads/2016/06/20140516082706Docker_container_engine_logo.png
+:headingTheme: dark
+:headingIconFont: devicons devicons-docker
 
 `Docker <https://aidanharr.is/glossary/docker/>`__ is an amazing tool
 that's perfect for building Microservices. I'm still learning to use it

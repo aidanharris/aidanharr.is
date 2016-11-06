@@ -5,6 +5,7 @@
 :category: PHP, Programming, Wordpress
 :slug: change-wordpress-theme-depending-on-visitor-ip-address
 :status: published
+:headingIconFont: fa fa-wordpress
 
 Developing and testing in production is a terrible, terrible idea.
 However until I set up a virtual machine development environment I have

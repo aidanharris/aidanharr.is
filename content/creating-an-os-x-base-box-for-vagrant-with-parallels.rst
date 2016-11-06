@@ -5,6 +5,8 @@ Creating an OS X Base Box for Vagrant with Parallels
 :category: Apple, DevOps, OS X, Parallels, Vagrant, Virtualisation
 :slug: creating-an-os-x-base-box-for-vagrant-with-parallels
 :status: published
+:headingIconFont: fa fa-apple
+:beforeHeading: &nbsp;
 
 Introduction
 ^^^^^^^^^^^^

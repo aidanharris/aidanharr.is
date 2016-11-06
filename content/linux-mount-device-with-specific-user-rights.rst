@@ -5,6 +5,10 @@
 :category: Linux
 :slug: linux-mount-device-with-specific-user-rights
 :status: published
+:thumbnail: uploads/2015/06/640px-Raspberry_Pi_3_Model_B.png
+:headingTheme: custom
+:customTheme: background: rgba(0,0,0,0.5);border: 1px solid rgba(0,0,0,0.5);border-radius: 2.5%;
+:headingIconFont: fa fa-linux
 
 Recently I bought myself a `Raspberry Pi
 2 <https://en.wikipedia.org/wiki/Raspberry_Pi>`__. One of the first

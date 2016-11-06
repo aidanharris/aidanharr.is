@@ -10,8 +10,23 @@
                 * Add post thumbnail functionality
             <div class="mdl-card__media mdl-color-text--grey-50 wide-thumb" style="background:url('') no-repeat;background-size: cover;">
         -->
+        {% if article.headingtheme %}
+            {% if article.headingtheme == 'dark' %}
+                {% set headingThemeVariant = ('color: ' + DARK_HEADING_COLOUR + ' !important;') %}
+            {% elif article.headingtheme == 'light' or article.headingtheme != 'custom' %}
+                {% set headingThemeVariant = ('color: ' + LIGHT_HEADING_COLOUR + ' !important;') %}
+            {% else %}
+                {% if article.customtheme %}
+                    {% set headingThemeVariant = article.customtheme %}
+                {% else %}
+                    {% set headingThemeVariant = '' %}
+                {% endif %}
+            {% endif %}
+        {% else %}
+            {% set headingThemeVariant = ('color: ' + LIGHT_HEADING_COLOUR + ' !important;') %}
+        {% endif %}
         <div class="mdl-card__media mdl-color-text--grey-50 wide-thumb" style="{% if article.thumbnail %}background:url('{{ article.thumbnail }}') no-repeat;{% endif %}background-size: cover;">
-            <h3 class="entry-title"><a href="{{ article.url }}" rel="bookmark">{{ article.title }}</a></h3>
+            <h3 class="entry-title" style="{{ headingThemeVariant }}"><a href="{{ article.url }}" rel="bookmark" style="{{ headingThemeVariant }}">{% if article.headingiconfont %}<span class="{{article.headingiconfont}}" style="{% if 'devicons' in article.headingiconfont %}font-size: 2em; display: inline-block; position: relative; top: 0.25em;{% endif %}"></span>{% endif %}{% if article.beforeheading %}{{ article.beforeheading }}{% endif %}{{ article.title }}</a></h3>
         </div>
         <div class="entry-content mdl-color-text--grey-600 mdl-card__supporting-text" style="position: relative;top: -1.47rem;">
             {{ article.content }}
@@ -19,7 +34,7 @@
 		<div class="mdl-card__supporting-text meta mdl-color-text--grey-600" style="position: relative;top: -1.47rem;">
 			<div>
 				<strong>
-                    By
+                    By 
                     {% for author in article.authors %}
                         <a class="url fn" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
                     {% endfor %}

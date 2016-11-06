@@ -9,6 +9,21 @@
     <meta name="tags" content="{{tag}}" />
   {% endfor %}
 
+  {% if article.customcss %}
+    {% block customCSS %}
+        {% for css in article.customcss %}
+            <link rel="stylesheet" type="text/css" href="{{css}}" />
+        {% endfor %}
+    {% endblock customCSS %}
+  {% endif %}
+  {% if article.customjs %}
+    {% block customJS %}
+        {% for js in article.customjs %}
+            <script type="text/javascript" src="{{js}}"></script>
+        {% endfor %}
+    {% endblock customJS %}
+  {% endif %}
+
 {% endblock %}
 
 {% block content %}

@@ -32,6 +32,8 @@ ifeq ($(DEBUG), 1)
 	PELICANOPTS += -D
 endif
 
+PELICAN_ENV ?= "development"
+
 RELATIVE ?= 0
 ifeq ($(RELATIVE), 1)
 	PELICANOPTS += --relative-urls
@@ -87,9 +89,9 @@ endif
 
 devserver:
 ifdef PORT
-	$(BASEDIR)/develop_server.sh restart $(PORT)
+	PELICAN_ENV="$(PELICAN_ENV)" $(BASEDIR)/develop_server.sh restart $(PORT)
 else
-	$(BASEDIR)/develop_server.sh restart
+	PELICAN_ENV="$(PELICAN_ENV)" $(BASEDIR)/develop_server.sh restart
 endif
 
 stopserver:

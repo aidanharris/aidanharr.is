@@ -21,7 +21,65 @@
                 }
             }
 	    };</script>
-        <link rel="stylesheet" id="aidanharris-material-design-style-css" href="theme/css/style.css" type="text/css" media="all">
+        <link rel="stylesheet" id="aidanharris-material-design-style-css" href="/theme/css/style.css" type="text/css" media="all">
+        <style type="text/css" id="themeBG">
+        </style>
+        <script>
+            'use strict';
+            (function() {
+            var _darkTheme = false;
+            try {
+                _darkTheme = localStorage['darkTheme'];
+                if (_darkTheme === 'true' || _darkTheme === true) {
+                    _darkTheme = true;
+                } else { _darkTheme = false; }
+            } catch (err) { console.error(err); }
+            window.toggleDarkTheme = function toggleDarkTheme () {
+                _darkTheme = !_darkTheme;
+                switch (_darkTheme) {
+                    case true:
+                        if (document.body) {
+                            document.body.classList.add('darkTheme');
+                        }
+                        document.getElementById('themeBG').innerHTML = "" +
+                        "body { " +
+                            "background: #424242 !important;" +
+                        "}" +
+                        "body.darkTheme .entry-content {" +
+                            "background: #F2E9D2 !important;" +
+                        "}" +
+                        "body.darkTheme .mdl-card__supporting-text {" + 
+                            "background: rgba(242, 233, 210, 0.7) !important;" +
+                        "}" +
+                        "body.darkTheme .mdl-card {" +
+                            "background: #F2E9D2 !important;" +
+                        "}" +
+                        "body.darkTheme .mdl-card__media {" +
+                            "background: #3D0E00" +
+                        "}";
+                        break;
+                    case false:
+                    default:
+                        if (document.body) {
+                            document.body.classList.remove('darkTheme');
+                        }
+                        document.getElementById('themeBG').innerHTML = "" +
+                        "body { " +
+                            "background: #fff !important;" +
+                        "}";
+                        break;
+                }
+                try {
+                    localStorage['darkTheme'] = _darkTheme;
+                } catch(err) { console.error(err); }
+            }
+            window.getCurrentTheme = function () {
+                return (_darkTheme) ? 'dark' : 'light';
+            }
+            _darkTheme = !_darkTheme;
+            return window.toggleDarkTheme();
+            })();
+        </script>
         {% if FEED_ALL_ATOM %}
         <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Full Atom Feed" />
         {% endif %}
@@ -46,10 +104,19 @@
         {% if TAG_FEED_RSS and tag %}
         <link href="{{ FEED_DOMAIN }}/{{ TAG_FEED_RSS|format(tag.slug) }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Tags RSS Feed" />
         {% endif %}
+        {% block customCSS %}
+        {% endblock customCSS %}
+        {% block customJS %}
+        {% endblock customJS %}
         {% endblock head %}
 </head>
 
 <body style="position: fixed; top: 0;">
+    <script type="text/javascript">
+        if (window.getCurrentTheme() === 'dark') {
+            document.body.classList.add('darkTheme');
+        }
+    </script>
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
             <header class="mdl-layout__header mdl-layout__header--waterfall portfolio-header">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
@@ -66,7 +133,7 @@
 			</div>
             <div class="mdl-layout__header-row portfolio-logo-row">
                 <span class="mdl-layout__title">
-                    <a href="{{ SITEURL }}"><span class="portfolio-logo" style="display: block;background: url('data:image/svg+xml;base64,{{ AVATAR }}') 50% no-repeat;background-size: cover;  border: 0.175em solid #fff;border-radius: 100%;height: 150px;width: 150px;margin: auto auto 10px;"><span class="sr-only">Aidan Harris</span></a>
+                    <a href="{{ SITEURL }}"><span class="portfolio-logo" style="display: block;background: url('data:image/svg+xml;base64,{{ AVATAR }}') 50% no-repeat;background-size: cover;  border: 0.175em solid #fff;border-radius: 100%;height: 150px;width: 150px;margin: auto auto 10px;"><span class="sr-only">{{ SITENAME }}</span></a>
                     <span class="mdl-layout__title"></span>
                 </span>
             </div>
@@ -139,6 +206,24 @@
                         <li><a href="/copyright" style="color: #9e9e9e;text-decoration: none;"><strike>©</strike> <strike>Copyright</strike> 2016 ‐ Aidan Harris</a></li>
                         <li><a href="/privacy" style="color: #9e9e9e;text-decoration: none;">Privacy &amp; Terms</a></li>
                     </ul>
+                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="themeSelector">
+                        <input type="checkbox" id="themeSelector" class="mdl-switch__input">
+                        <span class="mdl-switch__label" id="themeSelectorLabel"></span>
+                    </label>
+
+                    <script type="text/javascript">
+                        (function() { 
+                            var setCurrentTheme = function() {
+                                document.getElementById('themeSelectorLabel').innerHTML = getCurrentTheme().charAt(0).toUpperCase() + getCurrentTheme().slice(1) + ' Theme';
+                            }
+                            document.getElementById('themeSelector').checked = (window.getCurrentTheme() === 'dark');
+                            document.getElementById('themeSelector').onchange = function() {
+                                window.window.toggleDarkTheme();
+                                setCurrentTheme();
+                            };
+                            return setCurrentTheme();
+                        })();
+                    </script>
                 </div>
                 <div class="mdl-mini-footer__right-section">
                     <div class="mdl-logo" style="color: #9e9e9e;text-decoration: none;">
@@ -147,6 +232,7 @@
                     </div>
                 </div>
             </footer><!-- /#contentinfo -->
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
             </main>
         </div>
 </body>
