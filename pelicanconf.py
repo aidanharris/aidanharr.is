@@ -10,7 +10,7 @@ SITENAME = 'Aidan Harris'
 
 SITEPROTOCOL = 'http';
 
-SITEURL = list(open('content/CNAME'))
+SITEURL = str(open('content/CNAME')).split("\n")
 SITEURL = SITEPROTOCOL + '://' + SITEURL[0]
 
 THEME = 'theme/simple'
