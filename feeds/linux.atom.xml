@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Aidan Harris - Linux</title><link href="https://aidanharr.is/" rel="alternate"></link><link href="https://aidanharr.is/feeds/linux.atom.xml" rel="self"></link><id>https://aidanharr.is/</id><updated>2015-06-03T16:11:00+01:00</updated><entry><title> Mount device with specific user rights</title><link href="https://aidanharr.is/linux-mount-device-with-specific-user-rights.html" rel="alternate"></link><published>2015-06-03T16:11:00+01:00</published><updated>2015-06-03T16:11:00+01:00</updated><author><name>aidanharris</name></author><id>tag:aidanharr.is,2015-06-03:/linux-mount-device-with-specific-user-rights.html</id><summary type="html">&lt;p&gt;Recently I bought myself a &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Raspberry_Pi"&gt;Raspberry Pi
+2&lt;/a&gt;. One of the first
+things I wanted to do was to install &lt;a class="reference external" href="https://kodi.tv"&gt;Kodi&lt;/a&gt;. This
+was easy enough thanks to the apt package manager included with
+&lt;a class="reference external" href="https://www.raspbian.org"&gt;Rasbian&lt;/a&gt;. It's as simple as
+&lt;tt class="docutils literal"&gt;sudo &lt;span class="pre"&gt;apt-get&lt;/span&gt; install kodi&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;However since the Kodi user data and cache …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Recently I bought myself a &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Raspberry_Pi"&gt;Raspberry Pi
+2&lt;/a&gt;. One of the first
+things I wanted to do was to install &lt;a class="reference external" href="https://kodi.tv"&gt;Kodi&lt;/a&gt;. This
+was easy enough thanks to the apt package manager included with
+&lt;a class="reference external" href="https://www.raspbian.org"&gt;Rasbian&lt;/a&gt;. It's as simple as
+&lt;tt class="docutils literal"&gt;sudo &lt;span class="pre"&gt;apt-get&lt;/span&gt; install kodi&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;However since the Kodi user data and cache can grow quite large I
+decided to place the .kodi folder on a USB drive. This was as simple as
+copying the &lt;tt class="docutils literal"&gt;.kodi&lt;/tt&gt; folder from &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;~/.kodi&lt;/span&gt;&lt;/tt&gt; to my USB drive mounted at
+/mnt/USB and creating a symlink in &lt;tt class="docutils literal"&gt;/home/pi&lt;/tt&gt; to the USB using
+&lt;tt class="docutils literal"&gt;ln &lt;span class="pre"&gt;-s&lt;/span&gt; &lt;span class="pre"&gt;/mnt/USB/.kodi&lt;/span&gt; &lt;span class="pre"&gt;/home/pi/.kodi&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;The above worked no problem at all however I quickly ran into problems
+because by default my USB drive was mounted as root. Sure I could
+&lt;tt class="docutils literal"&gt;chmod 777&lt;/tt&gt; the entire directories but this didn't seem like the best
+way to go about things. A quick search online took me to the following
+&lt;a class="reference external" href="https://superuser.com/questions/320415/linux-mount-device-with-specific-user-rights"&gt;SuperUser
+post&lt;/a&gt;.
+Within this post there was a nice one liner that allowed me to mount the
+USB with the user pi.&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+mount -t deviceFileFormat -o umask=filePermissons,gid=ownerGroupID,uid=ownerID /device /mountpoint
+&lt;/pre&gt;
+&lt;p&gt;I simply had to use the &lt;tt class="docutils literal"&gt;id&lt;/tt&gt; command to find the uid and guid of the
+user pi (&lt;tt class="docutils literal"&gt;id pi&lt;/tt&gt;) and then place the command in &lt;tt class="docutils literal"&gt;/etc/rc.local&lt;/tt&gt; to
+mount the device on boot, although I should probably move it to
+&lt;tt class="docutils literal"&gt;/etc/fstab&lt;/tt&gt;.&lt;/p&gt;
+</content></entry></feed>

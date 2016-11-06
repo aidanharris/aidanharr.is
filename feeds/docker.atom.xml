@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Aidan Harris - Docker</title><link href="https://aidanharr.is/" rel="alternate"></link><link href="https://aidanharr.is/feeds/docker.atom.xml" rel="self"></link><id>https://aidanharr.is/</id><updated>2016-06-06T17:11:00+01:00</updated><entry><title> How Not To Use Docker</title><link href="https://aidanharr.is/how-not-to-use-docker.html" rel="alternate"></link><published>2016-06-06T17:11:00+01:00</published><updated>2016-06-06T17:11:00+01:00</updated><author><name>aidanharris</name></author><id>tag:aidanharr.is,2016-06-06:/how-not-to-use-docker.html</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="https://aidanharr.is/glossary/docker/"&gt;Docker&lt;/a&gt; is an amazing tool
+that's perfect for building Microservices. I'm still learning to use it
+and if I'm being honest, I quite like it. I could see its power from the
+onset. Docker is essentially a virtual machine (VM) without the overhead
+of a VM (note: Docker isn't actually …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a class="reference external" href="https://aidanharr.is/glossary/docker/"&gt;Docker&lt;/a&gt; is an amazing tool
+that's perfect for building Microservices. I'm still learning to use it
+and if I'm being honest, I quite like it. I could see its power from the
+onset. Docker is essentially a virtual machine (VM) without the overhead
+of a VM (note: Docker isn't actually a VM I'm
+&lt;a class="reference external" href="https://blog.docker.com/2016/03/containers-are-not-vms/"&gt;generalising&lt;/a&gt;
+here) unless you (ab)use it like me. You might have noticed that I've
+recently added a &lt;a class="reference external" href="//aidanharr.is/portfolio/"&gt;&amp;quot;Portfolio&amp;quot; section&lt;/a&gt; to
+this website to better market myself. The problem I had, was taking a
+local &lt;a class="reference external" href="https://vagrantup.com"&gt;Vagrant&lt;/a&gt; environment and deploying it
+to an existing VPS. Docker solves this problem rather nicely. It's a
+horrible way to use Docker but all I needed to do to get things up and
+running was create a Dockerfile using the
+&lt;a class="reference external" href="https://hub.docker.com/_/ubuntu/"&gt;ubuntu:trusty&lt;/a&gt; image and add each
+line of my shell provisioning script to the Dockerfile as RUN statements
+and create a bootstrap file to handle starting the LAMP stack once a
+container has started. The result works rather nicely, however, I'll
+likely investigate alternative solutions since monolithic Docker
+containers are unlikely to hold their own against large amounts of
+traffic and may not scale very well.&lt;/p&gt;
+</content></entry></feed>

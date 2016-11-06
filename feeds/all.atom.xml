@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Aidan Harris</title><link href="https://aidanharr.is/" rel="alternate"></link><link href="https://aidanharr.is/feeds/all.atom.xml" rel="self"></link><id>https://aidanharr.is/</id><updated>2016-06-06T17:11:00+01:00</updated><entry><title> How Not To Use Docker</title><link href="https://aidanharr.is/how-not-to-use-docker.html" rel="alternate"></link><published>2016-06-06T17:11:00+01:00</published><updated>2016-06-06T17:11:00+01:00</updated><author><name>aidanharris</name></author><id>tag:aidanharr.is,2016-06-06:/how-not-to-use-docker.html</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="https://aidanharr.is/glossary/docker/"&gt;Docker&lt;/a&gt; is an amazing tool
+that's perfect for building Microservices. I'm still learning to use it
+and if I'm being honest, I quite like it. I could see its power from the
+onset. Docker is essentially a virtual machine (VM) without the overhead
+of a VM (note: Docker isn't actually …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a class="reference external" href="https://aidanharr.is/glossary/docker/"&gt;Docker&lt;/a&gt; is an amazing tool
+that's perfect for building Microservices. I'm still learning to use it
+and if I'm being honest, I quite like it. I could see its power from the
+onset. Docker is essentially a virtual machine (VM) without the overhead
+of a VM (note: Docker isn't actually a VM I'm
+&lt;a class="reference external" href="https://blog.docker.com/2016/03/containers-are-not-vms/"&gt;generalising&lt;/a&gt;
+here) unless you (ab)use it like me. You might have noticed that I've
+recently added a &lt;a class="reference external" href="//aidanharr.is/portfolio/"&gt;&amp;quot;Portfolio&amp;quot; section&lt;/a&gt; to
+this website to better market myself. The problem I had, was taking a
+local &lt;a class="reference external" href="https://vagrantup.com"&gt;Vagrant&lt;/a&gt; environment and deploying it
+to an existing VPS. Docker solves this problem rather nicely. It's a
+horrible way to use Docker but all I needed to do to get things up and
+running was create a Dockerfile using the
+&lt;a class="reference external" href="https://hub.docker.com/_/ubuntu/"&gt;ubuntu:trusty&lt;/a&gt; image and add each
+line of my shell provisioning script to the Dockerfile as RUN statements
+and create a bootstrap file to handle starting the LAMP stack once a
+container has started. The result works rather nicely, however, I'll
+likely investigate alternative solutions since monolithic Docker
+containers are unlikely to hold their own against large amounts of
+traffic and may not scale very well.&lt;/p&gt;
+</content></entry><entry><title>Creating an OS X Base Box for Vagrant with Parallels</title><link href="https://aidanharr.is/creating-an-os-x-base-box-for-vagrant-with-parallels.html" rel="alternate"></link><published>2016-03-25T21:11:00+00:00</published><updated>2016-03-25T21:11:00+00:00</updated><author><name>aidanharris</name></author><id>tag:aidanharr.is,2016-03-25:/creating-an-os-x-base-box-for-vagrant-with-parallels.html</id><summary type="html">&lt;div class="section" id="introduction"&gt;
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Vagrant is a useful tool for managing virtual machines. It can be used
+for setting up development and testing environments. This means code can
+be built and tested in a clean and consistent environment.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="prerequisites"&gt;
+&lt;h2&gt;Prerequisites&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;A Mac Computer - I'm using a MacBook Pro Retina 15&amp;quot; Late 2013 model
+running …&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</summary><content type="html">&lt;div class="section" id="introduction"&gt;
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Vagrant is a useful tool for managing virtual machines. It can be used
+for setting up development and testing environments. This means code can
+be built and tested in a clean and consistent environment.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="prerequisites"&gt;
+&lt;h2&gt;Prerequisites&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;A Mac Computer - I'm using a MacBook Pro Retina 15&amp;quot; Late 2013 model
+running OS X El Capitan (10.11.4) but this tutorial is likely to work
+for any version of OS X that is compatible with parallels and
+vagrant.&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://vagrantup.com"&gt;Vagrant&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://www.parallels.com"&gt;Parallels&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://github.com/Parallels/vagrant-parallels"&gt;vagrant-parallels&lt;/a&gt;
+(install it with vagrant;
+&lt;tt class="docutils literal"&gt;vagrant plugin install &lt;span class="pre"&gt;vagrant-parallels&lt;/span&gt;&lt;/tt&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="step-1-creating-tuning-vm-configuration"&gt;
+&lt;h2&gt;Step 1 - Creating &amp;amp; Tuning VM Configuration&lt;/h2&gt;
+&lt;figure&gt;&lt;p&gt;&lt;a class="reference external" href="https://aidanharr.is/wordpress/wp-content/uploads/2016/03/Install-OS-X-10.11.4.out_.png"&gt;&lt;img alt="Screenshot of the Parallels Virtual Machine creation." class="alignnone size-medium wp-image-187" src="https://aidanharr.is/wordpress/wp-content/uploads/2016/03/Install-OS-X-10.11.4.out_-300x200.png" style="width: 50.0%;" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/figure&gt;&lt;p&gt;After selecting the &amp;quot;Install OS X x.x.x Using the Recovery Partition&amp;quot;
+option, Parallels will immediately boot the VM. Shut it down so we can
+make some adjustments to the VM.&lt;/p&gt;
+&lt;p&gt;Key things you might want to alter are the RAM, number of processors and
+hard disk drive storage space. For my virtual machine I bumped the RAM
+up to 4GB, changed the number of processors to 4 and changed the hard
+disk size to 2TB. Most of these things can be altered later should you
+need to.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="step-2-installing-os-x"&gt;
+&lt;h2&gt;Step 2 - Installing OS X&lt;/h2&gt;
+&lt;figure&gt;&lt;p&gt;&lt;a class="reference external" href="https://aidanharr.is/wordpress/wp-content/uploads/2016/03/InstallOSX.out_.png"&gt;&lt;img alt="Screenshot taken from the OS X El Capitan installation." class="alignnone size-medium wp-image-208" src="https://aidanharr.is/wordpress/wp-content/uploads/2016/03/InstallOSX.out_-300x235.png" style="width: 50.0%;" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/figure&gt;&lt;p&gt;After altering the VM to your liking, proceed with the OS X installation
+as you normally would ensuring that your username and password are both
+set to 'vagrant'.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="step-3-installing-software-updates"&gt;
+&lt;h2&gt;Step 3 - Installing Software Updates&lt;/h2&gt;
+&lt;p&gt;Install any software updates using
+&lt;tt class="docutils literal"&gt;sudo softwareupdate &lt;span class="pre"&gt;--install&lt;/span&gt; &lt;span class="pre"&gt;--all&lt;/span&gt;&lt;/tt&gt; or the AppStore.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="step-4-installing-parallels-tools"&gt;
+&lt;h2&gt;Step 4 - Installing Parallels Tools&lt;/h2&gt;
+&lt;p&gt;Install Parallels Tools&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="step-5-disabling-firewall"&gt;
+&lt;h2&gt;Step 5 - Disabling Firewall&lt;/h2&gt;
+&lt;p&gt;Ensure that the firewall is disabled (go to &amp;quot;System Preferences&amp;quot; --&amp;gt;
+&amp;quot;Security &amp;amp; Privacy&amp;quot; --&amp;gt; &amp;quot;Firewall&amp;quot;)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="step-6-enabling-remote-login"&gt;
+&lt;h2&gt;Step 6 - Enabling Remote Login&lt;/h2&gt;
+&lt;p&gt;Enable &amp;quot;Remote Login&amp;quot; (go to &amp;quot;System Preferences&amp;quot; --&amp;gt; &amp;quot;Sharing&amp;quot; --&amp;gt; Make
+sure &amp;quot;Remote Login&amp;quot; is checked for all users)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="step-7-downloading-ssh-key-used-for-authentication"&gt;
+&lt;h2&gt;Step 7 - Downloading SSH Key Used for Authentication&lt;/h2&gt;
+&lt;p&gt;Download the vagrant insecure ssh key which is used to obtain authorised
+access to the box:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+mkdir -p /Users/vagrant/.ssh
+chmod 0700 /Users/vagrant/.ssh
+curl -o /Users/vagrant/.ssh/authorized_keys --url https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub
+chmod 0600 /Users/vagrant/.ssh/authorized_keys
+chown -R vagrant /Users/vagrant/.ssh
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="step-8-setting-up-password-less-sudo-access"&gt;
+&lt;h2&gt;Step 8 - Setting up password-less `sudo` access&lt;/h2&gt;
+&lt;p&gt;Set up password-less `sudo` access:&lt;/p&gt;
+&lt;p&gt;&lt;tt class="docutils literal"&gt;sudo visudo&lt;/tt&gt;&lt;/p&gt;
+&lt;p&gt;Add or modify the following lines as necessary:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+Defaults env_keep += 'SSH_AUTH_SOCK'
+Defaults:vagrant !requiretty
+
+# Add the vagrant user at the end of the file
+vagrant ALL=NOPASSWD:ALL
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="step-9-installing-software-necessary-for-provisioning"&gt;
+&lt;h2&gt;Step 9 - Installing Software Necessary for Provisioning&lt;/h2&gt;
+&lt;p&gt;Install the bare minimum needed to provision a VM e.g.
+&lt;a class="reference external" href="https://developer.apple.com/xcode/"&gt;Xcode&lt;/a&gt;,
+&lt;a class="reference external" href="http://brew.sh"&gt;Homebrew&lt;/a&gt; and &lt;a class="reference external" href="https://www.chef.io/"&gt;Chef&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="step-10-optimising-the-vm"&gt;
+&lt;h2&gt;Step 10 - Optimising the VM&lt;/h2&gt;
+&lt;p&gt;You can zero out free space using &lt;tt class="docutils literal"&gt;diskutil&lt;/tt&gt; as follows:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+diskutil secureErase freespace 0 Macintosh HD
+&lt;/pre&gt;
+&lt;p&gt;Doing the above produced some errors but YMMV.&lt;/p&gt;
+&lt;p&gt;After the above is done you can power off the VM (&lt;tt class="docutils literal"&gt;sudo halt&lt;/tt&gt;) and
+compress the HDD using Parallels as follows:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+prl_disk_tool compact --hdd /path/to/harddisk.hdd
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="step-11-packaging-the-vm"&gt;
+&lt;h2&gt;Step 11 - Packaging the VM&lt;/h2&gt;
+&lt;div class="section" id="create-metadata-json-file-inside-parallels-pvm-file-this-is-probably-in-documents-parallels"&gt;
+&lt;h3&gt;Create metadata.json file inside parallels .pvm file (this is probably in ~/Documents/Parallels/):&lt;/h3&gt;
+&lt;p&gt;The metadata.json file should look as follows:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+{&amp;quot;provider&amp;quot;: &amp;quot;parallels&amp;quot;}
+&lt;/pre&gt;
+&lt;p&gt;After you've done the above you can then package the box using the
+following command:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+tar cvzf elcapitan64.box ./OS\ X\ 10.11.4.pvm ./metadata.json
+&lt;/pre&gt;
+&lt;p&gt;After this is done you can instruct Vagrant to add as an available box
+as follows:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+vagrant box add elcapitan64 elcapitan64.box
+&lt;/pre&gt;
+&lt;p&gt;In a new directory you can then run &lt;tt class="docutils literal"&gt;vagrant init elcapitan64&lt;/tt&gt; and
+bring the machine up with &lt;tt class="docutils literal"&gt;vagrant up&lt;/tt&gt;&lt;/p&gt;
+&lt;p&gt;If Vagrant has issues authenticating with the box over SSH refer to the
+following &lt;a class="reference external" href="http://stackoverflow.com/questions/22922891/vagrant-ssh-authentication-failure"&gt;StackOverflow
+question&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="acknowledgment"&gt;
+&lt;h2&gt;Acknowledgment&lt;/h2&gt;
+&lt;p&gt;A special thanks goes to &lt;a class="reference external" href="https://www.skoblenick.com/vagrant/vmware-fusion/creating-an-osx-base-box/"&gt;Ryan
+Skoblenick&lt;/a&gt;
+who greatly influenced this tutorial.&lt;/p&gt;
+&lt;p&gt;Parallels also provides some helpful information on creating base boxes
+&lt;a class="reference external" href="http://parallels.github.io/vagrant-parallels/docs/boxes/base.html"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="automation"&gt;
+&lt;h2&gt;Automation&lt;/h2&gt;
+&lt;p&gt;It should be possible to automate a lot of the above (perhaps by using
+&lt;a class="reference external" href="https://www.packer.io"&gt;Packer&lt;/a&gt;?), something I'll be investigating
+further in the future.&lt;/p&gt;
+&lt;/div&gt;
+</content></entry><entry><title> Change Wordpress theme depending on visitor IP address</title><link href="https://aidanharr.is/change-wordpress-theme-depending-on-visitor-ip-address.html" rel="alternate"></link><published>2015-10-11T18:46:00+01:00</published><updated>2015-10-11T18:46:00+01:00</updated><author><name>aidanharris</name></author><id>tag:aidanharr.is,2015-10-11:/change-wordpress-theme-depending-on-visitor-ip-address.html</id><summary type="html">&lt;p&gt;Developing and testing in production is a terrible, terrible idea.
+However until I set up a virtual machine development environment I have
+little choice but to do so. Here's how to change the theme depending on
+the user's IP address:&lt;/p&gt;
+&lt;p&gt;Create a new plugin (you might want to use the …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Developing and testing in production is a terrible, terrible idea.
+However until I set up a virtual machine development environment I have
+little choice but to do so. Here's how to change the theme depending on
+the user's IP address:&lt;/p&gt;
+&lt;p&gt;Create a new plugin (you might want to use the following directory
+structure):&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+wordpress
+└── wp-content
+    └── plugins
+        └── change-theme-by-ip-address
+            └── change-theme-by-ip-address.php
+&lt;/pre&gt;
+&lt;p&gt;Inside your plugin add the following code:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+&amp;lt;?php
+/*
+Plugin Name: change-theme-by-ip-address
+Description: Changes the Wordpress theme depending on the visitor's IP address
+*/
+function fxn_change_theme($theme) {
+    $IPADDRESS = &amp;quot;&amp;quot;;
+    // If your website is using CloudFlare you need to use the $_SERVER[&amp;quot;HTTP_CF_CONNECTING_IP&amp;quot;] variable
+    if(isset($_SERVER[&amp;quot;HTTP_CF_CONNECTING_IP&amp;quot;])) {
+        $IPADDRESS = $_SERVER[&amp;quot;HTTP_CF_CONNECTING_IP&amp;quot;];
+    } else {
+        $IPADDRESS = $_SERVER['REMOTE_ADDR'];
+    }
+    // Change 127.0.0.1 to your public IP address
+    if( &amp;quot;$IPADDRESS&amp;quot; == &amp;quot;127.0.0.1&amp;quot; )
+        $theme = 'your-theme-dev';
+    else
+        $theme = 'your-theme';
+    return $theme;
+}
+
+add_filter('template', 'fxn_change_theme');
+add_filter('option_template', 'fxn_change_theme');
+add_filter('option_stylesheet', 'fxn_change_theme');
+?&amp;gt;
+&lt;/pre&gt;
+&lt;p&gt;Enable the plugin and you should notice your theme changes for your IP
+address while at the same time everybody else has the old theme. This
+allows you to safely make changes to your theme in production (although
+it's still worth setting up a virtual machine for development in order
+to ensure nothing goes wrong and if something does go wrong then no big
+deal just restore the virtual machine from a snapshot).&lt;/p&gt;
+</content></entry><entry><title> Mount device with specific user rights</title><link href="https://aidanharr.is/linux-mount-device-with-specific-user-rights.html" rel="alternate"></link><published>2015-06-03T16:11:00+01:00</published><updated>2015-06-03T16:11:00+01:00</updated><author><name>aidanharris</name></author><id>tag:aidanharr.is,2015-06-03:/linux-mount-device-with-specific-user-rights.html</id><summary type="html">&lt;p&gt;Recently I bought myself a &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Raspberry_Pi"&gt;Raspberry Pi
+2&lt;/a&gt;. One of the first
+things I wanted to do was to install &lt;a class="reference external" href="https://kodi.tv"&gt;Kodi&lt;/a&gt;. This
+was easy enough thanks to the apt package manager included with
+&lt;a class="reference external" href="https://www.raspbian.org"&gt;Rasbian&lt;/a&gt;. It's as simple as
+&lt;tt class="docutils literal"&gt;sudo &lt;span class="pre"&gt;apt-get&lt;/span&gt; install kodi&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;However since the Kodi user data and cache …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Recently I bought myself a &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Raspberry_Pi"&gt;Raspberry Pi
+2&lt;/a&gt;. One of the first
+things I wanted to do was to install &lt;a class="reference external" href="https://kodi.tv"&gt;Kodi&lt;/a&gt;. This
+was easy enough thanks to the apt package manager included with
+&lt;a class="reference external" href="https://www.raspbian.org"&gt;Rasbian&lt;/a&gt;. It's as simple as
+&lt;tt class="docutils literal"&gt;sudo &lt;span class="pre"&gt;apt-get&lt;/span&gt; install kodi&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;However since the Kodi user data and cache can grow quite large I
+decided to place the .kodi folder on a USB drive. This was as simple as
+copying the &lt;tt class="docutils literal"&gt;.kodi&lt;/tt&gt; folder from &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;~/.kodi&lt;/span&gt;&lt;/tt&gt; to my USB drive mounted at
+/mnt/USB and creating a symlink in &lt;tt class="docutils literal"&gt;/home/pi&lt;/tt&gt; to the USB using
+&lt;tt class="docutils literal"&gt;ln &lt;span class="pre"&gt;-s&lt;/span&gt; &lt;span class="pre"&gt;/mnt/USB/.kodi&lt;/span&gt; &lt;span class="pre"&gt;/home/pi/.kodi&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;The above worked no problem at all however I quickly ran into problems
+because by default my USB drive was mounted as root. Sure I could
+&lt;tt class="docutils literal"&gt;chmod 777&lt;/tt&gt; the entire directories but this didn't seem like the best
+way to go about things. A quick search online took me to the following
+&lt;a class="reference external" href="https://superuser.com/questions/320415/linux-mount-device-with-specific-user-rights"&gt;SuperUser
+post&lt;/a&gt;.
+Within this post there was a nice one liner that allowed me to mount the
+USB with the user pi.&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+mount -t deviceFileFormat -o umask=filePermissons,gid=ownerGroupID,uid=ownerID /device /mountpoint
+&lt;/pre&gt;
+&lt;p&gt;I simply had to use the &lt;tt class="docutils literal"&gt;id&lt;/tt&gt; command to find the uid and guid of the
+user pi (&lt;tt class="docutils literal"&gt;id pi&lt;/tt&gt;) and then place the command in &lt;tt class="docutils literal"&gt;/etc/rc.local&lt;/tt&gt; to
+mount the device on boot, although I should probably move it to
+&lt;tt class="docutils literal"&gt;/etc/fstab&lt;/tt&gt;.&lt;/p&gt;
+</content></entry><entry><title> Hello World</title><link href="https://aidanharr.is/hello-world.html" rel="alternate"></link><published>2015-05-24T22:37:00+01:00</published><updated>2015-05-24T22:37:00+01:00</updated><author><name>aidanharris</name></author><id>tag:aidanharr.is,2015-05-24:/hello-world.html</id><summary type="html">&lt;p&gt;I've meant to create this website for a while now but haven't had the
+time necessary to set the website up. I snapped up the snarky .io domain
+name favoured by developers and startups a while a go and today, or
+rather tonight, I've finally dedicated the time necessary to …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I've meant to create this website for a while now but haven't had the
+time necessary to set the website up. I snapped up the snarky .io domain
+name favoured by developers and startups a while a go and today, or
+rather tonight, I've finally dedicated the time necessary to setting
+this site up.&lt;/p&gt;
+&lt;p&gt;Admittedly it did take a lot longer than I'd anticipated and there were
+several roadblocks such as forgetting to alter the firewall settings to
+allow HTTPS traffic and then spending the next half hour wondering why
+everything's broken (a rookie mistake I'll be sure to avoid in the
+future).&lt;/p&gt;
+&lt;p&gt;The above is an interesting answer to the following question:&lt;/p&gt;
+&lt;blockquote&gt;
+What is the purpose of this website?&lt;/blockquote&gt;
+&lt;p&gt;There's many websites on the Internet that all fulfil many purposes.
+This site is relatively small hosted on a small VPS in London provided
+via &lt;a class="reference external" href="https://www.digitalocean.com/?refcode=a285f2bc1129"&gt;Digital
+Ocean&lt;/a&gt;. The main
+purpose of this site is to document my journey as a developer. I will be
+writing about the various programming languages I decide to learn and
+the tools I use. I want this site to essentially serve as a portfolio of
+my knowledge and skills and allow me to use it as a reference.&lt;/p&gt;
+</content></entry></feed>

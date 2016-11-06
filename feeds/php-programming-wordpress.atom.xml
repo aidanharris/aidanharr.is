@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Aidan Harris - PHP, Programming, Wordpress</title><link href="https://aidanharr.is/" rel="alternate"></link><link href="https://aidanharr.is/feeds/php-programming-wordpress.atom.xml" rel="self"></link><id>https://aidanharr.is/</id><updated>2015-10-11T18:46:00+01:00</updated><entry><title> Change Wordpress theme depending on visitor IP address</title><link href="https://aidanharr.is/change-wordpress-theme-depending-on-visitor-ip-address.html" rel="alternate"></link><published>2015-10-11T18:46:00+01:00</published><updated>2015-10-11T18:46:00+01:00</updated><author><name>aidanharris</name></author><id>tag:aidanharr.is,2015-10-11:/change-wordpress-theme-depending-on-visitor-ip-address.html</id><summary type="html">&lt;p&gt;Developing and testing in production is a terrible, terrible idea.
+However until I set up a virtual machine development environment I have
+little choice but to do so. Here's how to change the theme depending on
+the user's IP address:&lt;/p&gt;
+&lt;p&gt;Create a new plugin (you might want to use the …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Developing and testing in production is a terrible, terrible idea.
+However until I set up a virtual machine development environment I have
+little choice but to do so. Here's how to change the theme depending on
+the user's IP address:&lt;/p&gt;
+&lt;p&gt;Create a new plugin (you might want to use the following directory
+structure):&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+wordpress
+└── wp-content
+    └── plugins
+        └── change-theme-by-ip-address
+            └── change-theme-by-ip-address.php
+&lt;/pre&gt;
+&lt;p&gt;Inside your plugin add the following code:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+&amp;lt;?php
+/*
+Plugin Name: change-theme-by-ip-address
+Description: Changes the Wordpress theme depending on the visitor's IP address
+*/
+function fxn_change_theme($theme) {
+    $IPADDRESS = &amp;quot;&amp;quot;;
+    // If your website is using CloudFlare you need to use the $_SERVER[&amp;quot;HTTP_CF_CONNECTING_IP&amp;quot;] variable
+    if(isset($_SERVER[&amp;quot;HTTP_CF_CONNECTING_IP&amp;quot;])) {
+        $IPADDRESS = $_SERVER[&amp;quot;HTTP_CF_CONNECTING_IP&amp;quot;];
+    } else {
+        $IPADDRESS = $_SERVER['REMOTE_ADDR'];
+    }
+    // Change 127.0.0.1 to your public IP address
+    if( &amp;quot;$IPADDRESS&amp;quot; == &amp;quot;127.0.0.1&amp;quot; )
+        $theme = 'your-theme-dev';
+    else
+        $theme = 'your-theme';
+    return $theme;
+}
+
+add_filter('template', 'fxn_change_theme');
+add_filter('option_template', 'fxn_change_theme');
+add_filter('option_stylesheet', 'fxn_change_theme');
+?&amp;gt;
+&lt;/pre&gt;
+&lt;p&gt;Enable the plugin and you should notice your theme changes for your IP
+address while at the same time everybody else has the old theme. This
+allows you to safely make changes to your theme in production (although
+it's still worth setting up a virtual machine for development in order
+to ensure nothing goes wrong and if something does go wrong then no big
+deal just restore the virtual machine from a snapshot).&lt;/p&gt;
+</content></entry></feed>
