@@ -13,8 +13,13 @@ THEME = 'theme/simple'
 PATH = 'content'
 
 STATIC_PATHS = [
-    "uploads"
+    "uploads",
+    "CNAME"
 ]
+
+EXTRA_PATH_METADATA = {
+    'CNAME': {'path': 'CNAME'}
+}
 
 TIMEZONE = 'Europe/London'
 
