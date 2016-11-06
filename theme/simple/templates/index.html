@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+{% block content_title %}
+{% endblock %}
+<div id="primary" class="content-area demo-blog__posts mdl-grid">
+{% for article in articles_page.object_list %}
+        <div id="post-{{ article.slug }}" class="mdl-card on-the-road-again mdl-cell mdl-cell--12-col">
+        <!--
+            To Do:
+                * Add post thumbnail functionality
+            <div class="mdl-card__media mdl-color-text--grey-50 wide-thumb" style="background:url('') no-repeat;background-size: cover;">
+        -->
+        <div class="mdl-card__media mdl-color-text--grey-50 wide-thumb" style="{% if article.thumbnail %}background:url('{{ article.thumbnail }}') no-repeat;{% endif %}background-size: cover;">
+            <h3 class="entry-title"><a href="{{ article.url }}" rel="bookmark">{{ article.title }}</a></h3>
+        </div>
+        <div class="entry-content mdl-color-text--grey-600 mdl-card__supporting-text" style="position: relative;top: -1.47rem;">
+            {{ article.content }}
+        </div><!-- .entry-content -->
+		<div class="mdl-card__supporting-text meta mdl-color-text--grey-600" style="position: relative;top: -1.47rem;">
+			<div>
+				<strong>
+                    By
+                    {% for author in article.authors %}
+                        <a class="url fn" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+                    {% endfor %}
+                </strong>
+				<span class="posted-on">
+                    Posted on
+                    <time class="published" datetime="{{ article.date.isoformat() }}"> {{ article.locale_date }} </time>
+                </span>
+			</div>
+		</div><!-- .entry-meta -->
+        <!--
+        <article class="hentry">
+                <header> <h2 class="entry-title"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="{{ article.date.isoformat() }}"> {{ article.locale_date }} </time>
+                    <address class="vcard author">By
+                    {% for author in article.authors %}
+                        <a class="url fn" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+                    {% endfor %}
+                    </address>
+                </footer><!-- /.post-info -->
+                <!--<div class="entry-content"> {{ article.summary }} </div><!-- /.entry-content -->
+        <!--</article>
+        -->
+        </div>
+{% endfor %}
+{% if articles_page.has_other_pages() %}
+    {% include 'pagination.html' %}
+{% endif %}
+</div>
+{% endblock content %}
