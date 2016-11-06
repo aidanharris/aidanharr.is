@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-          <title>Aidan Harris</title>
+        <title>Contact</title>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
@@ -80,11 +80,6 @@
             })();
         </script>
         <link href="https://aidanharr.is/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Aidan Harris Full Atom Feed" />
-        <link href="https://aidanharr.is/feeds/php-programming-wordpress.atom.xml" type="application/atom+xml" rel="alternate" title="Aidan Harris Categories Atom Feed" />
-
-
-
-
 </head>
 
 <body style="position: fixed; top: 0;">
@@ -148,72 +143,11 @@
             </div>
             <script defer>(function(){var attempts=0;var _int=setInterval(function(){if(typeof(window.jQuery==='function')){clearInterval(_int);$(document).ready(function(){$(".submenu-heading").click(function(e){e.preventDefault();$(e.target.nextElementSibling).toggle('show');$(e.target).blur();});});}if(attempts>9){clearInterval(_int);console.error('No jQuery! To Do: Add it from a CDN here...');}attempts++;},100);}());</script>
             <main id="content" class="mdl-layout__content site-content">
-<section id="content" class="body">
-  <header>
-    <h2 class="entry-title">
-      <a href="https://aidanharr.is/change-wordpress-theme-depending-on-visitor-ip-address.html" rel="bookmark"
-         title="Permalink to  Change Wordpress theme depending on visitor IP address">&nbsp;Change Wordpress theme depending on visitor IP address</a></h2>
- 
-  </header>
-  <footer class="post-info">
-    <time class="published" datetime="2015-10-11T18:46:00+01:00">
-      Sun 11 October 2015
-    </time>
-    <address class="vcard author">
-      By           <a class="url fn" href="https://aidanharr.is/author/aidanharris.html">aidanharris</a>
-    </address>
-  </footer><!-- /.post-info -->
-  <div class="entry-content">
-    <p>Developing and testing in production is a terrible, terrible idea.
-However until I set up a virtual machine development environment I have
-little choice but to do so. Here's how to change the theme depending on
-the user's IP address:</p>
-<p>Create a new plugin (you might want to use the following directory
-structure):</p>
-<pre class="literal-block">
-wordpress
-└── wp-content
-    └── plugins
-        └── change-theme-by-ip-address
-            └── change-theme-by-ip-address.php
-</pre>
-<p>Inside your plugin add the following code:</p>
-<pre class="literal-block">
-&lt;?php
-/*
-Plugin Name: change-theme-by-ip-address
-Description: Changes the Wordpress theme depending on the visitor's IP address
-*/
-function fxn_change_theme($theme) {
-    $IPADDRESS = &quot;&quot;;
-    // If your website is using CloudFlare you need to use the $_SERVER[&quot;HTTP_CF_CONNECTING_IP&quot;] variable
-    if(isset($_SERVER[&quot;HTTP_CF_CONNECTING_IP&quot;])) {
-        $IPADDRESS = $_SERVER[&quot;HTTP_CF_CONNECTING_IP&quot;];
-    } else {
-        $IPADDRESS = $_SERVER['REMOTE_ADDR'];
-    }
-    // Change 127.0.0.1 to your public IP address
-    if( &quot;$IPADDRESS&quot; == &quot;127.0.0.1&quot; )
-        $theme = 'your-theme-dev';
-    else
-        $theme = 'your-theme';
-    return $theme;
-}
+    <h1>Contact</h1>
+    
 
-add_filter('template', 'fxn_change_theme');
-add_filter('option_template', 'fxn_change_theme');
-add_filter('option_stylesheet', 'fxn_change_theme');
-?&gt;
-</pre>
-<p>Enable the plugin and you should notice your theme changes for your IP
-address while at the same time everybody else has the old theme. This
-allows you to safely make changes to your theme in production (although
-it's still worth setting up a virtual machine for development in order
-to ensure nothing goes wrong and if something does go wrong then no big
-deal just restore the virtual machine from a snapshot).</p>
+    
 
-  </div><!-- /.entry-content -->
-</section>
             <footer id="contentinfo" class="mdl-mini-footer">
                 <div class="mdl-mini-footer__left-section">
                     <ul class="mdl-mini-footer__link-list">

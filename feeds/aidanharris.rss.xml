@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"><channel><title>Aidan Harris - aidanharris</title><link>https://aidanharr.is/</link><description></description><lastBuildDate>Mon, 06 Jun 2016 17:11:00 +0100</lastBuildDate><item><title> How Not To Use Docker</title><link>https://aidanharr.is/how-not-to-use-docker.html</link><description>&lt;p&gt;&lt;a class="reference external" href="https://aidanharr.is/glossary/docker/"&gt;Docker&lt;/a&gt; is an amazing tool
+that's perfect for building Microservices. I'm still learning to use it
+and if I'm being honest, I quite like it. I could see its power from the
+onset. Docker is essentially a virtual machine (VM) without the overhead
+of a VM (note: Docker isn't actually …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">aidanharris</dc:creator><pubDate>Mon, 06 Jun 2016 17:11:00 +0100</pubDate><guid isPermaLink="false">tag:aidanharr.is,2016-06-06:/how-not-to-use-docker.html</guid></item><item><title>Creating an OS X Base Box for Vagrant with Parallels</title><link>https://aidanharr.is/creating-an-os-x-base-box-for-vagrant-with-parallels.html</link><description>&lt;div class="section" id="introduction"&gt;
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Vagrant is a useful tool for managing virtual machines. It can be used
+for setting up development and testing environments. This means code can
+be built and tested in a clean and consistent environment.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="prerequisites"&gt;
+&lt;h2&gt;Prerequisites&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;A Mac Computer - I'm using a MacBook Pro Retina 15&amp;quot; Late 2013 model
+running …&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">aidanharris</dc:creator><pubDate>Fri, 25 Mar 2016 21:11:00 +0000</pubDate><guid isPermaLink="false">tag:aidanharr.is,2016-03-25:/creating-an-os-x-base-box-for-vagrant-with-parallels.html</guid></item><item><title> Change Wordpress theme depending on visitor IP address</title><link>https://aidanharr.is/change-wordpress-theme-depending-on-visitor-ip-address.html</link><description>&lt;p&gt;Developing and testing in production is a terrible, terrible idea.
+However until I set up a virtual machine development environment I have
+little choice but to do so. Here's how to change the theme depending on
+the user's IP address:&lt;/p&gt;
+&lt;p&gt;Create a new plugin (you might want to use the …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">aidanharris</dc:creator><pubDate>Sun, 11 Oct 2015 18:46:00 +0100</pubDate><guid isPermaLink="false">tag:aidanharr.is,2015-10-11:/change-wordpress-theme-depending-on-visitor-ip-address.html</guid></item><item><title> Mount device with specific user rights</title><link>https://aidanharr.is/linux-mount-device-with-specific-user-rights.html</link><description>&lt;p&gt;Recently I bought myself a &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Raspberry_Pi"&gt;Raspberry Pi
+2&lt;/a&gt;. One of the first
+things I wanted to do was to install &lt;a class="reference external" href="https://kodi.tv"&gt;Kodi&lt;/a&gt;. This
+was easy enough thanks to the apt package manager included with
+&lt;a class="reference external" href="https://www.raspbian.org"&gt;Rasbian&lt;/a&gt;. It's as simple as
+&lt;tt class="docutils literal"&gt;sudo &lt;span class="pre"&gt;apt-get&lt;/span&gt; install kodi&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;However since the Kodi user data and cache …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">aidanharris</dc:creator><pubDate>Wed, 03 Jun 2015 16:11:00 +0100</pubDate><guid isPermaLink="false">tag:aidanharr.is,2015-06-03:/linux-mount-device-with-specific-user-rights.html</guid></item><item><title> Hello World</title><link>https://aidanharr.is/hello-world.html</link><description>&lt;p&gt;I've meant to create this website for a while now but haven't had the
+time necessary to set the website up. I snapped up the snarky .io domain
+name favoured by developers and startups a while a go and today, or
+rather tonight, I've finally dedicated the time necessary to …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">aidanharris</dc:creator><pubDate>Sun, 24 May 2015 22:37:00 +0100</pubDate><guid isPermaLink="false">tag:aidanharr.is,2015-05-24:/hello-world.html</guid></item></channel></rss>
