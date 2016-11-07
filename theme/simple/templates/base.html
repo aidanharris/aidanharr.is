@@ -22,6 +22,10 @@
             }
 	    };</script>
         <link rel="stylesheet" id="aidanharris-material-design-style-css" href="/theme/css/style.css" type="text/css" media="all">
+        <link rel="icon" href="https://i1.wp.com/aidanharr.is/wordpress/wp-content/uploads/2015/10/cropped-avatar1.png?fit=32%2C32&#038;ssl=1" sizes="32x32"/>
+        <link rel="icon" href="https://i1.wp.com/aidanharr.is/wordpress/wp-content/uploads/2015/10/cropped-avatar1.png?fit=192%2C192&#038;ssl=1" sizes="192x192"/>
+        <link rel="apple-touch-icon-precomposed" href="https://i1.wp.com/aidanharr.is/wordpress/wp-content/uploads/2015/10/cropped-avatar1.png?fit=180%2C180&#038;ssl=1"/>
+        <meta name="msapplication-TileImage" content="https://i1.wp.com/aidanharr.is/wordpress/wp-content/uploads/2015/10/cropped-avatar1.png?fit=270%2C270&#038;ssl=1"/>
         <style type="text/css" id="themeBG">
         </style>
         <script>
@@ -30,10 +34,23 @@
             var _darkTheme = false;
             try {
                 _darkTheme = localStorage['darkTheme'];
+                if (_darkTheme === undefined || _darkTheme === null) {
+                    localStorage['darkTheme'] = _darkTheme; // Should throw if localStorage access is not possible
+                }
                 if (_darkTheme === 'true' || _darkTheme === true) {
                     _darkTheme = true;
                 } else { _darkTheme = false; }
-            } catch (err) { console.error(err); }
+            } catch (err) {
+                console.error(err);
+                var _cookies = document.cookie.split('darkTheme=');
+                if (_cookies.length > 1) {
+                    if (_cookies[1] === 'true') {
+                        _darkTheme = true;
+                    } else {
+                        _darkTheme = false;
+                    }
+                }
+            }
             window.toggleDarkTheme = function toggleDarkTheme () {
                 _darkTheme = !_darkTheme;
                 switch (_darkTheme) {
@@ -71,7 +88,15 @@
                 }
                 try {
                     localStorage['darkTheme'] = _darkTheme;
-                } catch(err) { console.error(err); }
+                } catch(err) {
+                    console.error(err);
+                    var _cookies = document.cookie;
+                    if (_cookies.indexOf('darkTheme=') === -1) {
+                        document.cookie = "darkTheme=" + _darkTheme;
+                    } else {
+                        document.cookie = document.cookie.replace(/darkTheme=.*;?/, 'darkTheme=' + _darkTheme);
+                    }
+                }
             }
             window.getCurrentTheme = function () {
                 return (_darkTheme) ? 'dark' : 'light';
