@@ -61,7 +61,7 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
             try {
                 _darkTheme = localStorage['darkTheme'];
                 if (_darkTheme === undefined || _darkTheme === null) {
-                    localStorage['darkTheme'] = _darkTheme; // Should throw if localStorage access is not possible
+                    localStorage['darkTheme'] = false; // Should throw if localStorage access is not possible
                 }
                 if (_darkTheme === 'true' || _darkTheme === true) {
                     _darkTheme = true;
