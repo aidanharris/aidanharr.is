@@ -65,7 +65,7 @@ help:
 
 html:
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
-
+	find $(OUTPUTDIR) -name "*.html" -execdir bash -c 'f="{}";f=$${f%.html};html-minifier --html5 --remove-tag-whitespace --remove-comments --collapse-whitespace --collapse-inline-tag-whitespace --remove-attribute-quotes "{}" > "$$f.min.html" && rm {} && mv "$$f.min.html" "$$f.html"' \;
 clean:
 	[ ! -d $(OUTPUTDIR) ] || rm -rf $(OUTPUTDIR)
 
