@@ -7,19 +7,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
         <link rel="profile" href="http://gmpg.org/xfn/11" />
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en'>
-	    <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 	    <link rel='stylesheet' href='https://code.getmdl.io/1.2.1/material.grey-blue.min.css'>
 	    <script async src='https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.2.1/material.min.js'></script>
-	    <script>
-        MaterialLayout.prototype.headerClickHandler_ = function(e) {
-            if((e.target.id !== 'q' && e.target.parentNode.id !== 'header-search-button') && e.target.textContent !== '') {
-                if (this.header_.classList.contains(this.CssClasses_.IS_COMPACT)) {
-                    this.header_.classList.remove(this.CssClasses_.IS_COMPACT);
-                    this.header_.classList.add(this.CssClasses_.IS_ANIMATING);
-                }
-            }
-	    };</script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fontfaceobserver/2.0.5/fontfaceobserver.js" />
+        <script>
+
+        </script>
         <link rel="stylesheet" id="aidanharris-material-design-style-css" href="/theme/css/style.css" type="text/css" media="all">
         <link rel="icon" href="https://i1.wp.com/aidanharr.is/wordpress/wp-content/uploads/2015/10/cropped-avatar1.png?fit=32%2C32&#038;ssl=1" sizes="32x32"/>
         <link rel="icon" href="https://i1.wp.com/aidanharr.is/wordpress/wp-content/uploads/2015/10/cropped-avatar1.png?fit=192%2C192&#038;ssl=1" sizes="192x192"/>
@@ -365,8 +358,20 @@ further in the future.</p>
                     </div>
                 </div>
             </footer><!-- /#contentinfo -->
+            <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en'>
+	        <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
             </main>
         </div>
+        <script>
+        // Monkey Patch MaterialLayout headerClickHandler
+        MaterialLayout.prototype.headerClickHandler_ = function(e) {
+            if((e.target.id !== 'q' && e.target.parentNode.id !== 'header-search-button') && e.target.textContent !== '') {
+                if (this.header_.classList.contains(this.CssClasses_.IS_COMPACT)) {
+                    this.header_.classList.remove(this.CssClasses_.IS_COMPACT);
+                    this.header_.classList.add(this.CssClasses_.IS_ANIMATING);
+                }
+            }
+	    };</script>
 </body>
 </html>
