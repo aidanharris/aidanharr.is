@@ -197,11 +197,11 @@ It should be possible to automate a lot of the above (perhaps by using
 `Packer <https://www.packer.io>`__?), something I'll be investigating
 further in the future.
 
-.. |Screenshot of the Parallels Virtual Machine creation.| image:: https://aidanharr.is/wordpress/wp-content/uploads/2016/03/Install-OS-X-10.11.4.out_-300x200.png
+.. |Screenshot of the Parallels Virtual Machine creation.| image:: uploads/2016/03/Install-OS-X-10.11.4.out_-300x200.png
    :class: alignnone size-medium wp-image-187
    :width: 50.0%
-   :target: https://aidanharr.is/wordpress/wp-content/uploads/2016/03/Install-OS-X-10.11.4.out_.png
-.. |Screenshot taken from the OS X El Capitan installation.| image:: https://aidanharr.is/wordpress/wp-content/uploads/2016/03/InstallOSX.out_-300x235.png
+   :target: uploads/2016/03/Install-OS-X-10.11.4.out_.png
+.. |Screenshot taken from the OS X El Capitan installation.| image:: uploads/2016/03/InstallOSX.out_-300x235.png
    :class: alignnone size-medium wp-image-208
    :width: 50.0%
-   :target: https://aidanharr.is/wordpress/wp-content/uploads/2016/03/InstallOSX.out_.png
+   :target: uploads/2016/03/InstallOSX.out_.png
