@@ -7,10 +7,18 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
         <link rel="profile" href="http://gmpg.org/xfn/11" />
+        <!--
+            To Do:
+                * Work towards removing jQuery dependency
+        -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-	    <link rel='stylesheet' href='https://code.getmdl.io/1.2.1/material.grey-blue.min.css'>
-	    <script async src='https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.2.1/material.min.js'></script>
-        <link rel="stylesheet" id="aidanharris-material-design-style-css" href="/theme/css/style.css" type="text/css" media="all">
+        <style>
+            {{MATERIAL_DESIGN_LITE_CSS}}
+        </style>
+	    <script async src='https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/{{MATERIAL_DESIGN_LITE_VERSION}}/material.min.js'></script>
+        <style>
+            {{CSS}}
+        </style>
         <link rel="icon" href="https://i1.wp.com/aidanharr.is/wordpress/wp-content/uploads/2015/10/cropped-avatar1.png?fit=32%2C32&#038;ssl=1" sizes="32x32"/>
         <link rel="icon" href="https://i1.wp.com/aidanharr.is/wordpress/wp-content/uploads/2015/10/cropped-avatar1.png?fit=192%2C192&#038;ssl=1" sizes="192x192"/>
         <link rel="apple-touch-icon-precomposed" href="https://i1.wp.com/aidanharr.is/wordpress/wp-content/uploads/2015/10/cropped-avatar1.png?fit=180%2C180&#038;ssl=1"/>
@@ -18,20 +26,22 @@
         <style type="text/css" id="themeBG">
         </style>
         <script>
+            // Render-blocking javascript needed to ensure that the correct theme is applied
             'use strict';
             (function() {
             var _darkTheme = false;
+            var _cookies;
             try {
                 _darkTheme = localStorage['darkTheme'];
                 if (_darkTheme === undefined || _darkTheme === null) {
-                    localStorage['darkTheme'] = _darkTheme; // Should throw if localStorage access is not possible
+                    localStorage['darkTheme'] = false; // Should throw if localStorage access is not possible
                 }
                 if (_darkTheme === 'true' || _darkTheme === true) {
                     _darkTheme = true;
                 } else { _darkTheme = false; }
             } catch (err) {
                 console.error(err);
-                var _cookies = document.cookie.split('darkTheme=');
+                _cookies = document.cookie.split('darkTheme=');
                 if (_cookies.length > 1) {
                     if (_cookies[1] === 'true') {
                         _darkTheme = true;
@@ -79,7 +89,7 @@
                     localStorage['darkTheme'] = _darkTheme;
                 } catch(err) {
                     console.error(err);
-                    var _cookies = document.cookie;
+                    _cookies = document.cookie;
                     if (_cookies.indexOf('darkTheme=') === -1) {
                         document.cookie = "darkTheme=" + _darkTheme;
                     } else {
@@ -147,7 +157,11 @@
 			</div>
             <div class="mdl-layout__header-row portfolio-logo-row">
                 <span class="mdl-layout__title">
-                    <a href="/"><span class="portfolio-logo" style="display: block;background: url('data:image/svg+xml;base64,{{ AVATAR }}') 50% no-repeat;background-size: cover;  border: 0.175em solid #fff;border-radius: 100%;height: 150px;width: 150px;margin: auto auto 10px;"><span class="screen-reader-text">{{SITENAME}}</span></a>
+                    <a href="/">
+                        <span class="portfolio-logo" style="display: block;background: url('data:image/svg+xml;base64,{{ AVATAR }}') 50% no-repeat;background-size: cover;  border: 0.175em solid #fff;border-radius: 100%;height: 150px;width: 150px;margin: auto auto 10px;">
+                            <span class="screen-reader-text">{{SITENAME}}</span>
+                        </span>
+                    </a>
                 </span>
             </div>
             <div class="mdl-layout__header-row portfolio-navigation-row mdl-layout--large-screen-only">
@@ -209,7 +223,7 @@
                     {% endif %}
                 </nav>
             </div>
-            <script defer>(function(){var attempts=0;var _int=setInterval(function(){if(typeof(window.jQuery==='function')){clearInterval(_int);$(document).ready(function(){$(".submenu-heading").click(function(e){e.preventDefault();$(e.target.nextElementSibling).toggle('show');$(e.target).blur();});});}if(attempts>9){clearInterval(_int);console.error('No jQuery! To Do: Add it from a CDN here...');}attempts++;},100);}());</script>
+            <script defer>(function(){var attempts=0;var _int=setInterval(function(){if(typeof(window.jQuery==='function' && typeof(window.$)==='function')){clearInterval(_int);$(document).ready(function(){$(".submenu-heading").click(function(e){e.preventDefault();$(e.target.nextElementSibling).toggle('show');$(e.target).blur();});});}if(attempts>9){clearInterval(_int);console.error('No jQuery! To Do: Add it from a CDN here...');}attempts++;},100);}());</script>
             <main id="content" class="mdl-layout__content site-content">
             {% block content %}
             {% endblock %}
@@ -245,20 +259,28 @@
                     </div>
                 </div>
             </footer><!-- /#contentinfo -->
-            <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en'>
-	        <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
             </main>
         </div>
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en'/>
+        <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'/>
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/devicons/{{DEVICONS_VERSION}}/css/devicons.min.css'/>
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/{{FONT_AWESOME_VERSION}}/css/font-awesome.min.css'/>
         <script>
-        // Monkey Patch MaterialLayout headerClickHandler
-        MaterialLayout.prototype.headerClickHandler_ = function(e) {
-            if((e.target.id !== 'q' && e.target.parentNode.id !== 'header-search-button') && e.target.textContent !== '') {
-                if (this.header_.classList.contains(this.CssClasses_.IS_COMPACT)) {
-                    this.header_.classList.remove(this.CssClasses_.IS_COMPACT);
-                    this.header_.classList.add(this.CssClasses_.IS_ANIMATING);
+        (function() {
+            var _MaterialLayout = setInterval(function() {
+            if (!window.MaterialLayout) { return; }
+            clearTimeout(_MaterialLayout);
+            // Monkey Patch MaterialLayout headerClickHandler
+            MaterialLayout.prototype.headerClickHandler_ = function(e) {
+                if((e.target.id !== 'q' && e.target.parentNode.id !== 'header-search-button') && e.target.textContent !== '') {
+                    if (this.header_.classList.contains(this.CssClasses_.IS_COMPACT)) {
+                        this.header_.classList.remove(this.CssClasses_.IS_COMPACT);
+                        this.header_.classList.add(this.CssClasses_.IS_ANIMATING);
+                    }
                 }
-            }
-	    };</script>
+            };
+            }, 50);
+        })();
+        </script>
 </body>
 </html>

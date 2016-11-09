@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 from base64 import b64encode
 from os import environ as env
+import subprocess
 
 AUTHOR = 'Aidan Harris'
 SITENAME = 'Aidan Harris'
@@ -93,9 +94,32 @@ MAIN_NAVIGATION  = [
     )
 ]
 
+MATERIAL_DESIGN_LITE_VERSION = "1.2.1"
+
+p = subprocess.Popen([
+    "curl",
+    "-q",
+    "-s",
+    "-L",
+    "https://code.getmdl.io/" + MATERIAL_DESIGN_LITE_VERSION + "/material.grey-blue.min.css"
+], stdout=subprocess.PIPE)
+
+MATERIAL_DESIGN_LITE_CSS = p.communicate()[0].decode('utf-8', 'ignore')
+
+DEVICONS_VERSION = "1.8.0";
+FONT_AWESOME_VERSION = "4.6.3";
+
 LIGHT_HEADING_COLOUR = "#fafafa";
 DARK_HEADING_COLOUR = "#424242";
 
+# Inline CSS to keep Google Page Speed Test Happy
+# To Do:
+#   * I should probably think about inlining only the critical CSS
+#     since dumping tonnes of lines of CSS feels a bit dirty. But
+#     hey, if it keeps Google happy and gives me a perfect score
+#     I'm not complaining ;)
+with open(THEME + "/static/css/style.min.css", "r") as css:
+    CSS = css.read()
 # Base64 encoded svg to inline in page headers for performance reasons
 with open(THEME + "/templates/avatar.svg", "rb") as avatar:
     AVATAR = str(b64encode(avatar.read()))[2:-1]
