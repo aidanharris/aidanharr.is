@@ -166,7 +166,7 @@
                                 <a href="/glossary" class="mdl-navigation__link">Glossary</a>
                 </nav>
             </div>
-            <script defer>(function(){var attempts=0;var _int=setInterval(function(){if(typeof(window.jQuery==='function')){clearInterval(_int);$(document).ready(function(){$(".submenu-heading").click(function(e){e.preventDefault();$(e.target.nextElementSibling).toggle('show');$(e.target).blur();});});}if(attempts>9){clearInterval(_int);console.error('No jQuery! To Do: Add it from a CDN here...');}attempts++;},100);}());</script>
+            <script defer>(function(){var attempts=0;var _int=setInterval(function(){if(typeof(window.jQuery==='function' && typeof(window.$)==='function')){clearInterval(_int);$(document).ready(function(){$(".submenu-heading").click(function(e){e.preventDefault();$(e.target.nextElementSibling).toggle('show');$(e.target).blur();});});}if(attempts>9){clearInterval(_int);console.error('No jQuery! To Do: Add it from a CDN here...');}attempts++;},100);}());</script>
             <main id="content" class="mdl-layout__content site-content">
 <h2>Articles in the Docker category</h2>
 <div id="primary" class="content-area demo-blog__posts mdl-grid">
