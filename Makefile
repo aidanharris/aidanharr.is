@@ -63,9 +63,12 @@ help:
 	@echo 'Set the RELATIVE variable to 1 to enable relative urls                    '
 	@echo '                                                                          '
 
+minifyHTML:
+	find $(OUTPUTDIR) -name "*.html" -execdir bash -c 'f="{}";f=$${f%.html};html-minifier --html5 --remove-tag-whitespace --remove-comments --collapse-whitespace --collapse-inline-tag-whitespace --remove-attribute-quotes "{}" > "$$f.min.html" && rm {} && mv "$$f.min.html" "$$f.html"' \;
+
 html:
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
-	find $(OUTPUTDIR) -name "*.html" -execdir bash -c 'f="{}";f=$${f%.html};html-minifier --html5 --remove-tag-whitespace --remove-comments --collapse-whitespace --collapse-inline-tag-whitespace --remove-attribute-quotes "{}" > "$$f.min.html" && rm {} && mv "$$f.min.html" "$$f.html"' \;
+	$(MAKE) minifyHTML
 clean:
 	[ ! -d $(OUTPUTDIR) ] || rm -rf $(OUTPUTDIR)
 
@@ -100,6 +103,7 @@ stopserver:
 
 publish:
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(PUBLISHCONF) $(PELICANOPTS)
+	$(MAKE) minifyHTML
 
 ssh_upload: publish
 	scp -P $(SSH_PORT) -r $(OUTPUTDIR)/* $(SSH_USER)@$(SSH_HOST):$(SSH_TARGET_DIR)
