@@ -210,14 +210,21 @@
             </main>
         </div>
         <script>
-        // Monkey Patch MaterialLayout headerClickHandler
-        MaterialLayout.prototype.headerClickHandler_ = function(e) {
-            if((e.target.id !== 'q' && e.target.parentNode.id !== 'header-search-button') && e.target.textContent !== '') {
-                if (this.header_.classList.contains(this.CssClasses_.IS_COMPACT)) {
-                    this.header_.classList.remove(this.CssClasses_.IS_COMPACT);
-                    this.header_.classList.add(this.CssClasses_.IS_ANIMATING);
+        (function() {
+            var _MaterialLayout = setInterval(function() {
+            if (!window.MaterialLayout) { return; }
+            clearTimeout(_MaterialLayout);
+            // Monkey Patch MaterialLayout headerClickHandler
+            MaterialLayout.prototype.headerClickHandler_ = function(e) {
+                if((e.target.id !== 'q' && e.target.parentNode.id !== 'header-search-button') && e.target.textContent !== '') {
+                    if (this.header_.classList.contains(this.CssClasses_.IS_COMPACT)) {
+                        this.header_.classList.remove(this.CssClasses_.IS_COMPACT);
+                        this.header_.classList.add(this.CssClasses_.IS_ANIMATING);
+                    }
                 }
-            }
-	    };</script>
+            };
+            }, 50);
+        })();
+        </script>
 </body>
 </html>
