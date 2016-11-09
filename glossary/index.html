@@ -21,9 +21,11 @@
         <style type="text/css" id="themeBG">
         </style>
         <script>
+            // Render-blocking javascript needed to ensure that the correct theme is applied
             'use strict';
             (function() {
             var _darkTheme = false;
+            var _cookies;
             try {
                 _darkTheme = localStorage['darkTheme'];
                 if (_darkTheme === undefined || _darkTheme === null) {
@@ -34,7 +36,7 @@
                 } else { _darkTheme = false; }
             } catch (err) {
                 console.error(err);
-                var _cookies = document.cookie.split('darkTheme=');
+                _cookies = document.cookie.split('darkTheme=');
                 if (_cookies.length > 1) {
                     if (_cookies[1] === 'true') {
                         _darkTheme = true;
@@ -82,7 +84,7 @@
                     localStorage['darkTheme'] = _darkTheme;
                 } catch(err) {
                     console.error(err);
-                    var _cookies = document.cookie;
+                    _cookies = document.cookie;
                     if (_cookies.indexOf('darkTheme=') === -1) {
                         document.cookie = "darkTheme=" + _darkTheme;
                     } else {
