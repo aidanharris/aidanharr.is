@@ -96,5 +96,6 @@ MAIN_NAVIGATION  = [
 LIGHT_HEADING_COLOUR = "#fafafa";
 DARK_HEADING_COLOUR = "#424242";
 
+# Base64 encoded svg to inline in page headers for performance reasons
 with open(THEME + "/templates/avatar.svg", "rb") as avatar:
     AVATAR = str(b64encode(avatar.read()))[2:-1]
