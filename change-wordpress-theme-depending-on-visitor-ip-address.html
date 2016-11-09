@@ -16,10 +16,16 @@
         <meta name="msapplication-TileImage" content="https://i1.wp.com/aidanharr.is/wordpress/wp-content/uploads/2015/10/cropped-avatar1.png?fit=270%2C270&#038;ssl=1"/>
         <style type="text/css" id="themeBG">
         </style>
-        <script src="/theme/js/loadCSS.js"></script>
+        <script async src="/theme/js/loadCSS.js"></script>
         <script defer>
-            loadCSS("https://code.getmdl.io/1.2.1/material.grey-blue.min.css");
-            loadCSS("/theme/css/style.css");
+            (function() {
+                var _loadCSS = setInterval(function() {
+                    if (!window.loadCSS) { return; }
+                    clearTimeout(_loadCSS);
+                    loadCSS("https://code.getmdl.io/1.2.1/material.grey-blue.min.css");
+                    loadCSS("/theme/css/style.css");
+                }, 50);
+            })();
         </script>
         <script>
             'use strict';
