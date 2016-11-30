@@ -39,13 +39,13 @@
 		<div class="mdl-card__supporting-text meta mdl-color-text--grey-600" style="position: relative;top: -1.47rem;">
 			<div>
 				<strong>
-                    By 
+                    By&nbsp;
                     {% for author in article.authors %}
                         <a class="url fn" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
                     {% endfor %}
                 </strong>
 				<span class="posted-on">
-                    Posted on
+                    Posted on&nbsp;
                     <time class="published" datetime="{{ article.date.isoformat() }}"> {{ article.locale_date }} </time>
                 </span>
 			</div>
