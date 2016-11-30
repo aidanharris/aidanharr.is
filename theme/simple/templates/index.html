@@ -3,8 +3,16 @@
 {% block content_title %}
 {% endblock %}
 <div id="primary" class="content-area demo-blog__posts mdl-grid">
+{% set i = 0 %}
 {% for article in articles_page.object_list %}
-        <div id="post-{{ article.slug }}" class="mdl-card on-the-road-again mdl-cell mdl-cell--12-col">
+        {% if i == 0 %}
+            {% set colClass = 'mdl-cell--8-col' %}
+        {% elif i == 1 %}
+            {% set colClass = 'mdl-cell--8-col mdl-cell--4-col-desktop' %}
+        {% else %}
+            {% set colClass = 'mdl-cell--12-col' %}
+        {% endif %}
+        <div id="post-{{ article.slug }}" class="mdl-card on-the-road-again mdl-cell {{ colClass }}">
         {% if article.headingtheme %}
             {% if article.headingtheme == 'dark' %}
                 {% set headingThemeVariant = ('color: ' + DARK_HEADING_COLOUR + ' !important;') %}
@@ -23,9 +31,11 @@
         <div class="mdl-card__media mdl-color-text--grey-50 wide-thumb" style="{% if article.thumbnail %}background:url('{{ article.thumbnail }}') no-repeat;{% endif %}background-size: cover;">
             <h3 class="entry-title" style="{{ headingThemeVariant }}"><a href="{{ article.url }}" rel="bookmark" style="{{ headingThemeVariant }}">{% if article.headingiconfont %}<span class="{{article.headingiconfont}}" style="{% if 'devicons' in article.headingiconfont %}font-size: 2em; display: inline-block; position: relative; top: 0.25em;{% endif %}"></span>{% endif %}{% if article.beforeheading %}{{ article.beforeheading }}{% endif %}{{ article.title }}</a></h3>
         </div>
+        {% if i > 1 %}
         <div class="entry-content mdl-color-text--grey-600 mdl-card__supporting-text" style="position: relative;top: -1.47rem;">
             {{ article.content }}
         </div><!-- .entry-content -->
+        {% endif %}
 		<div class="mdl-card__supporting-text meta mdl-color-text--grey-600" style="position: relative;top: -1.47rem;">
 			<div>
 				<strong>
@@ -41,6 +51,7 @@
 			</div>
 		</div><!-- .entry-meta -->
         </div>
+{% set i = i + 1 %}
 {% endfor %}
 {% if articles_page.has_other_pages() %}
     {% include 'pagination.html' %}
