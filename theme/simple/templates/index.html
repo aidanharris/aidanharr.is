@@ -12,7 +12,7 @@
         {% else %}
             {% set colClass = 'mdl-cell--12-col' %}
         {% endif %}
-        <div id="post-{{ article.slug }}" class="mdl-card on-the-road-again mdl-cell {{ colClass }}">
+        <div id="post-{{ article.slug }}" class="mdl-card {% if i > 1 %}on-the-road-again{% endif %} {% if i == 1 %}something-else {% endif %}mdl-cell {{ colClass }}" {% if i == 0 %}style="min-height: 25em;"{% endif %}>
         {% if article.headingtheme %}
             {% if article.headingtheme == 'dark' %}
                 {% set headingThemeVariant = ('color: ' + DARK_HEADING_COLOUR + ' !important;') %}
