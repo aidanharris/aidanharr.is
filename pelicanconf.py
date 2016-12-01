@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
-
+from datetime import date
 from base64 import b64encode
 from os import environ as env
 import subprocess
@@ -30,6 +30,8 @@ EXTRA_PATH_METADATA = {
 TIMEZONE = 'Europe/London'
 
 DEFAULT_LANG = 'en'
+
+CURRENT_YEAR = str(date.today().year)
 
 def defaultSettings():
     FEED_ALL_ATOM = True
