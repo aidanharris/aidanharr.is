@@ -224,24 +224,33 @@
                 </nav>
             </div>
             <script defer>
-            (function(){
-                var attempts=0;
-                var _int=setInterval(function(){
-                    if (typeof window.jQuery === 'function' && typeof window.$ ==='function') {
-                        clearInterval(_int);
-                        $(document).ready(function(){
-                            $(".submenu-heading").click(function(e){
-                                e.preventDefault();
-                                $(e.target.nextElementSibling).toggle('show');
-                                $(e.target).blur();
-                            });});
-                    }
-                    if (attempts>9) {
-                        clearInterval(_int);
-                        console.error('No jQuery! To Do: Add it from a CDN here...');
-                    }
-                    attempts++;
-            }, 100);}());
+                /*
+                    To Do:
+                        * Refactor this into a function AddJquery that can take an array of CDN hosted jQueries and a callback function
+                        * Iterate over the array and try to add jQuery to the page.
+                        * Upon success call the callback function if it is a function
+                        * Bonus Points: Use a promise instead...
+                        * Even more bonus points: Remove the jQuery dependency in the first place!
+                */
+                (function(){
+                    var attempts = 0;
+                    var _int = setInterval(function(){
+                        if (typeof window.jQuery === 'function' && typeof window.$ ==='function') {
+                            clearInterval(_int);
+                            $(document).ready(function(){
+                                $(".submenu-heading").click(function(e){
+                                    e.preventDefault();
+                                    $(e.target.nextElementSibling).toggle('show');
+                                    $(e.target).blur();
+                                });});
+                        }
+                        if (attempts>9) {
+                            clearInterval(_int);
+                            console.error('No jQuery! To Do: Add it from a CDN here...');
+                        }
+                        attempts++;
+                    }, 100);
+                }());
             </script>
             <main id="content" class="mdl-layout__content site-content">
             {% block content %}
@@ -249,7 +258,7 @@
             <footer id="contentinfo" class="mdl-mini-footer">
                 <div class="mdl-mini-footer__left-section">
                     <ul class="mdl-mini-footer__link-list">
-                        <li><a href="/copyright" style="color: #9e9e9e;text-decoration: none;"><strike>©</strike> <strike>Copyright</strike>&nbsp;{{ CURRENT_YEAR }} ‐ Aidan Harris</a></li>
+                        <li><a href="/copyright" style="color: #9e9e9e;text-decoration: none;"><strike>&copy;</strike> <strike>Copyright</strike>&nbsp;{{ CURRENT_YEAR }} ‐ Aidan Harris</a></li>
                         <li><a href="/privacy" style="color: #9e9e9e;text-decoration: none;">Privacy &amp; Terms</a></li>
                     </ul>
                     <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="themeSelector">
