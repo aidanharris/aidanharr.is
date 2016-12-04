@@ -61,15 +61,13 @@ set to 'vagrant'.&lt;/p&gt;
 &lt;h2&gt;Step 5 - Disabling Firewall&lt;/h2&gt;
 &lt;p&gt;Ensure that the firewall is disabled (go to &amp;quot;System Preferences&amp;quot; --&amp;gt;
 &amp;quot;Security &amp;amp; Privacy&amp;quot; --&amp;gt; &amp;quot;Firewall&amp;quot;)&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="section" id="step-6-enabling-remote-login"&gt;
-&lt;h2&gt;Step 6 - Enabling Remote Login&lt;/h2&gt;
-&lt;p&gt;Enable &amp;quot;Remote Login&amp;quot; (go to &amp;quot;System Preferences&amp;quot; --&amp;gt; &amp;quot;Sharing&amp;quot; --&amp;gt; Make
+&lt;h2 style="width: 75%;margin: 0 auto;"&gt;
+
+Step 6 - Enabling Remote Login&lt;/h2&gt;&lt;p&gt;Enable &amp;quot;Remote Login&amp;quot; (go to &amp;quot;System Preferences&amp;quot; --&amp;gt; &amp;quot;Sharing&amp;quot; --&amp;gt; Make
 sure &amp;quot;Remote Login&amp;quot; is checked for all users)&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="section" id="step-7-downloading-ssh-key-used-for-authentication"&gt;
-&lt;h2&gt;Step 7 - Downloading SSH Key Used for Authentication&lt;/h2&gt;
-&lt;p&gt;Download the vagrant insecure ssh key which is used to obtain authorised
+&lt;h2 style="width: 75%;margin: 0 auto;"&gt;
+
+Step 7 - Downloading SSH Key Used for Authentication&lt;/h2&gt;&lt;p&gt;Download the vagrant insecure ssh key which is used to obtain authorised
 access to the box:&lt;/p&gt;
 &lt;pre class="literal-block"&gt;
 mkdir -p /Users/vagrant/.ssh

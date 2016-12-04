@@ -334,6 +334,14 @@ table {
   margin: 0 0 1.5em;
   width: 100%; }
 
+.literal-block {
+  width: 75%;
+  margin: 0 auto; }
+
+.entry-content .section h2 {
+  width: 75%;
+  margin: 0 auto; }
+
 /*--------------------------------------------------------------
 # Forms
 --------------------------------------------------------------*/
