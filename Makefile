@@ -64,7 +64,7 @@ help:
 	@echo '                                                                          '
 
 minifyHTML:
-	find $(OUTPUTDIR) -name "*.html" -execdir bash -c 'f="{}";f=$${f%.html};html-minifier --html5 --remove-tag-whitespace --remove-comments --collapse-whitespace "{}" > "$$f.min.html" && rm {} && mv "$$f.min.html" "$$f.html"' \;
+	find $(OUTPUTDIR) -name "*.html" -execdir bash -c 'f="{}";f=$${f%.html};html-minifier --html5 --remove-comments --collapse-whitespace "{}" > "$$f.min.html" && rm {} && mv "$$f.min.html" "$$f.html"' \;
 
 html:
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
