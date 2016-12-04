@@ -338,9 +338,10 @@ table {
   width: 75%;
   margin: 0 auto; }
 
-.entry-content .section h2 {
-  width: 75%;
-  margin: 0 auto; }
+.entry-content .section h1, .entry-content .section h2, .entry-content .section h3, .entry-content .section h4 {
+  left: 18%;
+  position: relative;
+  width: 72%; }
 
 /*--------------------------------------------------------------
 # Forms
