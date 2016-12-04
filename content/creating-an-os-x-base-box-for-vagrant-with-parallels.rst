@@ -85,14 +85,28 @@ Step 5 - Disabling Firewall
 Ensure that the firewall is disabled (go to "System Preferences" -->
 "Security & Privacy" --> "Firewall")
 
-Step 6 - Enabling Remote Login
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. raw:: html
+
+  <h2 style="width: 75%;margin: 0 auto;">
+
+  Step 6 - Enabling Remote Login
+
+.. raw:: html
+
+  </h2>
 
 Enable "Remote Login" (go to "System Preferences" --> "Sharing" --> Make
 sure "Remote Login" is checked for all users)
 
-Step 7 - Downloading SSH Key Used for Authentication
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. raw:: html
+
+  <h2 style="width: 75%;margin: 0 auto;">
+
+  Step 7 - Downloading SSH Key Used for Authentication
+
+.. raw:: html
+
+  </h2>
 
 Download the vagrant insecure ssh key which is used to obtain authorised
 access to the box:
