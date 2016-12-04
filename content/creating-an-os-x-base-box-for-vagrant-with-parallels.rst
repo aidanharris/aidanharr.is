@@ -87,26 +87,26 @@ Ensure that the firewall is disabled (go to "System Preferences" -->
 
 .. raw:: html
 
-  <h2 style="width: 75%;margin: 0 auto;">
+  <h4>
 
   Step 6 - Enabling Remote Login
 
 .. raw:: html
 
-  </h2>
+  </h4>
 
 Enable "Remote Login" (go to "System Preferences" --> "Sharing" --> Make
 sure "Remote Login" is checked for all users)
 
 .. raw:: html
 
-  <h2 style="width: 75%;margin: 0 auto;">
+  <h4>
 
   Step 7 - Downloading SSH Key Used for Authentication
 
 .. raw:: html
 
-  </h2>
+  </h4>
 
 Download the vagrant insecure ssh key which is used to obtain authorised
 access to the box:
