@@ -1,15 +1,81 @@
 {% extends "base.html" %}
-{% block title %}{{ page.title }}{%endblock%}
+{% block head %}
+  {{ super() }}
+  {% if page.description %}
+    <meta name="description" content="{{page.description}}" />
+  {% endif %}
+
+  {% for tag in page.tags %}
+    <meta name="tags" content="{{tag}}" />
+  {% endfor %}
+
+  {% if page.customcss %}
+    {% block customCSS %}
+        {% for css in page.customcss %}
+            <link rel="stylesheet" type="text/css" href="{{css}}" />
+        {% endfor %}
+    {% endblock customCSS %}
+  {% endif %}
+  {% if page.customjs %}
+    {% block customJS %}
+        {% for js in page.customjs %}
+            <script type="text/javascript" src="{{js}}"></script>
+        {% endfor %}
+    {% endblock customJS %}
+  {% endif %}
+
+{% endblock %}
+
 {% block content %}
-    <h1>{{ page.title }}</h1>
-    {% import 'translations.html' as translations with context %}
-    {{ translations.translations_for(page) }}
-
+<section id="content" class="body demo-blog__posts mdl-grid">
+  <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col" style="background-color: #F5F5F5;">
+  <header class="mdl-card__media {% if page.postformat %}{% if page.postformat == 'quote' %}quote {% endif %}{% endif %}mdl-color-text--grey-50 featured-post-image" style="{% if page.thumbnail %}background:url('{{ page.thumbnail }}') no-repeat;background-size: cover;{% endif %}">
+    <!--
+    <h3 class="entry-title" style=""><span class="devicons devicons-docker" style="font-size: 2em; display: inline-block; position: relative; top: 0.25em;"></span>&nbsp;How Not To Use Docker</h3>
+    -->
+    {% if page.headingtheme %}
+        {% if page.headingtheme == 'dark' %}
+            {% set headingThemeVariant = ('color: ' + DARK_HEADING_COLOUR + ' !important;') %}
+        {% elif page.headingtheme == 'light' or page.headingtheme != 'custom' %}
+            {% set headingThemeVariant = ('color: ' + LIGHT_HEADING_COLOUR + ' !important;') %}
+        {% else %}
+            {% if page.customtheme %}
+                {% set headingThemeVariant = page.customtheme %}
+            {% else %}
+                {% set headingThemeVariant = '' %}
+            {% endif %}
+        {% endif %}
+    {% else %}
+        {% set headingThemeVariant = ('color: ' + LIGHT_HEADING_COLOUR + ' !important;') %}
+    {% endif %}
+    <h2 class="entry-title{% if page.postformat %}{% if page.postformat == 'quote' %} quote {% endif %}{% endif %}" style="{{ headingThemeVariant }}position: relative;top: 1em;font-size: 34px;">
+      <a href="{{ SITEURL }}/{{ page.url }}" rel="bookmark"
+         title="Permalink to {{ page.title|striptags }}"
+         style="{{ headingThemeVariant }}"
+      >
+         {% if page.headingiconfont %}
+            <span class="{{page.headingiconfont}}"
+                  style="
+                    {% if 'devicons' in page.headingiconfont %}
+                        font-size: 2em;
+                        display: inline-block;
+                        position: relative;
+                        top: 0.25em;
+                    {% endif %}">
+            </span>
+         {% endif %}
+         {{ page.title }}
+      </a>
+    </h2>
+ {% import 'translations.html' as translations with context %}
+ {{ translations.translations_for(page) }}
+  </header>
+  <footer class="post-info mdl-color-text--grey-700 mdl-card__supporting-text meta">
+    <div class="minilogo"></div>
+  </footer><!-- /.post-info -->
+  <div class="entry-content mdl-color-text--grey-700 mdl-card__supporting-text" style="position: relative;top: -1.47rem;">
     {{ page.content }}
-
-	{% if page.modified %}
-		<p>
-		Last updated: {{ page.locale_modified }}
-		</p>
-	{% endif %}
+  </div><!-- /.entry-content -->
+  </div>
+</section>
 {% endblock %}
