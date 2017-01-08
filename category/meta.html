@@ -146,12 +146,22 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
             clearTimeout(_MaterialLayout);
             // Monkey Patch MaterialLayout headerClickHandler
             MaterialLayout.prototype.headerClickHandler_ = function(e) {
-                if((e.target.id !== 'q' && e.target.parentNode.id !== 'header-search-button') && e.target.textContent !== '') {
+                if(document.getElementsByTagName('main')[0].scrollTop > 0) {
+                    console.log(e.target);
+                    if((e.target.id !== 'q' && e.target.parentNode.id !== 'header-search-button') && e.target.textContent !== '') {
+                        if (this.header_.classList.contains(this.CssClasses_.IS_COMPACT)) {
+                            document.getElementsByTagName('main')[0].scrollTop = 0;
+                            //this.header_.classList.remove(this.CssClasses_.IS_COMPACT);
+                            //this.header_.classList.add(this.CssClasses_.IS_ANIMATING);
+                        }
+                    }
+                }
+                /*if((e.target.id !== 'q' && e.target.parentNode.id !== 'header-search-button') && e.target.textContent !== '') {
                     if (this.header_.classList.contains(this.CssClasses_.IS_COMPACT)) {
                         this.header_.classList.remove(this.CssClasses_.IS_COMPACT);
                         this.header_.classList.add(this.CssClasses_.IS_ANIMATING);
                     }
-                }
+                }*/
             };
             }, 50);
         })();</script></body></html>

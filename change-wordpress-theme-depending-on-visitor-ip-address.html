@@ -130,7 +130,7 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
                         }
                         attempts++;
                     }, 100);
-                }());</script><main id="content" class="mdl-layout__content site-content"><section id="content" class="body demo-blog__posts mdl-grid"><div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col" style="background-color: #F5F5F5"><header class="mdl-card__media mdl-color-text--grey-50 featured-post-image" style=""><h2 class="entry-title" style="color: #fafafa !important;position: relative;top: 1em;font-size: 34px"><a href="https://aidanharr.is/change-wordpress-theme-depending-on-visitor-ip-address.html" rel="bookmark" title="Permalink to  Change Wordpress theme depending on visitor IP address" style="color: #fafafa !important"><span class="fa fa-wordpress" style=""></span> &nbsp;Change Wordpress theme depending on visitor IP address</a></h2></header><footer class="post-info mdl-color-text--grey-700 mdl-card__supporting-text meta"><div class="minilogo"></div><div><span><span class="posted-on">Posted on <a href="https://aidanharr.is/change-wordpress-theme-depending-on-visitor-ip-address.html" rel="bookmark"><time class="entry-date published" datetime="2015-10-11T18:46:00+01:00">Sun 11 October 2015</time> </a></span><span class="byline" style="display: block">by <span class="author vcard"><a class="url fn n" href="https://aidanharr.is/author/aidanharris.html">aidanharris</a></span></span></span></div></footer><div class="entry-content mdl-color-text--grey-700 mdl-card__supporting-text" style="position: relative;top: -1.47rem"><p>Developing and testing in production is a terrible, terrible idea. However until I set up a virtual machine development environment I have little choice but to do so. Here's how to change the theme depending on the user's IP address:</p><p>Create a new plugin (you might want to use the following directory structure):</p><pre class="literal-block">
+                }());</script><main id="content" class="mdl-layout__content site-content"><section id="content" class="body demo-blog__posts mdl-grid"><div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col" style="background-color: #F5F5F5"><header class="mdl-card__media mdl-color-text--grey-50 featured-post-image" style=""><h2 class="entry-title" style="color: #fafafa !important;position: relative;top: 1em;font-size: 34px"><a href="https://aidanharr.is/change-wordpress-theme-depending-on-visitor-ip-address.html" rel="bookmark" title="Permalink to  Change Wordpress theme depending on visitor IP address" style="color: #fafafa !important"><span class="fa fa-wordpress" style=""></span>&nbsp;Change Wordpress theme depending on visitor IP address</a></h2></header><footer class="post-info mdl-color-text--grey-700 mdl-card__supporting-text meta"><div class="minilogo"></div><div><span><span class="posted-on">Posted on <a href="https://aidanharr.is/change-wordpress-theme-depending-on-visitor-ip-address.html" rel="bookmark"><time class="entry-date published" datetime="2015-10-11T18:46:00+01:00">Sun 11 October 2015</time> </a></span><span class="byline" style="display: block">by <span class="author vcard"><a class="url fn n" href="https://aidanharr.is/author/aidanharris.html">aidanharris</a></span></span></span></div></footer><div class="entry-content mdl-color-text--grey-700 mdl-card__supporting-text" style="position: relative;top: -1.47rem"><p>Developing and testing in production is a terrible, terrible idea. However until I set up a virtual machine development environment I have little choice but to do so. Here's how to change the theme depending on the user's IP address:</p><p>Create a new plugin (you might want to use the following directory structure):</p><pre class="literal-block">
 wordpress
 └── wp-content
     └── plugins
@@ -193,12 +193,22 @@ add_filter('option_stylesheet', 'fxn_change_theme');
             clearTimeout(_MaterialLayout);
             // Monkey Patch MaterialLayout headerClickHandler
             MaterialLayout.prototype.headerClickHandler_ = function(e) {
-                if((e.target.id !== 'q' && e.target.parentNode.id !== 'header-search-button') && e.target.textContent !== '') {
+                if(document.getElementsByTagName('main')[0].scrollTop > 0) {
+                    console.log(e.target);
+                    if((e.target.id !== 'q' && e.target.parentNode.id !== 'header-search-button') && e.target.textContent !== '') {
+                        if (this.header_.classList.contains(this.CssClasses_.IS_COMPACT)) {
+                            document.getElementsByTagName('main')[0].scrollTop = 0;
+                            //this.header_.classList.remove(this.CssClasses_.IS_COMPACT);
+                            //this.header_.classList.add(this.CssClasses_.IS_ANIMATING);
+                        }
+                    }
+                }
+                /*if((e.target.id !== 'q' && e.target.parentNode.id !== 'header-search-button') && e.target.textContent !== '') {
                     if (this.header_.classList.contains(this.CssClasses_.IS_COMPACT)) {
                         this.header_.classList.remove(this.CssClasses_.IS_COMPACT);
                         this.header_.classList.add(this.CssClasses_.IS_ANIMATING);
                     }
-                }
+                }*/
             };
             }, 50);
         })();</script></body></html>
