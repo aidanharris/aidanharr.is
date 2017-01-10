@@ -9,41 +9,39 @@ little choice but to do so. Here's how to change the theme depending on
 the user's IP address:&lt;/p&gt;
 &lt;p&gt;Create a new plugin (you might want to use the following directory
 structure):&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-wordpress
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;wordpress
 └── wp-content
     └── plugins
         └── change-theme-by-ip-address
             └── change-theme-by-ip-address.php
-&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Inside your plugin add the following code:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-&amp;lt;?php
-/*
-Plugin Name: change-theme-by-ip-address
-Description: Changes the Wordpress theme depending on the visitor's IP address
-*/
-function fxn_change_theme($theme) {
-    $IPADDRESS = &amp;quot;&amp;quot;;
-    // If your website is using CloudFlare you need to use the $_SERVER[&amp;quot;HTTP_CF_CONNECTING_IP&amp;quot;] variable
-    if(isset($_SERVER[&amp;quot;HTTP_CF_CONNECTING_IP&amp;quot;])) {
-        $IPADDRESS = $_SERVER[&amp;quot;HTTP_CF_CONNECTING_IP&amp;quot;];
-    } else {
-        $IPADDRESS = $_SERVER['REMOTE_ADDR'];
-    }
-    // Change 127.0.0.1 to your public IP address
-    if( &amp;quot;$IPADDRESS&amp;quot; == &amp;quot;127.0.0.1&amp;quot; )
-        $theme = 'your-theme-dev';
-    else
-        $theme = 'your-theme';
-    return $theme;
-}
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class="cm"&gt;/*&lt;/span&gt;
+&lt;span class="cm"&gt;Plugin Name: change-theme-by-ip-address&lt;/span&gt;
+&lt;span class="cm"&gt;Description: Changes the Wordpress theme depending on the visitor&amp;#39;s IP address&lt;/span&gt;
+&lt;span class="cm"&gt;*/&lt;/span&gt;
+&lt;span class="k"&gt;function&lt;/span&gt; &lt;span class="nf"&gt;fxn_change_theme&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$theme&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nv"&gt;$IPADDRESS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="c1"&gt;// If your website is using CloudFlare you need to use the $_SERVER[&amp;quot;HTTP_CF_CONNECTING_IP&amp;quot;] variable&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;isset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$_SERVER&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;HTTP_CF_CONNECTING_IP&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nv"&gt;$IPADDRESS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nv"&gt;$_SERVER&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;HTTP_CF_CONNECTING_IP&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nv"&gt;$IPADDRESS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nv"&gt;$_SERVER&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;REMOTE_ADDR&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="c1"&gt;// Change 127.0.0.1 to your public IP address&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;$IPADDRESS&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;127.0.0.1&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="nv"&gt;$theme&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;your-theme-dev&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt;
+        &lt;span class="nv"&gt;$theme&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;your-theme&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nv"&gt;$theme&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
 
-add_filter('template', 'fxn_change_theme');
-add_filter('option_template', 'fxn_change_theme');
-add_filter('option_stylesheet', 'fxn_change_theme');
-?&amp;gt;
-&lt;/pre&gt;
+&lt;span class="nx"&gt;add_filter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;template&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;fxn_change_theme&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;add_filter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;option_template&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;fxn_change_theme&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;add_filter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;option_stylesheet&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;fxn_change_theme&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="cp"&gt;?&amp;gt;&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Enable the plugin and you should notice your theme changes for your IP
 address while at the same time everybody else has the old theme. This
 allows you to safely make changes to your theme in production (although
