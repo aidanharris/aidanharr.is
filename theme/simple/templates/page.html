@@ -26,6 +26,20 @@
 
 {% endblock %}
 
+{% if page.contenttoosmall == 'True' %}
+{% block footer %}
+{% endblock %}
+{% block footerContentTooSmallForMain %}
+{% include "footer.html" %}
+<script>
+		(function() {
+			_func = function() { document.getElementsByTagName('main')[0].scrollTop = 1; };
+			_int = setInterval(function() { if (typeof document.getElementsByTagName('main')[0] === 'object') { clearInterval(_int); setTimeout(function() { _func(); }, 250); } }, 100);
+		}());
+</script>
+{% endblock %}
+{% endif %}
+
 {% block content %}
 <section id="content" class="body demo-blog__posts mdl-grid">
   <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col" style="background-color: #F5F5F5;">

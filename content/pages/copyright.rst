@@ -7,6 +7,7 @@ Copyright
 :url: copyright/
 :save_as: copyright/index.html
 :template: page
+:contentTooSmall: True
 
 Unless stated otherwise I have dedicated all articles and code snippets
 to the public domain. If this is not possible in your country you may

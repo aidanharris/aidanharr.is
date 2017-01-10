@@ -257,39 +257,12 @@
             <main id="content" class="mdl-layout__content site-content">
             {% block content %}
             {% endblock %}
-            <footer id="contentinfo" class="mdl-mini-footer">
-                <div class="mdl-mini-footer__left-section">
-                    <ul class="mdl-mini-footer__link-list">
-                        <li><a href="/copyright" style="color: #9e9e9e;text-decoration: none;"><strike>&copy;</strike> <strike>Copyright</strike>&nbsp;{{ CURRENT_YEAR }} ‐ Aidan Harris</a></li>
-                        <!-- <li><a href="/privacy" style="color: #9e9e9e;text-decoration: none;">Privacy &amp; Terms</a></li> -->
-                    </ul>
-                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="themeSelector">
-                        <input type="checkbox" id="themeSelector" class="mdl-switch__input">
-                        <span class="mdl-switch__label" id="themeSelectorLabel"></span>
-                    </label>
-
-                    <script type="text/javascript">
-                        (function() { 
-                            var setCurrentTheme = function() {
-                                document.getElementById('themeSelectorLabel').innerHTML = getCurrentTheme().charAt(0).toUpperCase() + getCurrentTheme().slice(1) + ' Theme';
-                            }
-                            document.getElementById('themeSelector').checked = (window.getCurrentTheme() === 'dark');
-                            document.getElementById('themeSelector').onchange = function() {
-                                window.window.toggleDarkTheme();
-                                setCurrentTheme();
-                            };
-                            return setCurrentTheme();
-                        })();
-                    </script>
-                </div>
-                <div class="mdl-mini-footer__right-section">
-                    <div class="mdl-logo" style="color: #9e9e9e;text-decoration: none;">
-                        Proudly powered by&nbsp;<a href="http://getpelican.com/" style="color: #9e9e9e;text-decoration: none;">Pelican</a>,
-                        which takes great advantage of&nbsp;<a href="http://python.org" style="color: #9e9e9e;text-decoration: none;">Python</a>.
-                    </div>
-                </div>
-            </footer><!-- /#contentinfo -->
+            {% block footer %}
+               {% include "footer.html" %}
+            {% endblock %}
             </main>
+            {% block footerContentTooSmallForMain %}
+            {% endblock %}
         </div>
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en'/>
         <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'/>
