@@ -261,6 +261,9 @@ pre {
   padding: 0.75em;
   counter-reset: line; }
 
+.highlight pre {
+  background: transparent; }
+
 code, kbd, tt, var {
   font-family: Hack, Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
   font-size: 15px;

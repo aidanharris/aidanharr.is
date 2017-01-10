@@ -33,7 +33,7 @@ post <https://superuser.com/questions/320415/linux-mount-device-with-specific-us
 Within this post there was a nice one liner that allowed me to mount the
 USB with the user pi.
 
-::
+.. code-block:: bash
 
     mount -t deviceFileFormat -o umask=filePermissons,gid=ownerGroupID,uid=ownerID /device /mountpoint
 

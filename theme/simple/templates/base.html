@@ -19,6 +19,9 @@
         <style>
             {{CSS}}
         </style>
+        <style class="pygments">
+            {{PYGMENTS_CSS}}
+        </style>
         <link rel="icon" href="https://i1.wp.com/aidanharr.is/wordpress/wp-content/uploads/2015/10/cropped-avatar1.png?fit=32%2C32&#038;ssl=1" sizes="32x32"/>
         <link rel="icon" href="https://i1.wp.com/aidanharr.is/wordpress/wp-content/uploads/2015/10/cropped-avatar1.png?fit=192%2C192&#038;ssl=1" sizes="192x192"/>
         <link rel="apple-touch-icon-precomposed" href="https://i1.wp.com/aidanharr.is/wordpress/wp-content/uploads/2015/10/cropped-avatar1.png?fit=180%2C180&#038;ssl=1"/>
@@ -31,6 +34,9 @@
             (function() {
             var _darkTheme = false;
             var _cookies;
+            var _reqListener = function() {
+                document.getElementsByClassName('pygments')[0].innerHTML = this.responseText;
+            }
             try {
                 _darkTheme = localStorage['darkTheme'];
                 if (_darkTheme === undefined || _darkTheme === null) {
@@ -52,6 +58,10 @@
             }
             window.toggleDarkTheme = function toggleDarkTheme () {
                 _darkTheme = !_darkTheme;
+
+                var oReq = new XMLHttpRequest();
+                oReq.addEventListener("load", _reqListener);
+
                 switch (_darkTheme) {
                     case true:
                         if (document.body) {
@@ -73,6 +83,7 @@
                         "body.darkTheme .mdl-card__media {" +
                             "background: #3D0E00" +
                         "}";
+                        oReq.open("GET", window.location.protocol + '//' + window.location.hostname + (window.location.port != 80 && window.location.port != 443 ? ':' + window.location.port : '') + '/theme/css/solarized-dark.css');
                         break;
                     case false:
                     default:
@@ -83,8 +94,11 @@
                         "body { " +
                             "background: #fff !important;" +
                         "}";
+                        oReq.open("GET", window.location.protocol + '//' + window.location.hostname + (window.location.port != 80 && window.location.port != 443 ? ':' + window.location.port : '') + '/theme/css/solarized-light.css');
                         break;
                 }
+                oReq.send();
+
                 try {
                     localStorage['darkTheme'] = _darkTheme;
                 } catch(err) {

@@ -16,7 +16,7 @@ the user's IP address:
 Create a new plugin (you might want to use the following directory
 structure):
 
-::
+.. code-block:: bash
 
     wordpress
     └── wp-content
@@ -26,7 +26,7 @@ structure):
 
 Inside your plugin add the following code:
 
-::
+.. code-block:: php
 
     <?php
     /*

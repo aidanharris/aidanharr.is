@@ -108,6 +108,36 @@ p = subprocess.Popen([
 
 MATERIAL_DESIGN_LITE_CSS = p.communicate()[0].decode('utf-8', 'ignore')
 
+PYGMENTS_THEME = 'solarized-light'
+
+if PYGMENTS_THEME == 'solarized-light':
+    PYGMENTS_URL = 'https://gist.githubusercontent.com/aidanharris/725d960a62e1a264062eb8d219baa24f/raw/80abaa1791271466393e8264f286c1eb9240d059/solarized-light.css'
+elif PYGMENTS_THEME == 'solarized-dark':
+    PYGMENTS_URL = 'https://gist.githubusercontent.com/aidanharris/725d960a62e1a264062eb8d219baa24f/raw/80abaa1791271466393e8264f286c1eb9240d059/solarized-dark.css'
+
+if PYGMENTS_THEME != 'solarized-light' and PYGMENTS_THEME != 'solarized-dark':
+    PYGMENTS_CSS = subprocess.Popen([
+        "pygmentize",
+        "-S",
+        PYGMENTS_THEME,
+        "-f",
+        "html",
+        "-a",
+        ".highlight"
+    ], stdout=subprocess.PIPE)
+
+    PYGMENTS_CSS = PYGMENTS_CSS.communicate()[0].decode('utf-8', 'ignore')
+else:
+    PYGMENTS_CSS = subprocess.Popen([
+        "curl",
+        "-q",
+        "-s",
+        "-L",
+        PYGMENTS_URL
+    ], stdout=subprocess.PIPE)
+
+    PYGMENTS_CSS = PYGMENTS_CSS.communicate()[0].decode('utf-8', 'ignore')
+
 DEVICONS_VERSION = "1.8.0";
 FONT_AWESOME_VERSION = "4.6.3";
 

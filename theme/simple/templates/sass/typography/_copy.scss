@@ -26,6 +26,10 @@ pre {
 	counter-reset: line;
 }
 
+.highlight pre {
+	background: transparent;
+}
+
 code, kbd, tt, var {
 	font-family: $font__code;
 	@include font-size(0.9375);
