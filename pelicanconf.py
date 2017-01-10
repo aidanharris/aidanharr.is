@@ -96,7 +96,7 @@ MAIN_NAVIGATION  = [
     )
 ]
 
-MATERIAL_DESIGN_LITE_VERSION = "1.2.1"
+MATERIAL_DESIGN_LITE_VERSION = "1.3.0"
 
 p = subprocess.Popen([
     "curl",
