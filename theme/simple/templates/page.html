@@ -44,9 +44,6 @@
 <section id="content" class="body demo-blog__posts mdl-grid">
   <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col" style="background-color: #F5F5F5;">
   <header class="mdl-card__media {% if page.postformat %}{% if page.postformat == 'quote' %}quote {% endif %}{% endif %}mdl-color-text--grey-50 featured-post-image" style="{% if page.thumbnail %}background:url('{{ page.thumbnail }}') no-repeat;background-size: cover;{% endif %}">
-    <!--
-    <h3 class="entry-title" style=""><span class="devicons devicons-docker" style="font-size: 2em; display: inline-block; position: relative; top: 0.25em;"></span>&nbsp;How Not To Use Docker</h3>
-    -->
     {% if page.headingtheme %}
         {% if page.headingtheme == 'dark' %}
             {% set headingThemeVariant = ('color: ' + DARK_HEADING_COLOUR + ' !important;') %}

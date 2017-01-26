@@ -96,6 +96,19 @@ MAIN_NAVIGATION  = [
     )
 ]
 
+_i = -1
+
+def resetI():
+    global _i
+    _i = -1
+def incI():
+    global _i
+    _i+=1
+    return _i
+
+RESETI = resetI
+GETI = incI
+
 MATERIAL_DESIGN_LITE_VERSION = "1.3.0"
 
 p = subprocess.Popen([

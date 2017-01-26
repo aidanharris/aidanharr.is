@@ -3,8 +3,9 @@
 {% block content_title %}
 {% endblock %}
 <div id="primary" class="content-area demo-blog__posts mdl-grid">
-{% set i = 0 %}
+{% set _i = RESETI() %}
 {% for article in articles_page.object_list %}
+    {% set i = GETI() %}
         {% if i == 0 %}
             {% set colClass = 'mdl-cell--8-col' %}
         {% elif i == 1 %}
@@ -51,7 +52,6 @@
 			</div>
 		</div><!-- .entry-meta -->
         </div>
-{% set i = i + 1 %}
 {% endfor %}
 {% if articles_page.has_other_pages() %}
     {% include 'pagination.html' %}
