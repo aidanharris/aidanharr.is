@@ -249,7 +249,7 @@ blockquote {
 address {
   margin: 0 0 1.5em; }
 
-pre {
+pre, .highlight {
   background: #eee;
   font-family: Hack, "Courier 10 Pitch", Courier, monospace;
   font-size: 15px;
@@ -262,7 +262,8 @@ pre {
   counter-reset: line; }
 
 .highlight pre {
-  background: transparent; }
+  background: transparent;
+  padding: 0 !important; }
 
 code, kbd, tt, var {
   font-family: Hack, Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
