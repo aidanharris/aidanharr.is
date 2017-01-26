@@ -14,7 +14,7 @@ address {
 	margin: 0 0 1.5em;
 }
 
-pre {
+pre, .highlight {
 	background: $color__background-pre;
 	font-family: $font__pre;
 	@include font-size(0.9375);
@@ -28,6 +28,7 @@ pre {
 
 .highlight pre {
 	background: transparent;
+	padding: 0 !important;
 }
 
 code, kbd, tt, var {
