@@ -2,7 +2,7 @@
 
 This repository contains the source code and articles for the personal website of Aidan Harris (me).
 
-You can find licensing information in [LICENSE](https://github.com/aidanharris/aidanharr.is/blob/master/LICENSE), note that this license does not take precedence over any other third-party code.
+You can find licensing information in [LICENSE](https://github.com/aidanharris/aidanharr.is/blob/master/LICENSE), note that this license does not take precedence over any other third-party code or content.
 
 As for how the website is built, it uses the excellent [Pelican](https://github.com/getpelican/pelican/) which I highly recommend you check out.
 
@@ -14,7 +14,7 @@ Articles are housed in the [content](https://github.com/aidanharris/aidanharr.is
 
 ### CSS
 
-```
+```bash
 git clone https://github.com/aidanharris/aidanharr.is
 cd aidanharr.is
 cd theme/simple/templates
@@ -26,7 +26,7 @@ gulp
 
 HTML can be built using the provided Makefile as follows:
 
-```
+```bash
 make html
 ```
 
