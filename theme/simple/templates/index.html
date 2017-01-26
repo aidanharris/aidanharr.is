@@ -29,8 +29,8 @@
         {% else %}
             {% set headingThemeVariant = ('color: ' + LIGHT_HEADING_COLOUR + ' !important;') %}
         {% endif %}
-        <div class="mdl-card__media mdl-color-text--grey-50 wide-thumb" style="{% if article.thumbnail %}background:url('{{ article.thumbnail }}') no-repeat;{% endif %}background-size: cover;">
-            <h3 class="entry-title" style="{{ headingThemeVariant }}"><a href="{{ article.url }}" rel="bookmark" style="{{ headingThemeVariant }}">{% if article.headingiconfont %}<span class="{{article.headingiconfont}}" style="{% if 'devicons' in article.headingiconfont %}font-size: 2em; display: inline-block; position: relative; top: 0.25em;{% endif %}"></span>{% endif %}{% if article.beforeheading %}{{ article.beforeheading }}{% endif %}{{ article.title }}</a></h3>
+        <div class="mdl-card__media mdl-color-text--grey-50 wide-thumb" style="{% if article.thumbnail %}background:url('{{ article.thumbnail }}') no-repeat;{% endif %}background-size: cover;" onclick="window.location.href = '{{ article.url }}';" title="{{ article.title }}">
+            <h3 class="entry-title" style="{{ headingThemeVariant }}"><a href="{{ article.url }}" rel="bookmark" style="{{ headingThemeVariant }}" title="{{ article.title }}">{% if article.headingiconfont %}<span class="{{article.headingiconfont}}" style="{% if 'devicons' in article.headingiconfont %}font-size: 2em; display: inline-block; position: relative; top: 0.25em;{% endif %}"></span>{% endif %}{% if article.beforeheading %}{{ article.beforeheading }}{% endif %}{{ article.title }}</a></h3>
         </div>
         {% if i > 1 %}
         <div class="entry-content mdl-color-text--grey-600 mdl-card__supporting-text" style="position: relative;top: -1.47rem;">
