@@ -31,8 +31,14 @@ vagrant.&lt;/li&gt;
 &lt;/div&gt;
 &lt;div class="section" id="step-1-creating-tuning-vm-configuration"&gt;
 &lt;h2&gt;Step 1 - Creating &amp;amp; Tuning VM Configuration&lt;/h2&gt;
-&lt;figure&gt;&lt;p&gt;&lt;a class="reference external" href="uploads/2016/03/Install-OS-X-10.11.4.out_.png"&gt;&lt;img alt="Screenshot of the Parallels Virtual Machine creation." class="alignnone size-medium wp-image-187" src="uploads/2016/03/Install-OS-X-10.11.4.out_-300x200.png" style="width: 50.0%;" /&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;/figure&gt;&lt;p&gt;After selecting the &amp;quot;Install OS X x.x.x Using the Recovery Partition&amp;quot;
+&lt;!-- raw.. code-block:: bash html
+
+&lt;figure&gt; --&gt;
+&lt;p&gt;&lt;a class="reference external" href="uploads/2016/03/Install-OS-X-10.11.4.out_.png"&gt;&lt;img alt="Screenshot of the Parallels Virtual Machine creation." class="alignnone size-medium wp-image-187" src="uploads/2016/03/Install-OS-X-10.11.4.out_-300x200.png" style="width: 50.0%;" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw.. code-block:: bash html
+
+&lt;/figure&gt; --&gt;
+&lt;p&gt;After selecting the &amp;quot;Install OS X x.x.x Using the Recovery Partition&amp;quot;
 option, Parallels will immediately boot the VM. Shut it down so we can
 make some adjustments to the VM.&lt;/p&gt;
 &lt;p&gt;Key things you might want to alter are the RAM, number of processors and
@@ -43,8 +49,14 @@ need to.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="step-2-installing-os-x"&gt;
 &lt;h2&gt;Step 2 - Installing OS X&lt;/h2&gt;
-&lt;figure&gt;&lt;p&gt;&lt;a class="reference external" href="uploads/2016/03/InstallOSX.out_.png"&gt;&lt;img alt="Screenshot taken from the OS X El Capitan installation." class="alignnone size-medium wp-image-208" src="uploads/2016/03/InstallOSX.out_-300x235.png" style="width: 50.0%;" /&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;/figure&gt;&lt;p&gt;After altering the VM to your liking, proceed with the OS X installation
+&lt;!-- raw.. code-block:: bash html
+
+&lt;figure&gt; --&gt;
+&lt;p&gt;&lt;a class="reference external" href="uploads/2016/03/InstallOSX.out_.png"&gt;&lt;img alt="Screenshot taken from the OS X El Capitan installation." class="alignnone size-medium wp-image-208" src="uploads/2016/03/InstallOSX.out_-300x235.png" style="width: 50.0%;" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;!-- raw.. code-block:: bash html
+
+&lt;/figure&gt; --&gt;
+&lt;p&gt;After altering the VM to your liking, proceed with the OS X installation
 as you normally would ensuring that your username and password are both
 set to 'vagrant'.&lt;/p&gt;
 &lt;/div&gt;
@@ -61,34 +73,44 @@ set to 'vagrant'.&lt;/p&gt;
 &lt;h2&gt;Step 5 - Disabling Firewall&lt;/h2&gt;
 &lt;p&gt;Ensure that the firewall is disabled (go to &amp;quot;System Preferences&amp;quot; --&amp;gt;
 &amp;quot;Security &amp;amp; Privacy&amp;quot; --&amp;gt; &amp;quot;Firewall&amp;quot;)&lt;/p&gt;
+&lt;!-- raw.. code-block:: bash html
+
 &lt;h4&gt;
 
-Step 6 - Enabling Remote Login&lt;/h4&gt;&lt;p&gt;Enable &amp;quot;Remote Login&amp;quot; (go to &amp;quot;System Preferences&amp;quot; --&amp;gt; &amp;quot;Sharing&amp;quot; --&amp;gt; Make
+Step 6 - Enabling Remote Login --&gt;
+&lt;!-- raw.. code-block:: bash html
+
+&lt;/h4&gt; --&gt;
+&lt;p&gt;Enable &amp;quot;Remote Login&amp;quot; (go to &amp;quot;System Preferences&amp;quot; --&amp;gt; &amp;quot;Sharing&amp;quot; --&amp;gt; Make
 sure &amp;quot;Remote Login&amp;quot; is checked for all users)&lt;/p&gt;
+&lt;!-- raw.. code-block:: bash html
+
 &lt;h4&gt;
 
-Step 7 - Downloading SSH Key Used for Authentication&lt;/h4&gt;&lt;p&gt;Download the vagrant insecure ssh key which is used to obtain authorised
+Step 7 - Downloading SSH Key Used for Authentication --&gt;
+&lt;!-- raw.. code-block:: bash html
+
+&lt;/h4&gt; --&gt;
+&lt;p&gt;Download the vagrant insecure ssh key which is used to obtain authorised
 access to the box:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-mkdir -p /Users/vagrant/.ssh
-chmod 0700 /Users/vagrant/.ssh
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;mkdir -p /Users/vagrant/.ssh
+chmod &lt;span class="m"&gt;0700&lt;/span&gt; /Users/vagrant/.ssh
 curl -o /Users/vagrant/.ssh/authorized_keys --url https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub
-chmod 0600 /Users/vagrant/.ssh/authorized_keys
+chmod &lt;span class="m"&gt;0600&lt;/span&gt; /Users/vagrant/.ssh/authorized_keys
 chown -R vagrant /Users/vagrant/.ssh
-&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="step-8-setting-up-password-less-sudo-access"&gt;
 &lt;h2&gt;Step 8 - Setting up password-less `sudo` access&lt;/h2&gt;
 &lt;p&gt;Set up password-less `sudo` access:&lt;/p&gt;
 &lt;p&gt;&lt;tt class="docutils literal"&gt;sudo visudo&lt;/tt&gt;&lt;/p&gt;
 &lt;p&gt;Add or modify the following lines as necessary:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-Defaults env_keep += 'SSH_AUTH_SOCK'
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Defaults &lt;span class="nv"&gt;env_keep&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;SSH_AUTH_SOCK&amp;#39;&lt;/span&gt;
 Defaults:vagrant !requiretty
 
-# Add the vagrant user at the end of the file
-vagrant ALL=NOPASSWD:ALL
-&lt;/pre&gt;
+&lt;span class="c1"&gt;# Add the vagrant user at the end of the file&lt;/span&gt;
+vagrant &lt;span class="nv"&gt;ALL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;NOPASSWD:ALL
+&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="step-9-installing-software-necessary-for-provisioning"&gt;
 &lt;h2&gt;Step 9 - Installing Software Necessary for Provisioning&lt;/h2&gt;
@@ -99,34 +121,29 @@ vagrant ALL=NOPASSWD:ALL
 &lt;div class="section" id="step-10-optimising-the-vm"&gt;
 &lt;h2&gt;Step 10 - Optimising the VM&lt;/h2&gt;
 &lt;p&gt;You can zero out free space using &lt;tt class="docutils literal"&gt;diskutil&lt;/tt&gt; as follows:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-diskutil secureErase freespace 0 Macintosh HD
-&lt;/pre&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;diskutil secureErase freespace &lt;span class="m"&gt;0&lt;/span&gt; Macintosh HD
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Doing the above produced some errors but YMMV.&lt;/p&gt;
 &lt;p&gt;After the above is done you can power off the VM (&lt;tt class="docutils literal"&gt;sudo halt&lt;/tt&gt;) and
 compress the HDD using Parallels as follows:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-prl_disk_tool compact --hdd /path/to/harddisk.hdd
-&lt;/pre&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;prl_disk_tool compact --hdd /path/to/harddisk.hdd
+&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="step-11-packaging-the-vm"&gt;
 &lt;h2&gt;Step 11 - Packaging the VM&lt;/h2&gt;
 &lt;div class="section" id="create-metadata-json-file-inside-parallels-pvm-file-this-is-probably-in-documents-parallels"&gt;
 &lt;h3&gt;Create metadata.json file inside parallels .pvm file (this is probably in ~/Documents/Parallels/):&lt;/h3&gt;
 &lt;p&gt;The metadata.json file should look as follows:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-{&amp;quot;provider&amp;quot;: &amp;quot;parallels&amp;quot;}
-&lt;/pre&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;provider&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;parallels&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;After you've done the above you can then package the box using the
 following command:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-tar cvzf elcapitan64.box ./OS\ X\ 10.11.4.pvm ./metadata.json
-&lt;/pre&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;tar cvzf elcapitan64.box ./OS&lt;span class="se"&gt;\ &lt;/span&gt;X&lt;span class="se"&gt;\ &lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;.11.4.pvm ./metadata.json
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;After this is done you can instruct Vagrant to add as an available box
 as follows:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-vagrant box add elcapitan64 elcapitan64.box
-&lt;/pre&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;vagrant box add elcapitan64 elcapitan64.box
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;In a new directory you can then run &lt;tt class="docutils literal"&gt;vagrant init elcapitan64&lt;/tt&gt; and
 bring the machine up with &lt;tt class="docutils literal"&gt;vagrant up&lt;/tt&gt;&lt;/p&gt;
 &lt;p&gt;If Vagrant has issues authenticating with the box over SSH refer to the
