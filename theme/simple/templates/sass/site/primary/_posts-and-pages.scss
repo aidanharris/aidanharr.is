@@ -46,4 +46,8 @@
 	min-height: 50em !important;
 }
 
+#content div > div {
+	max-width: 100%;
+}
+
 @import "homepage.scss"

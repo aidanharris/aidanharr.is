@@ -687,6 +687,9 @@ nav.mdl-navigation.mdl-typography--body-1-force-preferred-font a {
 #primary.content-area {
   min-height: 50em !important; }
 
+#content div > div {
+  max-width: 100%; }
+
 .demo-blog__posts {
   max-width: 900px;
   padding: 0;

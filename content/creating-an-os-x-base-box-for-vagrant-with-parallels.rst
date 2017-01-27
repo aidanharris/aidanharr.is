@@ -32,13 +32,13 @@ Prerequisites
 Step 1 - Creating & Tuning VM Configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. raw:: html
+.. raw.. code-block:: bash html
 
    <figure>
 
 |Screenshot of the Parallels Virtual Machine creation.|
 
-.. raw:: html
+.. raw.. code-block:: bash html
 
    </figure>
 
@@ -55,13 +55,13 @@ need to.
 Step 2 - Installing OS X
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. raw:: html
+.. raw.. code-block:: bash html
 
    <figure>
 
 |Screenshot taken from the OS X El Capitan installation.|
 
-.. raw:: html
+.. raw.. code-block:: bash html
 
    </figure>
 
@@ -86,33 +86,33 @@ Step 5 - Disabling Firewall
 Ensure that the firewall is disabled (go to "System Preferences" -->
 "Security & Privacy" --> "Firewall")
 
-.. raw:: html
+.. raw.. code-block:: bash html
 
   <h4>
 
   Step 6 - Enabling Remote Login
 
-.. raw:: html
+.. raw.. code-block:: bash html
 
   </h4>
 
 Enable "Remote Login" (go to "System Preferences" --> "Sharing" --> Make
 sure "Remote Login" is checked for all users)
 
-.. raw:: html
+.. raw.. code-block:: bash html
 
   <h4>
 
   Step 7 - Downloading SSH Key Used for Authentication
 
-.. raw:: html
+.. raw.. code-block:: bash html
 
   </h4>
 
 Download the vagrant insecure ssh key which is used to obtain authorised
 access to the box:
 
-::
+.. code-block:: bash
 
     mkdir -p /Users/vagrant/.ssh
     chmod 0700 /Users/vagrant/.ssh
@@ -129,7 +129,7 @@ Set up password-less \`sudo\` access:
 
 Add or modify the following lines as necessary:
 
-::
+.. code-block:: bash
 
     Defaults env_keep += 'SSH_AUTH_SOCK'
     Defaults:vagrant !requiretty
@@ -149,7 +149,7 @@ Step 10 - Optimising the VM
 
 You can zero out free space using ``diskutil`` as follows:
 
-::
+.. code-block:: bash
 
     diskutil secureErase freespace 0 Macintosh HD
 
@@ -158,7 +158,7 @@ Doing the above produced some errors but YMMV.
 After the above is done you can power off the VM (``sudo halt``) and
 compress the HDD using Parallels as follows:
 
-::
+.. code-block:: bash
 
     prl_disk_tool compact --hdd /path/to/harddisk.hdd
 
@@ -170,21 +170,21 @@ Create metadata.json file inside parallels .pvm file (this is probably in ~/Docu
 
 The metadata.json file should look as follows:
 
-::
+.. code-block:: bash
 
     {"provider": "parallels"}
 
 After you've done the above you can then package the box using the
 following command:
 
-::
+.. code-block:: bash
 
     tar cvzf elcapitan64.box ./OS\ X\ 10.11.4.pvm ./metadata.json
 
 After this is done you can instruct Vagrant to add as an available box
 as follows:
 
-::
+.. code-block:: bash
 
     vagrant box add elcapitan64 elcapitan64.box
 
