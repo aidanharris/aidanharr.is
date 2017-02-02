@@ -1,5 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Aidan Harris - aidanharris</title><link href="https://aidanharr.is/" rel="alternate"></link><link href="https://aidanharr.is/feeds/aidanharris.atom.xml" rel="self"></link><id>https://aidanharr.is/</id><updated>2016-06-06T17:11:00+01:00</updated><entry><title>How Not To Use Docker</title><link href="https://aidanharr.is/how-not-to-use-docker.html" rel="alternate"></link><published>2016-06-06T17:11:00+01:00</published><updated>2016-06-06T17:11:00+01:00</updated><author><name>aidanharris</name></author><id>tag:aidanharr.is,2016-06-06:/how-not-to-use-docker.html</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="https://aidanharr.is/glossary/docker/"&gt;Docker&lt;/a&gt; is an amazing tool
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Aidan Harris - aidanharris</title><link href="https://aidanharr.is/" rel="alternate"></link><link href="https://aidanharr.is/feeds/aidanharris.atom.xml" rel="self"></link><id>https://aidanharr.is/</id><updated>2017-02-02T08:00:00+00:00</updated><entry><title>Mount CloneZilla Image</title><link href="https://aidanharr.is/mount-clonezilla-image.html" rel="alternate"></link><published>2017-02-02T08:00:00+00:00</published><updated>2017-02-02T08:00:00+00:00</updated><author><name>aidanharris</name></author><id>tag:aidanharr.is,2017-02-02:/mount-clonezilla-image.html</id><summary type="html">&lt;p&gt;The contents of this article are taken from &lt;a href="http://blog.christosoft.de/2012/05/mount-clonezilla-image-to-restore-single-file-browse"&gt;blog.christosoft.de&lt;/a&gt; which I'm referencing for future use.&lt;/p&gt;
+&lt;blockquote cite="http://blog.christosoft.de/2012/05/mount-clonezilla-image-to-restore-single-file-browse/" style="display: block;font-style: normal;letter-spacing: 0;font-weight: 400;font-size: 16px;margin: 0 auto;width: 75%;white-space: pre-wrap;"&gt;
+
+&lt;h3&gt;Mount clonezilla image to restore single file (browse)&lt;/h3&gt;
+
+Clonezilla is a fine tool to backup/restore/clone partitions or drives. It is very powerful, can handle both Linux and Windows partitions and so …&lt;/blockquote&gt;</summary><content type="html">&lt;p&gt;The contents of this article are taken from &lt;a href="http://blog.christosoft.de/2012/05/mount-clonezilla-image-to-restore-single-file-browse"&gt;blog.christosoft.de&lt;/a&gt; which I'm referencing for future use.&lt;/p&gt;
+&lt;blockquote cite="http://blog.christosoft.de/2012/05/mount-clonezilla-image-to-restore-single-file-browse/" style="display: block;font-style: normal;letter-spacing: 0;font-weight: 400;font-size: 16px;margin: 0 auto;width: 75%;white-space: pre-wrap;"&gt;
+
+&lt;h3&gt;Mount clonezilla image to restore single file (browse)&lt;/h3&gt;
+
+Clonezilla is a fine tool to backup/restore/clone partitions or drives. It is very powerful, can handle both Linux and Windows partitions and so on. If you do not know it, you should really give it a try. It is really free software (open source), which means it is also free to use for commercial purposes.
+
+By the way, if you want to backup/restore images of Windows partitions/drives, I’d also recommend DriveImage XML which is also very powerful yet simple (only free for private use). Windows 7 has also built-in backup and imaging tools, which you can give a try. But this post is about Clonezilla.
+
+One important feature that Clonezilla does not offer out of the box is browsing images to restore single files. You can only restore complete partitions or drives.
+
+But there is a way around this, which is discussed in this forum thread, although not perfect as it requires lots of time and disk space as well.
+
+The basic approach is to convert the whole image into a (probably huge) img-file that can be easily mounted. In the forum post linked above several different commands are discussed depending on your image file.
+Here I’d like to show you what worked for me.
+
+In my case, the file was compressed using gzip and it was an image of a linux partition (ext3). I used Ubuntu Linux to mount the image. The steps I took:
+
+Install partclone (sudo apt-get install partclone)
+Prepare an img-file somewhere where enough free disk space is available:
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="highlight kd"&gt;touch&lt;/span&gt;/dir-to-new-image/partition.img
+&lt;/pre&gt;&lt;/div&gt;
+
+You should have at least as much free disk space as the size of the image there.
+Convert the clonezilla-image into the img-file:
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="hightlight kd"&gt;sudo cat&lt;/span&gt; /dir-to-images/partition.ext3.ptcl-img.gz.*
+&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="highlight kd" style="background: transparent;"&gt;sudo gzip&lt;/span&gt;-d -c
+&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="highlight kd" style="background: transparent;"&gt;sudo partclone.restore&lt;/span&gt;-C -s - -O /dir-to-new-image/partition.img&lt;/pre&gt;&lt;/div&gt;
+
+(This is one line. Note the minus after -s. I overlooked it when I tried this first.)
+This will take some time, dependent on how big the image and how fast your drive(s).
+There are other commands in the forum thread for NTFS images and other compression formats.
+
+Mount the img-file:
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="highlight kd"&gt;sudo mount&lt;/span&gt;-o loop -t ext3 /dir-to-new-image/partition.img /mnt&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+Thanks a lot to all posters of the forum mentioned above for these hints, especially bfitzhugh, nutria007, ttguy and gaebriel!
+
+P.S.: It’s always good to have a (recent) backup 😉 One drive of mine just crashed after about two years in operation, so I know what I am talking about…
+
+Think about what pain it would be if the drive of your laptop / desktop would crash just right now. If you get a bad feeling thinking about this, you should make a backup now.
+&lt;/blockquote&gt;
+
+&lt;hr/&gt;
+
+&lt;p&gt;&lt;em&gt;NOTE: &lt;/em&gt; In my case I had to use the excellent &lt;a href="http://www.cgsecurity.org/wiki/TestDisk"&gt;testdisk&lt;/a&gt; to restore the NTFS boot sector. Without this the image wouldn't mount.&lt;/p&gt;</content></entry><entry><title>How Not To Use Docker</title><link href="https://aidanharr.is/how-not-to-use-docker.html" rel="alternate"></link><published>2016-06-06T17:11:00+01:00</published><updated>2016-06-06T17:11:00+01:00</updated><author><name>aidanharris</name></author><id>tag:aidanharr.is,2016-06-06:/how-not-to-use-docker.html</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="https://aidanharr.is/glossary/docker/"&gt;Docker&lt;/a&gt; is an amazing tool
 that's perfect for building Microservices. I'm still learning to use it
 and if I'm being honest, I quite like it. I could see its power from the
 onset. Docker is essentially a virtual machine (VM) without the overhead
