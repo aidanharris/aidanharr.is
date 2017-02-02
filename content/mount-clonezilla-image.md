@@ -14,13 +14,13 @@ The contents of this article are taken from [blog.christosoft.de](http://blog.ch
 
 <h3>Mount clonezilla image to restore single file (browse)</h3>
 
-Clonezilla is a fine tool to backup/restore/clone partitions or drives. It is very powerful, can handle both Linux and Windows partitions and so on. If you do not know it, you should really give it a try. It is really free software (open source), which means it is also free to use for commercial purposes.
+[Clonezilla](http://clonezilla.org/) is a fine tool to backup/restore/clone partitions or drives. It is very powerful, can handle both Linux and Windows partitions and so on. If you do not know it, you should really give it a try. It is really free software (open source), which means it is also free to use for commercial purposes.
 
-By the way, if you want to backup/restore images of Windows partitions/drives, I’d also recommend DriveImage XML which is also very powerful yet simple (only free for private use). Windows 7 has also built-in backup and imaging tools, which you can give a try. But this post is about Clonezilla.
+By the way, if you want to backup/restore images of Windows partitions/drives, I’d also recommend [DriveImage XML](http://www.runtime.org/driveimage-xml.htm) which is also very powerful yet simple (only free for private use). Windows 7 has also built-in backup and imaging tools, which you can give a try. But this post is about Clonezilla.
 
 One important feature that Clonezilla does not offer out of the box is browsing images to restore single files. You can only restore complete partitions or drives.
 
-But there is a way around this, which is discussed in this forum thread, although not perfect as it requires lots of time and disk space as well.
+But there is a way around this, which is [discussed in this forum thread](http://ubuntuforums.org/showthread.php?t=872832), although not perfect as it requires lots of time and disk space as well.
 
 The basic approach is to convert the whole image into a (probably huge) img-file that can be easily mounted. In the forum post linked above several different commands are discussed depending on your image file.
 Here I’d like to show you what worked for me.
