@@ -4,7 +4,7 @@
 
 &lt;h3&gt;Mount clonezilla image to restore single file (browse)&lt;/h3&gt;
 
-[Clonezilla](http://clonezilla.org/) is a fine tool to backup/restore/clone partitions or drives. It is very powerful, can handle both Linux and Windows …&lt;/blockquote&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">aidanharris</dc:creator><pubDate>Thu, 02 Feb 2017 08:00:00 +0000</pubDate><guid isPermaLink="false">tag:aidanharr.is,2017-02-02:/mount-clonezilla-image.html</guid></item><item><title>How Not To Use Docker</title><link>https://aidanharr.is/how-not-to-use-docker.html</link><description>&lt;p&gt;&lt;a class="reference external" href="https://aidanharr.is/glossary/docker/"&gt;Docker&lt;/a&gt; is an amazing tool
+&lt;a href="http://clonezilla.org/"&gt;Clonezilla&lt;/a&gt; is a fine tool to backup/restore/clone partitions or drives. It is very powerful, can handle both Linux and Windows partitions and so …&lt;/blockquote&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">aidanharris</dc:creator><pubDate>Thu, 02 Feb 2017 08:00:00 +0000</pubDate><guid isPermaLink="false">tag:aidanharr.is,2017-02-02:/mount-clonezilla-image.html</guid></item><item><title>How Not To Use Docker</title><link>https://aidanharr.is/how-not-to-use-docker.html</link><description>&lt;p&gt;&lt;a class="reference external" href="https://aidanharr.is/glossary/docker/"&gt;Docker&lt;/a&gt; is an amazing tool
 that's perfect for building Microservices. I'm still learning to use it
 and if I'm being honest, I quite like it. I could see its power from the
 onset. Docker is essentially a virtual machine (VM) without the overhead
