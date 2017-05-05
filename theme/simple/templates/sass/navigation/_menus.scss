@@ -1,88 +1,13 @@
 .main-navigation {
-	clear: both;
-	display: block;
-	float: left;
-	width: 100%;
-
-	ul {
-		display: none;
-		list-style: none;
-		margin: 0;
-		padding-left: 0;
-
-		ul {
-			box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
-			float: left;
-			position: absolute;
-			top: 1.5em;
-			left: -999em;
-			z-index: 99999;
-
-			ul {
-				left: -999em;
-				top: 0;
-			}
-
-			li {
-				&:hover > ul,
-				&.focus > ul {
-					left: 100%;
-				}
-			}
-
-			a {
-				width: 200px;
-			}
-
-			:hover > a,
-			.focus > a {
-			}
-
-			a:hover,
-			a.focus {
-			}
-		}
-
-		li:hover > ul,
-		li.focus > ul {
-			left: auto;
-		}
-	}
-	
-	li {
-		float: left;
-		position: relative;
-
-		&:hover > a,
-		&.focus > a {
-		}
-	}
-	
-	a {
-		display: block;
-		text-decoration: none;
-	}
-
-	.current_page_item > a,
-	.current-menu-item > a,
-	.current_page_ancestor > a,
-	.current-menu-ancestor > a {
-	}
+	z-index: 1;
+	box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+	-webkit-box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+	-moz-box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+	min-height: 3.375em;
 }
 
-/* Small menu. */
-.menu-toggle,
-.main-navigation.toggled ul {
-	display: block;
-}
-
-@media screen and (min-width: 37.5em) {
-	.menu-toggle {
-		display: none;
-	}
-	.main-navigation ul {
-		display: block;
-	}
+.main-navigation .navbar-toggler {
+	z-index: 1;
 }
 
 .comment-navigation,
@@ -104,50 +29,4 @@
 		text-align: right;
 		width: 50%;
 	}
-}
-
-.portfolio-header {
-  position: relative;
-  /*background-image: url(images/header-bg.jpg);*/
-}
-
-.portfolio-header .mdl-layout__header-row {
-  padding: 0;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.mdl-layout__title {
-  font-size: 14px;
-  text-align: center;
-  font-weight: 300;
-}
-
-.is-compact .mdl-layout__title span {
-  display: none;
-}
-
-.portfolio-logo-row {
-  min-height: 200px;
-}
-
-.is-compact .portfolio-logo-row {
-  min-height: auto;
-}
-
-.is-compact .portfolio-logo {
-	height: 2.95em !important;
-	width: 2.95em !important;
-	margin-bottom: 5.5em !important;
-}
-
-header.is-compact form#header-search {
-	position: relative;
-	top: -1.5em;
-}
-
-nav.mdl-navigation.mdl-typography--body-1-force-preferred-font a {
-    text-transform: uppercase;
-    font-weight: bold;
 }

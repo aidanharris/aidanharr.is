@@ -26,28 +26,3 @@
 	clear: both;
 	margin: 0 0 1.5em;
 }
-
-.wide-thumb {
-	min-height: 15em;
-}
-
-.mdl-card__media.quote {
-	background-color: #263238;
-}
-
-.entry-title.quote::before, .entry-title.quote::after {
-    content: '“';
-	display: block;
-    font-size: 3em;
-    margin-top: 0.5em;
-}
-
-#primary.content-area {
-	min-height: 50em !important;
-}
-
-#content div > div {
-	max-width: 100%;
-}
-
-@import "homepage.scss"

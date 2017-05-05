@@ -14,21 +14,15 @@ address {
 	margin: 0 0 1.5em;
 }
 
-pre, .highlight {
+pre {
 	background: $color__background-pre;
 	font-family: $font__pre;
 	@include font-size(0.9375);
-	line-height: $font__line-height-pre;
+	//line-height: $font__line-height-pre;
 	margin-bottom: 1.6em;
 	max-width: 100%;
 	overflow: auto;
-	padding: 0.75em;
-	counter-reset: line;
-}
-
-.highlight pre {
-	background: transparent;
-	padding: 0 !important;
+	padding: 1.6em;
 }
 
 code, kbd, tt, var {

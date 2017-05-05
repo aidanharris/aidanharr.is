@@ -7,15 +7,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
         <link rel="profile" href="http://gmpg.org/xfn/11" />
-        <!--
-            To Do:
-                * Work towards removing jQuery dependency
-        -->
-        <script async src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-        <style>
-            {{MATERIAL_DESIGN_LITE_CSS}}
-        </style>
-	    <script async src='https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/{{MATERIAL_DESIGN_LITE_VERSION}}/material.min.js'></script>
         <style>
             {{CSS}}
         </style>
@@ -71,17 +62,17 @@
                         "body { " +
                             "background: #424242 !important;" +
                         "}" +
-                        "body.darkTheme .entry-content {" +
+                        "body.darkTheme #primary .entry-content, #primary .card {" +
                             "background: #F2E9D2 !important;" +
                         "}" +
-                        "body.darkTheme .mdl-card__supporting-text {" + 
+                        "body.darkTheme #primary .card-footer {" + 
                             "background: rgba(242, 233, 210, 1) !important;" +
                         "}" +
-                        "body.darkTheme .mdl-card {" +
+                        "body.darkTheme #primary .entry-content {" +
                             "background: #F2E9D2 !important;" +
                         "}" +
-                        "body.darkTheme .mdl-card__media {" +
-                            "background: #3D0E00" +
+                        "body.darkTheme #primary .card-header {" +
+                            "background: #3D0E00;" +
                         "}";
                         oReq.open("GET", window.location.protocol + '//' + window.location.hostname + (window.location.port != 80 && window.location.port != 443 ? ':' + window.location.port : '') + '/theme/css/solarized-dark.css');
                         break;
@@ -93,6 +84,9 @@
                         document.getElementById('themeBG').innerHTML = "" +
                         "body { " +
                             "background: #fff !important;" +
+                        "}" +
+                        "body #primary .card-header {" +
+                            "background: rgb(68,138,255);" +
                         "}";
                         oReq.open("GET", window.location.protocol + '//' + window.location.hostname + (window.location.port != 80 && window.location.port != 443 ? ':' + window.location.port : '') + '/theme/css/solarized-light.css');
                         break;
@@ -149,165 +143,90 @@
         {% endblock head %}
 </head>
 
-<body style="position: fixed; top: 0;">
+<body>
     <script type="text/javascript">
         if (window.getCurrentTheme() === 'dark') {
             document.body.classList.add('darkTheme');
         }
     </script>
-        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-            <header class="mdl-layout__header mdl-layout__header--waterfall portfolio-header">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
-                        <form role="search" method="get" id="header-search" class="search-form" action="https://duckduckgo.com/" onsubmit="return (function(_this) { var searchTerm = _this.q.value; _this.q.value = ''; $('#header-search-button').click(); setTimeout(function(){Array.map(document.getElementsByTagName('header')[0].querySelectorAll('.is-dirty'), function(e){e.classList.remove('is-dirty');}); document.getElementById('q').blur(); window.location.href = 'https://duckduckgo.com/?q=' + encodeURIComponent('site: aidanharr.is ' + searchTerm);},500); return false; })(this);">
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-						<label class="mdl-button mdl-js-button mdl-button--icon" id="header-search-button" for="q" style="margin-left: -0.5em !important;" onclick="document.getElementById('q').style.borderColor = '#ccc';">
-							<i class="material-icons">search</i>
-						</label>
-						<div class="mdl-textfield__expandable-holder">
-							<input class="mdl-textfield__input" type="search" id="q" name="q" style="font-size: 14px;position: relative;right: 0.5em;background-color: transparent;border-color: transparent;" onfocus="this.style.borderColor = '#ccc';" onblur="setTimeout(function(){document.getElementById('q').style.borderColor = 'transparent';}, 325);" placeholder="Powered by DuckDuckGo&hellip;">
-						</div>
-					</div>
-				</form>
-			</div>
-            <div class="mdl-layout__header-row portfolio-logo-row">
-                <span class="mdl-layout__title">
-                    <a href="/">
-                        <span class="portfolio-logo" style="display: block;background: url('data:image/svg+xml;base64,{{ AVATAR }}') 50% no-repeat;background-size: cover;  border: 0.25em solid #fff;border-radius: 100%;height: 150px;width: 150px;margin: auto auto 10px;">
-                            <span class="screen-reader-text">{{SITENAME}}</span>
-                        </span>
-                    </a>
-                </span>
-            </div>
-            <div class="mdl-layout__header-row portfolio-navigation-row mdl-layout--large-screen-only">
-            <nav id="menu" class="mdl-navigation mdl-typography--body-1-force-preferred-font">
+    <div class="navbar navbar-toggleable-md fixed-top navbar-light bg-primary" style="min-height: 63px;">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="z-index: 11;cursor: pointer;">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <span style="display: block; position: absolute;width: 100%;left: 0;top: 0;text-align: center;margin: auto;">
+            <a href="/" style="display: inline-block;"><span class="portfolio-logo" style="display: block;cursor: pointer; z-index: 10;position: relative; top: 1em; background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOC4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4KCjxzdmcKICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIgogICB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIgogICB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIKICAgdmVyc2lvbj0iMS4xIgogICBpZD0iTGF5ZXJfMSIKICAgeD0iMHB4IgogICB5PSIwcHgiCiAgIHZpZXdCb3g9IjAgMCA0MjcuNTAzOTEgNDI2LjkwMzU5IgogICBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA2MTIgNzkyIgogICB4bWw6c3BhY2U9InByZXNlcnZlIgogICBpbmtzY2FwZTp2ZXJzaW9uPSIwLjkxIHIxMzcyNSIKICAgc29kaXBvZGk6ZG9jbmFtZT0iYXZhdGFyLnN2ZyIKICAgd2lkdGg9IjQyNy41MDM5MSIKICAgaGVpZ2h0PSI0MjYuOTAzNTkiPjxtZXRhZGF0YQogICAgIGlkPSJtZXRhZGF0YTE3Ij48cmRmOlJERj48Y2M6V29yawogICAgICAgICByZGY6YWJvdXQ9IiI+PGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+PGRjOnR5cGUKICAgICAgICAgICByZGY6cmVzb3VyY2U9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPjxkYzp0aXRsZSAvPjwvY2M6V29yaz48L3JkZjpSREY+PC9tZXRhZGF0YT48ZGVmcwogICAgIGlkPSJkZWZzMTUiIC8+PHNvZGlwb2RpOm5hbWVkdmlldwogICAgIHBhZ2Vjb2xvcj0iI2ZmZmZmZiIKICAgICBib3JkZXJjb2xvcj0iIzY2NjY2NiIKICAgICBib3JkZXJvcGFjaXR5PSIxIgogICAgIG9iamVjdHRvbGVyYW5jZT0iMTAiCiAgICAgZ3JpZHRvbGVyYW5jZT0iMTAiCiAgICAgZ3VpZGV0b2xlcmFuY2U9IjEwIgogICAgIGlua3NjYXBlOnBhZ2VvcGFjaXR5PSIwIgogICAgIGlua3NjYXBlOnBhZ2VzaGFkb3c9IjIiCiAgICAgaW5rc2NhcGU6d2luZG93LXdpZHRoPSIxODM4IgogICAgIGlua3NjYXBlOndpbmRvdy1oZWlnaHQ9Ijk1NCIKICAgICBpZD0ibmFtZWR2aWV3MTMiCiAgICAgc2hvd2dyaWQ9ImZhbHNlIgogICAgIGZpdC1tYXJnaW4tdG9wPSIwIgogICAgIGZpdC1tYXJnaW4tbGVmdD0iMCIKICAgICBmaXQtbWFyZ2luLXJpZ2h0PSIwIgogICAgIGZpdC1tYXJnaW4tYm90dG9tPSIwIgogICAgIGlua3NjYXBlOnpvb209IjEuMTkxOTE5MiIKICAgICBpbmtzY2FwZTpjeD0iMzk0LjkyOTA0IgogICAgIGlua3NjYXBlOmN5PSIyOTQuMTQ1MDkiCiAgICAgaW5rc2NhcGU6d2luZG93LXg9IjAiCiAgICAgaW5rc2NhcGU6d2luZG93LXk9IjI3IgogICAgIGlua3NjYXBlOndpbmRvdy1tYXhpbWl6ZWQ9IjEiCiAgICAgaW5rc2NhcGU6Y3VycmVudC1sYXllcj0iTGF5ZXJfMSIgLz48cGF0aAogICAgIGQ9Im0gLTk2LjM5NjA4Myw0NjQuNDAwNzIgYyAxOTguNjAwMDAzLDAgMzk3LjMwMDAwMywwIDU5NS45MDAwMDMsMCAxMi45LDAgMTIuOSwwIDEyLjksLTEyLjkgMCwtMTY3LjkgMCwtMzM1LjggMCwtNTAzLjU5OTk5NSAyLjksLTAuNiAxLjgsMS42IDEuOCwyLjggMCwxNzAuMjk5OTk1IDAsMzQwLjY5OTk5NSAwLjIsNTEwLjk5OTk5NSAwLDYuNSAtMy42LDQuNiAtNi42LDQuNiAtNjkuMiwwLjEgLTEzOC40LDAgLTIwNy42LDAgLTEyOS41LDAgLTI1OC45MDAwMDMsMCAtMzg4LjQwMDAwMywtMC4xIC0yLjYsLTAuMSAtNi4yLDIgLTguMiwtMS44IHoiCiAgICAgaWQ9InBhdGgzIgogICAgIGlua3NjYXBlOmNvbm5lY3Rvci1jdXJ2YXR1cmU9IjAiCiAgICAgc3R5bGU9ImZpbGw6I2ZlZmVmZSIgLz48cGF0aAogICAgIGQ9Im0gNDI3LjUwMzkyLDIxNC4yMDA3MiBjIC0yLjgsMTE5LjkgLTk1LjIsMjEzLjMgLTIxNSwyMTIuNyAtMTIwLjAwMDAwMywtMC42IC0yMTMuMjAwMDAyNzgsLTk0LjkgLTIxMi41MDAwMDI3OCwtMjE0LjcgQyAwLjcwMzkxNzIyLDkyLjYwMDcyNSA5NC41MDM5MTcsLTAuMjk5Mjc1NDcgMjE0LjAwMzkyLDcuMjQ1MjY0ZS00IDMzMy45MDM5MiwwLjMwMDcyNDUzIDQyNS41MDM5Miw5NC40MDA3MjUgNDI3LjUwMzkyLDIxNC4yMDA3MiBaIgogICAgIGlkPSJwYXRoNSIKICAgICBpbmtzY2FwZTpjb25uZWN0b3ItY3VydmF0dXJlPSIwIgogICAgIHN0eWxlPSJmaWxsOiNiMWIxYjEiIC8+PHBhdGgKICAgICBkPSJtIDMwNi4wMDM5MiwyMTMuMTAwNzIgYyAwLDE0LjcgMC4xLDI5LjUgLTAuMSw0NC4yIC0wLjEsMy43IDIuNCw5LjcgLTQuOSw5LjQgLTcuMiwtMC4yIC00LjQsLTYuMiAtNC41LC05LjkgLTAuNCwtMTAuMSAtMC42LC0yMC4zIDAsLTMwLjQgMC41LC04IC0yLjcsLTkuOSAtMTAsLTkuNiAtMTQuNCwwLjUgLTI4LjksMC41IC00My4zLDAgLTcsLTAuMiAtOS45LDEuNSAtOS41LDkuMSAwLjYsMTEuMyAwLjEsMjIuNyAwLjIsMzQuMSAwLDMuNSAwLjEsNi43IC01LDYuOSAtNS4zLDAuMSAtNiwtMi43IC02LC02LjkgMC4xLC0zMSAwLjEsLTYyIDAsLTkzIDAsLTMuOSAwLC03LjMgNS42LC03LjMgNS43LDAgNS40LDMuNiA1LjQsNy40IDAsMTAuNCAwLjIsMjAuOSAtMC4xLDMxLjMgLTAuMSw1LjIgMS4xLDcuOSA3LjEsNy44IDE2LjMsLTAuMyAzMi41LC0wLjIgNDguOCwwIDUuNCwwLjEgNi44LC0yLjMgNi43LC03LjIgLTAuMiwtMTAuNyAtMC4xLC0yMS41IC0wLjEsLTMyLjIgMCwtMy41IC0wLjIsLTcgNC45LC03IDUuMiwwLjEgNC43LDMuOCA0LjcsNy4xIDAuMSwxNS41IDAuMSwzMC44IDAuMSw0Ni4yIHoiCiAgICAgaWQ9InBhdGg3IgogICAgIGlua3NjYXBlOmNvbm5lY3Rvci1jdXJ2YXR1cmU9IjAiCiAgICAgc3R5bGU9ImZpbGw6I2ViZWJlYiIgLz48cGF0aAogICAgIGQ9Im0gMTY0LjcwMzkyLDE1OS45MDA3MiBjIDQuMiwtMC43IDUuOSwxLjYgNy4yLDUuMiAxMS42LDMxLjMgMjMuMyw2Mi42IDM0LjgsOTMuOSAwLjksMi4zIDQuNSw1LjkgLTAuMSw3LjUgLTMuNiwxLjMgLTguMSwxLjIgLTkuOSwtMy45IC0yLjQsLTYuOSAtNS4xLC0xMy44IC03LjIsLTIwLjggLTEuOCwtNS44IC00LjcsLTguNiAtMTEuMiwtOC4yIC05LjUsMC41IC0xOSwwLjUgLTI4LjUsMCAtNS42LC0wLjMgLTguMywxLjkgLTEwLDcgLTIuMiw3IC00LjksMTMuOSAtNy41LDIwLjcgLTEuMSwyLjkgLTIuMyw1LjYgLTYuMyw1LjYgLTQuNCwwIC03LjIsLTAuMiAtNSwtNiAxMi4xLC0zMi4xIDI0LC02NC4zIDM1LjksLTk2LjQgMS40LC0zLjggNCwtNS4yIDcuOCwtNC42IHoiCiAgICAgaWQ9InBhdGg5IgogICAgIGlua3NjYXBlOmNvbm5lY3Rvci1jdXJ2YXR1cmU9IjAiCiAgICAgc3R5bGU9ImZpbGw6I2ViZWJlYiIgLz48cGF0aAogICAgIGQ9Im0gMTY0LjMwMzkyLDE3My4wMDA3MiBjIDYuNCwxNy40IDExLjgsMzIuMSAxNy4xLDQ2LjkgMS4yLDMuMyAtMC41LDQuNSAtMy42LDQuNiAtOS4yLDAgLTE4LjMsMCAtMjcuNSwwLjEgLTMuNiwwLjEgLTQuMywtMS42IC0zLjIsLTQuNSA1LjQsLTE0LjkgMTAuOCwtMjkuNiAxNy4yLC00Ny4xIHoiCiAgICAgaWQ9InBhdGgxMSIKICAgICBpbmtzY2FwZTpjb25uZWN0b3ItY3VydmF0dXJlPSIwIgogICAgIHN0eWxlPSJmaWxsOiNiMWIxYjEiIC8+PC9zdmc+') 50% no-repeat;background-size: cover;  border: 0.25em solid #fff;border-radius: 100%;height: 50px;width: 50px;margin: auto auto 10px" onclick="window.location.href = '/';">
+                <span class="screen-reader-text">Aidan Harris</span>
+            </span></a>
+      </span>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav mr-auto" style="z-index: 99999999;">
+            <li class="nav-item">&nbsp;</li>
             {% if DISPLAY_MAIN_NAVIGATION %}
-                {% for i in range(0, MAIN_NAVIGATION|length) %}
-                    {% if MAIN_NAVIGATION[i]|length == 1 %}
-                        <a href="{{ MAIN_NAVIGATION[i][0][1] }}" class="mdl-navigation__link">{{ MAIN_NAVIGATION[i][0][0] }}</a>
-                    {% else %}
-                    <a href="#" class="mdl-navigation__link submenu-heading">{{MAIN_NAVIGATION_PAGES[i]}}</a>
-                        <nav class="mdl-navigation submenu" style="display: none;">
-                        {% for name, href in MAIN_NAVIGATION[i] %}
-                            <a href="{{ href }}" class="mdl-navigation__link">{{ name }}</a>
-                        {% endfor %}
-                        </nav>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-            {% if DISPLAY_PAGES_ON_MENU %}
-            {% for p in pages %}
-                <li{% if p == page %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a></li>
+            {% for i in range(0, MAIN_NAVIGATION|length) %}
+              {% if MAIN_NAVIGATION[i]|length == 1 %}
+                <li class="nav-item">
+                  <a href="{{ MAIN_NAVIGATION[i][0][1] }}" class="nav-link">{{ MAIN_NAVIGATION[i][0][0] }}</a>
+                </li>
+              {% else %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink{{i}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{MAIN_NAVIGATION_PAGES[i]}}
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink{{i}}">
+                    {% for name, href in MAIN_NAVIGATION[i] %}
+                      <a href="{{ href }}" class="dropdown-item">{{ name }}</a>
+                    {% endfor %}
+                  </div>
+                </li>
+              {% endif %}
             {% endfor %}
             {% else %}
+            {% endif %}
+            {% if DISPLAY_PAGES_ON_MENU %}
+              {% for p in pages %}
+                <li{% if p == page %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a></li>
+              {% endfor %}
+            {% else %}
             {% if DISPLAY_CATEGORIES_ON_MENU %}
-                {% for cat, null in categories %}
+              {% for cat, null in categories %}
                 <li{% if cat == category %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
-                {% endfor %}
+              {% endfor %}
             {% endif %}
             {% endif %}
-            </nav><!-- /#menu -->
-            </div>
-            </header><!-- /#banner -->
-            {% if DISPLAY_MAIN_NAVIGATION or DISPLAY_PAGES_ON_MENU %}
-            <div class="mdl-layout__drawer mdl-layout--small-screen-only" id="myTest" aria-hidden="true">
-                <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
-                    {% if DISPLAY_MAIN_NAVIGATION %}
-                        {% for i in range(0, MAIN_NAVIGATION|length) %}
-                            {% if MAIN_NAVIGATION[i]|length == 1 %}
-                                <a href="{{ MAIN_NAVIGATION[i][0][1] }}" class="mdl-navigation__link">{{ MAIN_NAVIGATION[i][0][0] }}</a>
-                            {% else %}
-                            <a href="#" class="mdl-navigation__link submenu-heading">{{MAIN_NAVIGATION_PAGES[i]}}</a>
-                                <nav class="mdl-navigation submenu" style="display: none;">
-                                {% for name, href in MAIN_NAVIGATION[i] %}
-                                    <a href="{{ href }}" class="mdl-navigation__link">{{ name }}</a>
-                                {% endfor %}
-                                </nav>
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
-                    {% if DISPLAY_PAGES_ON_MENU %}
-                        {% for p in pages %}
-                            <li{% if p == page %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a></li>
-                        {% endfor %}
-                        {% else %}
-                        {% if DISPLAY_CATEGORIES_ON_MENU %}
-                            {% for cat, null in categories %}
-                            <li{% if cat == category %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
-                            {% endfor %}
-                        {% endif %}
-                    {% endif %}
-                </nav>
-            </div>
-            {% endif %}
-            <script defer>
-                /*
-                    To Do:
-                        * Refactor this into a function AddJquery that can take an array of CDN hosted jQueries and a callback function
-                        * Iterate over the array and try to add jQuery to the page.
-                        * Upon success call the callback function if it is a function
-                        * Bonus Points: Use a promise instead...
-                        * Even more bonus points: Remove the jQuery dependency in the first place!
-                */
-                (function(){
-                    var attempts = 0;
-                    var _int = setInterval(function(){
-                        if (typeof window.jQuery === 'function' && typeof window.$ ==='function') {
-                            clearInterval(_int);
-                            $(document).ready(function(){
-                                $(".submenu-heading").click(function(e){
-                                    e.preventDefault();
-                                    $(e.target.nextElementSibling).toggle('show');
-                                    $(e.target).blur();
-                                });});
-                        }
-                        if (attempts>9) {
-                            clearInterval(_int);
-                            console.error('No jQuery! To Do: Add it from a CDN here...');
-                        }
-                        attempts++;
-                    }, 100);
-                }());
-            </script>
-            <main id="content" class="mdl-layout__content site-content">
+          </ul>
+
+          <ul class="nav navbar-nav ml-auto" style="z-index: 99999999;">
+            <li class="nav-item">
+              <form id="mainSearch" class="form-inline" style="z-index: 13;" method="get" action="https://duckduckgo.com" onsubmit="this.children.s.disabled = true; this.children.q.value = 'site: https://aidanharr.is ' + this.children.s.value; return true;">
+                <input type="hidden" id="q" name="q" />
+                <input class="form-control mr-sm-2" placeholder="Search" id="s" name="s" type="text" />
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+    <div class="container" style="margin-top: 7em;">
+    <main id="content" class="mdl-layout__content site-content">
             {% block content %}
             {% endblock %}
-            {% block footer %}
-               {% include "footer.html" %}
-            {% endblock %}
-            </main>
-            {% block footerContentTooSmallForMain %}
-            {% endblock %}
-        </div>
+    </main>
+    </div>
+    {% block footer %}
+        {% include "footer.html" %}
+    {% endblock %}
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en'/>
-        <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'/>
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/devicons/{{DEVICONS_VERSION}}/css/devicons.min.css'/>
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/{{FONT_AWESOME_VERSION}}/css/font-awesome.min.css'/>
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         <script>
-        (function() {
-            var _MaterialLayout = setInterval(function() {
-            if (!window.MaterialLayout) { return; }
-            clearTimeout(_MaterialLayout);
-            // Monkey Patch MaterialLayout headerClickHandler
-            MaterialLayout.prototype.headerClickHandler_ = function(e) {
-                if(document.getElementsByTagName('main')[0].scrollTop > 0) {
-                    console.log(e.target);
-                    if((e.target.id !== 'q' && e.target.parentNode.id !== 'header-search-button') && e.target.textContent !== '') {
-                        if (this.header_.classList.contains(this.CssClasses_.IS_COMPACT)) {
-                            document.getElementsByTagName('main')[0].scrollTop = 0;
-                            //this.header_.classList.remove(this.CssClasses_.IS_COMPACT);
-                            //this.header_.classList.add(this.CssClasses_.IS_ANIMATING);
-                        }
-                    }
-                }
-                /*if((e.target.id !== 'q' && e.target.parentNode.id !== 'header-search-button') && e.target.textContent !== '') {
-                    if (this.header_.classList.contains(this.CssClasses_.IS_COMPACT)) {
-                        this.header_.classList.remove(this.CssClasses_.IS_COMPACT);
-                        this.header_.classList.add(this.CssClasses_.IS_ANIMATING);
-                    }
-                }*/
-            };
-            }, 50);
-        })();
+          window.addEventListener('beforeunload', function() {
+            // Re-enable the search field that was disabled to prevent it from being
+            // submitted (the hidden field is submitted instead)
+            document.getElementById('mainSearch').children.s.disabled = false;
+          });
         </script>
 </body>
 </html>

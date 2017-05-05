@@ -8,7 +8,7 @@
 :status: published
 :thumbnail: uploads/2015/06/640px-Raspberry_Pi_3_Model_B.png
 :headingTheme: custom
-:customTheme: background: rgba(0,0,0,0.5);border: 1px solid rgba(0,0,0,0.5);border-radius: 2.5%;
+:customTheme: background: rgba(0,0,0,0.5);border: 1px solid rgba(0,0,0,0.5);border-radius: 2.5%;color: #fafafa;
 :headingIconFont: fa fa-linux
 
 Recently I bought myself a `Raspberry Pi

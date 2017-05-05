@@ -1,8 +1,27 @@
 .widget {
-	margin: 0 0 1.5em;
+  margin: 0 0 1.5em;
 
-	/* Make sure select elements fit in widgets. */
-	select {
-		max-width: 100%;
-	}
+  /* Make sure select elements fit in widgets. */
+  select {
+    max-width: 100%;
+  }
+}
+
+.widget-area {
+  background: initial;
+}
+
+.note-editor.note-frame .note-editing-area .note-editable {
+    min-height: 15rem;
+}
+
+.note-popover {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -999999px !important;
 }
