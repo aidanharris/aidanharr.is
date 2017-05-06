@@ -163,7 +163,7 @@ DARK_HEADING_COLOUR = "#424242";
 #     since dumping tonnes of lines of CSS feels a bit dirty. But
 #     hey, if it keeps Google happy and gives me a perfect score
 #     I'm not complaining ;)
-with open(THEME + "/static/css/style.css", "r") as css:
+with open(THEME + "/static/css/style.min.css", "r") as css:
     CSS = css.read()
 # Base64 encoded svg to inline in page headers for performance reasons
 with open(THEME + "/templates/avatar.svg", "rb") as avatar:
