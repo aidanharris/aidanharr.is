@@ -27,12 +27,8 @@
 {% endblock %}
 
 {% block content %}
-<section id="content" class="body demo-blog__posts mdl-grid">
-  <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col" style="background-color: #F5F5F5;">
-  <header class="mdl-card__media {% if article.postformat %}{% if article.postformat == 'quote' %}quote {% endif %}{% endif %}mdl-color-text--grey-50 featured-post-image" style="{% if article.thumbnail %}background:url('{{ article.thumbnail }}') no-repeat;background-size: cover;{% endif %}">
-    <!--
-    <h3 class="entry-title" style=""><span class="devicons devicons-docker" style="font-size: 2em; display: inline-block; position: relative; top: 0.25em;"></span>&nbsp;How Not To Use Docker</h3>
-    -->
+<section id="content" class="body container-fluid">
+  <div class="card" style="background-color: #F5F5F5;">
     {% if article.headingtheme %}
         {% if article.headingtheme == 'dark' %}
             {% set headingThemeVariant = ('color: ' + DARK_HEADING_COLOUR + ' !important;') %}
@@ -48,43 +44,19 @@
     {% else %}
         {% set headingThemeVariant = ('color: ' + LIGHT_HEADING_COLOUR + ' !important;') %}
     {% endif %}
-    <h2 class="entry-title{% if article.postformat %}{% if article.postformat == 'quote' %} quote {% endif %}{% endif %}" style="{{ headingThemeVariant }}position: relative;top: 1em;font-size: 34px;">
-      <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}" style="{{ headingThemeVariant }}">{% if article.headingiconfont %}<span class="{{article.headingiconfont}}"
-      style="
-      {% if 'devicons' in article.headingiconfont %}
-        font-size: 2em;
-        display: inline-block;
-        position: relative;
-        top: 0.25em;
-      {% endif %}"></span>{% endif %}{{ article.title }}</a>
-    </h2>
+    {% if article.thumbnail %}
+        <img class="card-img" style="height: 200px; width: 100%; display: block;" src="{{ article.thumbnail }}" alt="Card image">
+        <div class="card-img-overlay">
+            <h3 class="card-title" style="{{ headingThemeVariant }}"><a href="{{ article.url }}" rel="bookmark" title="{{ article.title }}" style="color: inherit;">{% if article.headingiconfont %}<span class="{{article.headingiconfont}}" style="{% if 'devicons' in article.headingiconfont %}font-size: 2em; display: inline-block; position: relative; top: 0.25em;{% endif %}"></span>{% endif %}{% if article.beforeheading %}{{ article.beforeheading }}{% endif %}{{ article.title }}</a></h3>
+        </div>
+    {% else %}
+        <div class="card-block card-header" style="height: 200px;">
+            <h3 class="card-title" style="{{ headingThemeVariant }}"><a href="{{ article.url }}" rel="bookmark" title="{{ article.title }}" style="color: inherit;">{% if article.headingiconfont %}<span class="{{article.headingiconfont}}" style="{% if 'devicons' in article.headingiconfont %}font-size: 2em; display: inline-block; position: relative; top: 0.25em;{% endif %}"></span>{% endif %}{% if article.beforeheading %}{{ article.beforeheading }}{% endif %}{{ article.title }}</a></h3>   
+        </div>
+    {% endif %}
  {% import 'translations.html' as translations with context %}
  {{ translations.translations_for(article) }}
-  </header>
-  <!--
-		<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-			<div class="minilogo"></div>
-			<div>
-				<strong><?php echo get_the_author(); ?></strong>
-				<span><?php aidanharris_material_design_posted_on(); ?></span>
-			</div>
-			<div class="section-spacer"></div>
-			<div class="meta__favorites">
-			425 <i class="material-icons" role="presentation">favorite</i>
-				<span class="visuallyhidden">favorites</span>
-			</div>
-			<div>
-			<i class="material-icons" role="presentation">bookmark</i>
-				<span class="visuallyhidden">bookmark</span>
-			</div>
-			<div>
-			<i class="material-icons" role="presentation">share</i>
-				<span class="visuallyhidden">share</span>
-			</div>
-		</div>
-  -->
   <footer class="post-info mdl-color-text--grey-700 mdl-card__supporting-text meta">
-    <div class="minilogo"></div>
     <div>
         <span>
             <span class="posted-on">Posted on <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark">
@@ -100,7 +72,7 @@
         </span>
     </div>
   </footer><!-- /.post-info -->
-  <div class="entry-content mdl-color-text--grey-700 mdl-card__supporting-text" style="position: relative;top: -1.47rem;">
+  <div class="entry-content container-fluid">
     {{ article.content }}
   </div><!-- /.entry-content -->
   {% if article.commentsopen == False or article.commentsopen == 'False' %}

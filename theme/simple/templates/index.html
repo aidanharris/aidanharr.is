@@ -47,7 +47,7 @@
             <h3 class="card-title" style="{{ headingThemeVariant }}"><a href="{{ article.url }}" rel="bookmark" title="{{ article.title }}" style="color: inherit;">{% if article.headingiconfont %}<span class="{{article.headingiconfont}}" style="{% if 'devicons' in article.headingiconfont %}font-size: 2em; display: inline-block; position: relative; top: 0.25em;{% endif %}"></span>{% endif %}{% if article.beforeheading %}{{ article.beforeheading }}{% endif %}{{ article.title }}</a></h3>
         </div>
         {% else %}
-        <div class="card-block card-header {{ headingThemeVariant }}" style="height: 200px;">
+        <div class="card-block card-header" style="height: 200px;">
             <h3 class="card-title" style="{{ headingThemeVariant }}"><a href="{{ article.url }}" rel="bookmark" title="{{ article.title }}" style="color: inherit;">{% if article.headingiconfont %}<span class="{{article.headingiconfont}}" style="{% if 'devicons' in article.headingiconfont %}font-size: 2em; display: inline-block; position: relative; top: 0.25em;{% endif %}"></span>{% endif %}{% if article.beforeheading %}{{ article.beforeheading }}{% endif %}{{ article.title }}</a></h3>   
         </div>
         {% endif %}
@@ -57,7 +57,7 @@
         </div>
         -->
         {% if i > 1 %}
-        <div class="entry-content card-block">
+        <div class="entry-content card-block" style="z-index: 13;">
             {{ article.summary }}
 
             <a href="{{ article.url }}">Read More&hellip;</a>

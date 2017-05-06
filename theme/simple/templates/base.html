@@ -68,10 +68,10 @@
                         "body.darkTheme #primary .card-footer {" + 
                             "background: rgba(242, 233, 210, 1) !important;" +
                         "}" +
-                        "body.darkTheme #primary .entry-content {" +
+                        "body.darkTheme #primary .entry-content, #content .card {" +
                             "background: #F2E9D2 !important;" +
                         "}" +
-                        "body.darkTheme #primary .card-header {" +
+                        "body.darkTheme #primary .card-header, #content .card-header {" +
                             "background: #3D0E00;" +
                         "}";
                         oReq.open("GET", window.location.protocol + '//' + window.location.hostname + (window.location.port != 80 && window.location.port != 443 ? ':' + window.location.port : '') + '/theme/css/solarized-dark.css');
@@ -85,7 +85,7 @@
                         "body { " +
                             "background: #fff !important;" +
                         "}" +
-                        "body #primary .card-header {" +
+                        "body #primary .card-header, #content .card-header {" +
                             "background: rgb(68,138,255);" +
                         "}";
                         oReq.open("GET", window.location.protocol + '//' + window.location.hostname + (window.location.port != 80 && window.location.port != 443 ? ':' + window.location.port : '') + '/theme/css/solarized-light.css');
