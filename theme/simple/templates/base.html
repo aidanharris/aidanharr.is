@@ -222,11 +222,18 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         <script>
-          window.addEventListener('beforeunload', function() {
-            // Re-enable the search field that was disabled to prevent it from being
-            // submitted (the hidden field is submitted instead)
-            document.getElementById('mainSearch').children.s.disabled = false;
-          });
+        'use strict';
+        (function() {
+          var reEnableSearch = function () {
+                    // Re-enable the search field that was disabled to prevent it from being
+                    // submitted (the hidden field is submitted instead)
+                    document.getElementById('mainSearch').children.s.disabled = false;
+          }
+          var _events = ['beforeunload','unload','pagehide'];
+          for (var i = 0; i < _events.length; i++) {
+            window.addEventListener(_events[i], reEnableSearch);
+          }
+        })();
         </script>
 </body>
 </html>
