@@ -1,5 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Aidan Harris - aidanharris</title><link href="https://aidanharr.is/" rel="alternate"></link><link href="https://aidanharr.is/feeds/aidanharris.atom.xml" rel="self"></link><id>https://aidanharr.is/</id><updated>2017-02-02T08:00:00+00:00</updated><entry><title>Mount CloneZilla Image</title><link href="https://aidanharr.is/mount-clonezilla-image.html" rel="alternate"></link><published>2017-02-02T08:00:00+00:00</published><updated>2017-02-02T08:00:00+00:00</updated><author><name>aidanharris</name></author><id>tag:aidanharr.is,2017-02-02:/mount-clonezilla-image.html</id><summary type="html">&lt;p&gt;The contents of this article are taken from &lt;a href="http://blog.christosoft.de/2012/05/mount-clonezilla-image-to-restore-single-file-browse"&gt;blog.christosoft.de&lt;/a&gt; which I'm referencing for future use.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Aidan Harris - aidanharris</title><link href="https://aidanharr.is/" rel="alternate"></link><link href="https://aidanharr.is/feeds/aidanharris.atom.xml" rel="self"></link><id>https://aidanharr.is/</id><updated>2017-05-07T11:00:00+01:00</updated><entry><title>Installing Dotnet Core on Arch Linux</title><link href="https://aidanharr.is/installing-dotnet-core-on-arch.html" rel="alternate"></link><published>2017-05-07T11:00:00+01:00</published><updated>2017-05-07T11:00:00+01:00</updated><author><name>aidanharris</name></author><id>tag:aidanharr.is,2017-05-07:/installing-dotnet-core-on-arch.html</id><summary type="html">&lt;article style="display: block;font-style: normal;letter-spacing: 0;font-weight: 400;font-size: 16px;margin: 0 auto;width: 75%;white-space: pre-wrap;"&gt;
+Installing and running dotnet core on ArchLinux is a bit of a pain. Thankfully there are some packages in the &lt;a href="https://aur.archlinux.org/packages/?K=dotnet%2D"&gt;AUR&lt;/a&gt; which slightly ease the process.
+
+&lt;h3&gt;Re-Compiling OpenSSL&lt;/h3&gt;
+
+Arch has removed support for openssl-v3 compatibility. This means you will need a patched version of OpenSSL before you even do anything …&lt;/article&gt;</summary><content type="html">&lt;article style="display: block;font-style: normal;letter-spacing: 0;font-weight: 400;font-size: 16px;margin: 0 auto;width: 75%;white-space: pre-wrap;"&gt;
+Installing and running dotnet core on ArchLinux is a bit of a pain. Thankfully there are some packages in the &lt;a href="https://aur.archlinux.org/packages/?K=dotnet%2D"&gt;AUR&lt;/a&gt; which slightly ease the process.
+
+&lt;h3&gt;Re-Compiling OpenSSL&lt;/h3&gt;
+
+Arch has removed support for openssl-v3 compatibility. This means you will need a patched version of OpenSSL before you even do anything else. Luckily this is easy enough to do. Install &lt;a href="https://aur.archlinux.org/packages/customizepkg-git/"&gt;customizepkg-git&lt;/a&gt; from the AUR. Once customizepkg is installed add the following to &lt;code&gt;/etc/customizepkg.d/openssl&lt;/code&gt;:
+
+&lt;code&gt;
+replace#global#no-ssl3-method#zlib
+replace#global#no-ssl3#zlib
+&lt;/code&gt;
+
+Now patch openssl as follows:
+
+&lt;code&gt;yaourt -S openssl&lt;/code&gt;
+
+&lt;h3&gt;Install Dotnet Core (sdk, coreclr and cli)&lt;/h3&gt;
+
+&lt;code&gt;pacaur -S --needed icu icu58 libunwind lldb dotnet dotnet-cli dotnet-sdk&lt;/code&gt;
+
+&lt;h3&gt;Testing Installation&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;
+mkdir -p /tmp/dotnet
+cd /tmp/dotnet
+export DOTNET_CLI_TELEMETRY_OPTOUT=1 # You're going to want to add this to your shell's rc file
+dotnet new console
+dotnet restore
+dotnet build
+dotnet run
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;Troubleshooting&lt;/h3&gt;
+
+    &lt;h4&gt;Object reference not set to an instance of an object&lt;/h4&gt;
+
+    This can be fixed by removing the templating directory as follows:
+
+    &lt;code&gt;rm -rf ~/.templateengine&lt;/code&gt;
+
+    &lt;a href="https://github.com/dotnet/templating/issues/657"&gt;dotnet/templating#657&lt;/a&gt;
+
+&lt;/article&gt;</content></entry><entry><title>Mount CloneZilla Image</title><link href="https://aidanharr.is/mount-clonezilla-image.html" rel="alternate"></link><published>2017-02-02T08:00:00+00:00</published><updated>2017-02-02T08:00:00+00:00</updated><author><name>aidanharris</name></author><id>tag:aidanharr.is,2017-02-02:/mount-clonezilla-image.html</id><summary type="html">&lt;p&gt;The contents of this article are taken from &lt;a href="http://blog.christosoft.de/2012/05/mount-clonezilla-image-to-restore-single-file-browse"&gt;blog.christosoft.de&lt;/a&gt; which I'm referencing for future use.&lt;/p&gt;
 &lt;blockquote cite="http://blog.christosoft.de/2012/05/mount-clonezilla-image-to-restore-single-file-browse/" style="display: block;font-style: normal;letter-spacing: 0;font-weight: 400;font-size: 16px;margin: 0 auto;width: 75%;white-space: pre-wrap;"&gt;
 
 &lt;h3&gt;Mount clonezilla image to restore single file (browse)&lt;/h3&gt;

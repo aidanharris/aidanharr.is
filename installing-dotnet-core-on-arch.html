@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>Aidan Harris</title>
+          <title>Aidan Harris</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
@@ -225,6 +225,11 @@ green     #859900  operators, other keywords
             })();
         </script>
         <link href="https://aidanharr.is/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Aidan Harris Full Atom Feed">
+        <link href="https://aidanharr.is/feeds/misc.atom.xml" type="application/atom+xml" rel="alternate" title="Aidan Harris Categories Atom Feed">
+
+
+
+
 </head>
 
 <body>
@@ -260,24 +265,91 @@ green     #859900  operators, other keywords
       </div>
     <div class="container" style="margin-top: 7em">
     <main id="content" class="mdl-layout__content site-content">
-<h1>Archives for Aidan Harris</h1>
+<section id="content" class="body container-fluid">
+  <div class="card" style="background-color: #F5F5F5">
+        <img class="card-img" style="height: 200px; width: 100%; display: block" src="uploads/2017/05/ms_loves_linux.png" alt="Card image">
+        <div class="card-img-overlay">
+            <h3 class="card-title" style="color: #fafafa !important"><a href="installing-dotnet-core-on-arch.html" rel="bookmark" title="Installing Dotnet Core on Arch Linux" style="color: inherit"><span class="devicons devicons-dotnet" style="font-size: 2em; display: inline-block; position: relative; top: 0.25em"></span>&nbsp;Installing Dotnet Core on Arch Linux</a></h3>
+        </div>
+ 
+  <footer class="post-info mdl-color-text--grey-700 mdl-card__supporting-text meta">
+    <div>
+        <span>
+            <span class="posted-on">Posted on <a href="https://aidanharr.is/installing-dotnet-core-on-arch.html" rel="bookmark">
+                <time class="entry-date published" datetime="2017-05-07T11:00:00+01:00">Sun 07 May 2017</time>
+                </a></span>
+                <span class="byline" style="display: block"> by <span class="author vcard"><a class="url fn n" href="https://aidanharr.is/author/aidanharris.html">aidanharris</a></span>
+            </span>
+        </span>
+    </div>
+  </footer>
+  <div class="entry-content container-fluid">
+    <article style="display: block;font-style: normal;letter-spacing: 0;font-weight: 400;font-size: 16px;margin: 0 auto;width: 75%;white-space: pre-wrap">
+Installing and running dotnet core on ArchLinux is a bit of a pain. Thankfully there are some packages in the <a href="https://aur.archlinux.org/packages/?K=dotnet%2D">AUR</a> which slightly ease the process.
 
-<dl>
-    <dt>Sun 07 May 2017</dt>
-    <dd><a href="https://aidanharr.is/installing-dotnet-core-on-arch.html">Installing Dotnet Core on Arch Linux</a></dd>
-    <dt>Thu 02 February 2017</dt>
-    <dd><a href="https://aidanharr.is/mount-clonezilla-image.html">Mount CloneZilla Image</a></dd>
-    <dt>Mon 06 June 2016</dt>
-    <dd><a href="https://aidanharr.is/how-not-to-use-docker.html">How Not To Use Docker</a></dd>
-    <dt>Fri 25 March 2016</dt>
-    <dd><a href="https://aidanharr.is/creating-an-os-x-base-box-for-vagrant-with-parallels.html">Creating an OS X Base Box for Vagrant with Parallels</a></dd>
-    <dt>Sun 11 October 2015</dt>
-    <dd><a href="https://aidanharr.is/change-wordpress-theme-depending-on-visitor-ip-address.html">&nbsp;Change Wordpress theme depending on visitor IP address</a></dd>
-    <dt>Wed 03 June 2015</dt>
-    <dd><a href="https://aidanharr.is/linux-mount-device-with-specific-user-rights.html">&nbsp;Mount device with specific user rights</a></dd>
-    <dt>Sun 24 May 2015</dt>
-    <dd><a href="https://aidanharr.is/hello-world.html">&nbsp;Hello World</a></dd>
-</dl>
+<h3>Re-Compiling OpenSSL</h3>
+
+Arch has removed support for openssl-v3 compatibility. This means you will need a patched version of OpenSSL before you even do anything else. Luckily this is easy enough to do. Install <a href="https://aur.archlinux.org/packages/customizepkg-git/">customizepkg-git</a> from the AUR. Once customizepkg is installed add the following to <code>/etc/customizepkg.d/openssl</code>:
+
+<code>
+replace#global#no-ssl3-method#zlib
+replace#global#no-ssl3#zlib
+</code>
+
+Now patch openssl as follows:
+
+<code>yaourt -S openssl</code>
+
+<h3>Install Dotnet Core (sdk, coreclr and cli)</h3>
+
+<code>pacaur -S --needed icu icu58 libunwind lldb dotnet dotnet-cli dotnet-sdk</code>
+
+<h3>Testing Installation</h3>
+
+<pre><code>
+mkdir -p /tmp/dotnet
+cd /tmp/dotnet
+export DOTNET_CLI_TELEMETRY_OPTOUT=1 # You're going to want to add this to your shell's rc file
+dotnet new console
+dotnet restore
+dotnet build
+dotnet run
+</code></pre>
+
+<h3>Troubleshooting</h3>
+
+    <h4>Object reference not set to an instance of an object</h4>
+
+    This can be fixed by removing the templating directory as follows:
+
+    <code>rm -rf ~/.templateengine</code>
+
+    <a href="https://github.com/dotnet/templating/issues/657">dotnet/templating#657</a>
+
+</article>
+  </div>
+  <div id="disqus_thread" class="comments-open" style="margin: 2.5%"></div>
+  <script>
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+  */
+  var disqus_config = function () {
+      this.page.url = window.location.protocol + '//' + window.location.host + window.location.pathname;  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = 6; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+  (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+      var d = document, s = d.createElement('script');
+      
+      s.src = '//aidanharris.disqus.com/embed.js';  // IMPORTANT: Replace EXAMPLE with your forum shortname!
+      
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
     </main>
     </div>
 <footer id="contentinfo" class="blog-footer navbar sticky-bottom navbar-light bg-faded" style="margin-top: 2em;background: rgb(66, 66, 66);box-shadown: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12)">
