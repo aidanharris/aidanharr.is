@@ -25,6 +25,10 @@ pre {
 	padding: 1.6em;
 }
 
+.highlight pre {
+  color: inherit;
+}
+
 code, kbd, tt, var {
 	font-family: $font__code;
 	@include font-size(0.9375);
