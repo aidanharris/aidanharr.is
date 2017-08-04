@@ -36,7 +36,4 @@ things I wanted to do was to install &lt;a class="reference external" href="http
 was easy enough thanks to the apt package manager included with
 &lt;a class="reference external" href="https://www.raspbian.org"&gt;Rasbian&lt;/a&gt;. It's as simple as
 &lt;tt class="docutils literal"&gt;sudo &lt;span class="pre"&gt;apt-get&lt;/span&gt; install kodi&lt;/tt&gt;.&lt;/p&gt;
-&lt;p&gt;However since the Kodi user data and cache …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">aidanharris</dc:creator><pubDate>Wed, 03 Jun 2015 16:11:00 +0100</pubDate><guid isPermaLink="false">tag:aidanharr.is,2015-06-03:/linux-mount-device-with-specific-user-rights.html</guid></item><item><title> Hello World</title><link>https://aidanharr.is/hello-world.html</link><description>&lt;p&gt;I've meant to create this website for a while now but haven't had the
-time necessary to set the website up. I snapped up the snarky .io domain
-name favoured by developers and startups a while a go and today, or
-rather tonight, I've finally dedicated the time necessary to …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">aidanharris</dc:creator><pubDate>Sun, 24 May 2015 22:37:00 +0100</pubDate><guid isPermaLink="false">tag:aidanharr.is,2015-05-24:/hello-world.html</guid></item></channel></rss>
+&lt;p&gt;However since the Kodi user data and cache …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">aidanharris</dc:creator><pubDate>Wed, 03 Jun 2015 16:11:00 +0100</pubDate><guid isPermaLink="false">tag:aidanharr.is,2015-06-03:/linux-mount-device-with-specific-user-rights.html</guid></item></channel></rss>
