@@ -1,5 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Aidan Harris</title><link href="https://aidanharr.is/" rel="alternate"></link><link href="https://aidanharr.is/feeds/all-en.atom.xml" rel="self"></link><id>https://aidanharr.is/</id><updated>2017-05-07T11:00:00+01:00</updated><entry><title>Installing Dotnet Core on Arch Linux</title><link href="https://aidanharr.is/installing-dotnet-core-on-arch.html" rel="alternate"></link><published>2017-05-07T11:00:00+01:00</published><updated>2017-05-07T11:00:00+01:00</updated><author><name>aidanharris</name></author><id>tag:aidanharr.is,2017-05-07:/installing-dotnet-core-on-arch.html</id><summary type="html">&lt;article style="display: block;font-style: normal;letter-spacing: 0;font-weight: 400;font-size: 16px;margin: 0 auto;width: 75%;white-space: pre-wrap;"&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Aidan Harris</title><link href="https://aidanharr.is/" rel="alternate"></link><link href="https://aidanharr.is/feeds/all-en.atom.xml" rel="self"></link><id>https://aidanharr.is/</id><updated>2017-08-04T00:00:00+01:00</updated><entry><title>FreeBSD Storage Server on Libvirt</title><link href="https://aidanharr.is/freebsd-storage-server-libvirt.html" rel="alternate"></link><published>2017-08-04T00:00:00+01:00</published><updated>2017-08-04T00:00:00+01:00</updated><author><name>aidanharris</name></author><id>tag:aidanharr.is,2017-08-04:/freebsd-storage-server-libvirt.html</id><summary type="html">&lt;p&gt;This week I suffered a catastrophic storage failure that was entirely my fault! Needless to say this is somewhat annoying. On the other hand this gives me a perfect opportunity to check out FreeBSD and ZFS.&lt;/p&gt;
+&lt;h2&gt;Getting the Installation Media&lt;/h2&gt;
+&lt;p&gt;This couldn't be easier. The fine folks over at &lt;a href="https://freebsd.org"&gt;freebsd …&lt;/a&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;This week I suffered a catastrophic storage failure that was entirely my fault! Needless to say this is somewhat annoying. On the other hand this gives me a perfect opportunity to check out FreeBSD and ZFS.&lt;/p&gt;
+&lt;h2&gt;Getting the Installation Media&lt;/h2&gt;
+&lt;p&gt;This couldn't be easier. The fine folks over at &lt;a href="https://freebsd.org"&gt;freebsd.org&lt;/a&gt; have virtual machine images available. Since we're using libvirt we'll want the &lt;a href="https://download.freebsd.org/ftp/releases/VM-IMAGES/11.1-RELEASE/amd64/Latest/"&gt;qcow2&lt;/a&gt; file.&lt;/p&gt;
+&lt;h2&gt;Getting Going&lt;/h2&gt;
+&lt;p&gt;I'm not going to talk too much about "getting going" since this is ridiculously easy, even more so if you are using &lt;a href="https://virt-manager.org/"&gt;virt-manager&lt;/a&gt;. If you're using virt-manager simply point it at the qcow2, set the CPU and RAM, boot and you're done!&lt;/p&gt;
+&lt;h2&gt;First Steps&lt;/h2&gt;
+&lt;h3&gt;Updating the system&lt;/h3&gt;
+&lt;p&gt;FreeBSD uses the &lt;a href="https://www.freebsd.org/doc/handbook/pkgng-intro.html"&gt;pkg&lt;/a&gt; package manager. To look for updates simply run &lt;code&gt;pkg update&lt;/code&gt; to apply any needed upgrades run &lt;code&gt;pkg upgrade&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;Allowing serial-port access&lt;/h3&gt;
+&lt;p&gt;By allowing serial access to FreeBSD you can easily get a login shell using &lt;code&gt;virsh console freebsd11.0&lt;/code&gt; (where freebsd11.0 is the name of your VM).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;console=&amp;quot;comconsole&amp;quot;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; /boot/loader.conf
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now if you restart the VM (&lt;code&gt;shutdown -r now&lt;/code&gt;) you should be able to connect to it in a new terminal via &lt;code&gt;sudo virsh console freebsd11.0&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;Auto-start VM&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;sudo virsh autostart freebsd11.0&lt;/code&gt;&lt;/p&gt;
+&lt;h3&gt;Creating Users&lt;/h3&gt;
+&lt;h4&gt;Adding a users group&lt;/h4&gt;
+&lt;p&gt;Before creating a user we should create a "users" group to house them in. This is consistent with &lt;a href="https://archlinux.org"&gt;Arch Linux&lt;/a&gt; and will give us less problems down the line as long as the UIDs and GIDs match up.&lt;/p&gt;
+&lt;p&gt;To create a users group with a GID of 100 use the following command:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pw groupadd -n users -g &lt;span class="m"&gt;100&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;Adding a user&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pw useradd -n user -g users -m &lt;span class="c1"&gt;# Create a user named &amp;#39;user&amp;#39;, with a primary group &amp;#39;users&amp;#39; and a home directory &amp;#39;/home/user&amp;#39; which is created for you&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Configuring Storage&lt;/h2&gt;
+&lt;h3&gt;Block Device Pass-through&lt;/h3&gt;
+&lt;p&gt;ZFS likes working with raw disks, luckily we can pass them through to our FreeBSD guest. RedHat has excellent documentation on this &lt;a href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Virtualization_Administration_Guide/sect-Virtualization-Adding_storage_devices_to_guests-Adding_hard_drives_and_other_block_devices_to_a_guest.html"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;For testing purposes you can use the following command to attach a block device:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;virsh attach-disk freebsd11.0 /dev/sr0 vdc&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;After executing that command you should see the disk in the FreeBSD guest:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo virsh console freebsd11.0
+root@:~ &lt;span class="c1"&gt;# gpart show&lt;/span&gt;
+&lt;span class="o"&gt;=&lt;/span&gt;&amp;gt;       &lt;span class="m"&gt;3&lt;/span&gt;  &lt;span class="m"&gt;44040315&lt;/span&gt;  vtbd0  GPT  &lt;span class="o"&gt;(&lt;/span&gt;21G&lt;span class="o"&gt;)&lt;/span&gt;
+         &lt;span class="m"&gt;3&lt;/span&gt;       &lt;span class="m"&gt;118&lt;/span&gt;      &lt;span class="m"&gt;1&lt;/span&gt;  freebsd-boot  &lt;span class="o"&gt;(&lt;/span&gt;59K&lt;span class="o"&gt;)&lt;/span&gt;
+       &lt;span class="m"&gt;121&lt;/span&gt;   &lt;span class="m"&gt;2097152&lt;/span&gt;      &lt;span class="m"&gt;2&lt;/span&gt;  freebsd-swap  &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;.0G&lt;span class="o"&gt;)&lt;/span&gt;
+   &lt;span class="m"&gt;2097273&lt;/span&gt;  &lt;span class="m"&gt;41943040&lt;/span&gt;      &lt;span class="m"&gt;3&lt;/span&gt;  freebsd-ufs  &lt;span class="o"&gt;(&lt;/span&gt;20G&lt;span class="o"&gt;)&lt;/span&gt;
+  &lt;span class="m"&gt;44040313&lt;/span&gt;         &lt;span class="m"&gt;5&lt;/span&gt;         - free -  &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;.5K&lt;span class="o"&gt;)&lt;/span&gt;
+
+&lt;span class="o"&gt;=&lt;/span&gt;&amp;gt;        &lt;span class="m"&gt;34&lt;/span&gt;  &lt;span class="m"&gt;3907029101&lt;/span&gt;  vtbd1  GPT  &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;.8T&lt;span class="o"&gt;)&lt;/span&gt;
+          &lt;span class="m"&gt;34&lt;/span&gt;  &lt;span class="m"&gt;3907029101&lt;/span&gt;         - free -  &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;.8T&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To make this permanent you can edit the xml configuration:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo -E virsh edit freebsd11.0
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Add the following underneath the first &lt;code&gt;&amp;lt;disk&amp;gt;&lt;/code&gt; entry (there should only be one &lt;code&gt;&amp;lt;disk&amp;gt;&lt;/code&gt; in the entire file which should be our qcow2 boot medium):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;disk&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;block&amp;#39;&lt;/span&gt; &lt;span class="na"&gt;device=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;disk&amp;#39;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;driver&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;qemu&amp;#39;&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;raw&amp;#39;&lt;/span&gt; &lt;span class="na"&gt;cache=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;none&amp;#39;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;source&lt;/span&gt; &lt;span class="na"&gt;dev=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;/dev/sr0&amp;#39;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;target&lt;/span&gt; &lt;span class="na"&gt;dev=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;vdc&amp;#39;&lt;/span&gt; &lt;span class="na"&gt;bus=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;virtio&amp;#39;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/disk&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now if you reboot the vm (&lt;code&gt;sudo virsh reboot freebsd11.0&lt;/code&gt;) and issue a &lt;code&gt;gpart show&lt;/code&gt; again, you should see the disk.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: The Linux kernel makes no guarantees over the disk ordering / labelling. &lt;strong&gt;Do Not&lt;/strong&gt; passthrough a disk via it's alphabetic identifier (e.g /dev/sda) instead use it's id (/dev/disk/by-id) or uuid (/dev/disk/by-uuid) which should be unique.&lt;/p&gt;
+&lt;h2&gt;ZFS&lt;/h2&gt;
+&lt;p&gt;I've &lt;strong&gt;not&lt;/strong&gt; used ZFS before but the FreeBSD Handbook has a "Quick Start Guide" &lt;a href="https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/zfs-quickstart.html"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;For reference I'm working with 3x2tb drives which I intend to use in a Raid5 (RaidZ?) configuration.&lt;/p&gt;
+&lt;h3&gt;Enable ZFS&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;zfs_enable=&amp;quot;YES&amp;quot;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; /etc/rc.conf
+service zfs start
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Create zpool&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;zpool create storage raidz vtbd1 vtbd2 vtbd3
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To verify that the zpool has been created you can issue the command &lt;code&gt;zpool list&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;root@:~ &lt;span class="c1"&gt;# zpool list&lt;/span&gt;
+NAME      SIZE  ALLOC   FREE  EXPANDSZ   FRAG    CAP  DEDUP  HEALTH  ALTROOT
+storage  &lt;span class="m"&gt;5&lt;/span&gt;.44T   161K  &lt;span class="m"&gt;5&lt;/span&gt;.44T         -     &lt;span class="m"&gt;0&lt;/span&gt;%     &lt;span class="m"&gt;0&lt;/span&gt;%  &lt;span class="m"&gt;1&lt;/span&gt;.00x  ONLINE  -
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Create Storage&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;zfs create storage/home
+zfs &lt;span class="nb"&gt;set&lt;/span&gt; &lt;span class="nv"&gt;copies&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt; storage/home
+zfs &lt;span class="nb"&gt;set&lt;/span&gt; &lt;span class="nv"&gt;compression&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;lz4 storage/home
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Hammer Time&lt;/h3&gt;
+&lt;p&gt;At this point I'm already in love with ZFS but now it's time to fill this sucker with data and see what it's really got:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;rsync -av --progress aidan@192.168.x.x:/tmp/gparted-roview-2DZ7RV/Music /storage/home
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;After transfering data I ran &lt;code&gt;du -h /storage/home/Music&lt;/code&gt; which size reports exactly double the size on the source disk (presumably because we ran &lt;code&gt;zfs set copies=2 storage/home&lt;/code&gt;). It's nice that du tells me this since other filesystems such as btrfs on Linux often report disk usage incorrectly (yes, I know you can fix this with the &lt;code&gt;btrfs filesystem du&lt;/code&gt; and &lt;code&gt;btrfs filesystem df&lt;/code&gt; commands).&lt;/p&gt;
+&lt;h2&gt;SSHD&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;sshd_enable=&amp;quot;YES&amp;quot;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; /etc/rc.conf
+service sshd start
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;NFS&lt;/h2&gt;
+&lt;p&gt;Detailed information regarding NFS can be found in the FreeBSD Handbook &lt;a href="https://www.freebsd.org/doc/handbook/network-nfs.html"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/storage/home  -alldirs  192.168.x.x&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; /etc/exports
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;rpcbind_enable=&amp;quot;YES&amp;quot;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; /etc/rc.conf
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;nfs_server_enable=&amp;quot;YES&amp;quot;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; /etc/rc.conf
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;mountd_flags=&amp;quot;-r&amp;quot;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; /etc/rc.conf
+service nfsd start
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Samba&lt;/h2&gt;
+&lt;p&gt;Detailed information regarding Samba can be found in the FreeBSD handbook &lt;a href="https://www.freebsd.org/doc/handbook/network-samba.html"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pkg install samba46
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;samba_enable=&amp;quot;YES&amp;quot;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; /etc/rc.conf
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;samba_server_enable=&amp;quot;YES&amp;quot;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; /etc/rc.conf
+service samba_server start
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Modify the following samba at /usr/local/etc/smb4.conf for your needs:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;[global]&lt;/span&gt;
+&lt;span class="na"&gt;workgroup&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;WORKGROUP&lt;/span&gt;
+&lt;span class="na"&gt;server string&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;Samba Server Version %v&lt;/span&gt;
+&lt;span class="na"&gt;netbios name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;ExampleMachine&lt;/span&gt;
+&lt;span class="na"&gt;wins support&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;Yes&lt;/span&gt;
+&lt;span class="na"&gt;security&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;user&lt;/span&gt;
+&lt;span class="na"&gt;passdb backend&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;tdbsam&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Example: share /usr/src accessible only to &amp;#39;developer&amp;#39; user&lt;/span&gt;
+&lt;span class="k"&gt;[src]&lt;/span&gt;
+&lt;span class="na"&gt;path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;/usr/src&lt;/span&gt;
+&lt;span class="na"&gt;valid users&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;developer&lt;/span&gt;
+&lt;span class="na"&gt;writable&lt;/span&gt;  &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;yes&lt;/span&gt;
+&lt;span class="na"&gt;browsable&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;yes&lt;/span&gt;
+&lt;span class="na"&gt;read only&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;no&lt;/span&gt;
+&lt;span class="na"&gt;guest ok&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;no&lt;/span&gt;
+&lt;span class="na"&gt;public&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;no&lt;/span&gt;
+&lt;span class="na"&gt;create mask&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;0666&lt;/span&gt;
+&lt;span class="na"&gt;directory mask&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;0755&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</content></entry><entry><title>Switching from 1Password to Pass</title><link href="https://aidanharr.is/switching-from-1password-to-pass.html" rel="alternate"></link><published>2017-05-27T18:21:00+01:00</published><updated>2017-05-27T18:21:00+01:00</updated><author><name>aidanharris</name></author><id>tag:aidanharr.is,2017-05-27:/switching-from-1password-to-pass.html</id><summary type="html">&lt;p&gt;I've decided to switch password managers from &lt;a href="https://1password.com/"&gt;1Password&lt;/a&gt; to &lt;a href="https://www.passwordstore.org/"&gt;Pass&lt;/a&gt;. This blog post will detail my thoughts on the subject and explain the pros and cons of doing so.&lt;/p&gt;
+&lt;p&gt;Before I get started I feel like I wouldn't be doing my civic duty if I didn't take this time to …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I've decided to switch password managers from &lt;a href="https://1password.com/"&gt;1Password&lt;/a&gt; to &lt;a href="https://www.passwordstore.org/"&gt;Pass&lt;/a&gt;. This blog post will detail my thoughts on the subject and explain the pros and cons of doing so.&lt;/p&gt;
+&lt;p&gt;Before I get started I feel like I wouldn't be doing my civic duty if I didn't take this time to tell you to use a password manager if you're not doing so already:&lt;/p&gt;
+&lt;h1&gt;&lt;strong&gt;*USE A PASSWORD MANAGER&lt;/strong&gt;&lt;/h1&gt;
+&lt;h3&gt;Why Pass?&lt;/h3&gt;
+&lt;p&gt;You might be wondering why I'd choose pass, heck you might not have even heard of it before reading this ("pass" isn't exactly a very SEO friendly name). "What's wrong with 1Password" you might ask. Well as it turns out, a lot of things. Don't get me wrong it's a very good password manager and if it works for you then great. However I feel like I've gotten to the point where 1Password no longer suits my needs. 1Password was great while I was operating in the Apple bubble. Once upon a time I had an iPhone, an iPad and a Macbook and all was well with the world. Then I discovered the big bad &lt;strike&gt;Linux&lt;/strike&gt; GNU/Linux 🐧 (that's a penguin, for the uninitiated - or those without a decent font that supports &lt;strike&gt;emoji&lt;/strike&gt; Unicode).&lt;/p&gt;
+&lt;p&gt;Believe it or not 1Password works surprisingly well under GNU/Linux using &lt;a href="https://www.winehq.org"&gt;Wine&lt;/a&gt;. The main issues I have with 1Password are as follows:&lt;/p&gt;
+&lt;h4&gt;Closed source&lt;/h4&gt;
+&lt;p&gt;While I have no reason to doubt that 1Password is in any way, shape, or form compromised, I can't help but feel that the strong and stable (pun intended) foundations of git and gpg hugely benefit pass over the black-box of 1Password.&lt;/p&gt;
+&lt;h4&gt;Synchronisation&lt;/h4&gt;
+&lt;p&gt;Local file synchronisation is a massive pain with 1Password. I refuse to use Dropbox and iCloud sync doesn't work on Windows or GNU/Linux so that's out of the question too. My current solution to this conundrum is a hodgepodge of &lt;a href="https://syncthing.net"&gt;Syncthing&lt;/a&gt; and using the wifi-sync. This is &lt;strong&gt;not&lt;/strong&gt; scalable and could no doubt cause problems if I continue down this path. Using git completely side-steps this issue altogether. I can sync using a local git repository or a private remote repository.&lt;/p&gt;
+&lt;h3&gt;Disadvantages of Pass&lt;/h3&gt;
+&lt;p&gt;While I see Pass as the way forward, it's not all bright and rosy, there are some things that I dislike about it.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Hard to migrate - &lt;a href="https://github.com/roddhjav/pass-import"&gt;pass-import&lt;/a&gt; exists but it didn't want to work at all. I'm now in a laborious process to slowly migrate each and every password I've built up over the years from 1Password to Pass. Not Good!&lt;/li&gt;
+&lt;li&gt;Mobile Integration? - It looks like there's solid Android integration, iOS may be a challenge ;)&lt;/li&gt;
+&lt;li&gt;Winblows - &lt;a href="https://github.com/mbos/Pass4Win"&gt;Pass4Win&lt;/a&gt; exists but is deprecated, WSL despite its hype doesn't support USB devices and I don't trust Windows enough to leave my GPG keys lying around. I guess I could use Virtualbox with USB pass-through for my Yubikey. I don't do any serious work on Windows anyway though, so I doubt this will be an issue.&lt;/li&gt;
+&lt;li&gt;No support for storing files - I can botch it by base64 encoding files and may be able to simply store the files in the git repo but not sure how that'll work on other devices.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;Despite its shortcomings I feel that pass is the way to go. It's more scalable than 1Password and is built on top of a rock solid foundation of gpg and git. It also doesn't hurt that it has solid integration with &lt;a href="https://github.com/klaasb/passdmenu"&gt;dmenu&lt;/a&gt; :).&lt;/p&gt;
+&lt;p&gt;&lt;small&gt;*Big bold text added, for dramatic effect&lt;/small&gt;&lt;/p&gt;</content></entry><entry><title>Installing Dotnet Core on Arch Linux</title><link href="https://aidanharr.is/installing-dotnet-core-on-arch.html" rel="alternate"></link><published>2017-05-07T11:00:00+01:00</published><updated>2017-05-07T11:00:00+01:00</updated><author><name>aidanharris</name></author><id>tag:aidanharr.is,2017-05-07:/installing-dotnet-core-on-arch.html</id><summary type="html">&lt;article style="display: block;font-style: normal;letter-spacing: 0;font-weight: 400;font-size: 16px;margin: 0 auto;width: 75%;white-space: pre-wrap;"&gt;
 Installing and running dotnet core on ArchLinux is a bit of a pain. Thankfully there are some packages in the &lt;a href="https://aur.archlinux.org/packages/?K=dotnet%2D"&gt;AUR&lt;/a&gt; which slightly ease the process.
 
 &lt;h3&gt;Re-Compiling OpenSSL&lt;/h3&gt;

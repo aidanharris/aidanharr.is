@@ -225,6 +225,7 @@ green     #859900  operators, other keywords
             })();
         </script>
         <link href="https://aidanharr.is/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Aidan Harris Full Atom Feed">
+        <link href="https://aidanharr.is/feeds/misc.atom.xml" type="application/atom+xml" rel="alternate" title="Aidan Harris Categories Atom Feed">
 
 
 
@@ -264,26 +265,237 @@ green     #859900  operators, other keywords
       </div>
     <div class="container" style="margin-top: 7em">
     <main id="content" class="mdl-layout__content site-content">
-<section id="content" class="body demo-blog__posts mdl-grid">
-  <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col" style="background-color: #F5F5F5">
-  <header class="mdl-card__media mdl-color-text--grey-50 featured-post-image" style="">
-    <h2 class="entry-title" style="color: #fafafa !important;position: relative;top: 1em;font-size: 34px">
-      <a href="https://aidanharr.is/contact/" rel="bookmark" title="Permalink to Contact" style="color: #fafafa !important">
-         Contact
-      </a>
-    </h2>
+<section id="content" class="body container-fluid">
+  <div class="card" style="background-color: #F5F5F5">
+        <div class="card-block card-header" style="height: 200px">
+            <h3 class="card-title" style="color: #fafafa !important"><a href="freebsd-storage-server-libvirt.html" rel="bookmark" title="FreeBSD Storage Server on Libvirt" style="color: inherit"><span class="fl-freebsd" style=""></span>&nbsp;FreeBSD Storage Server on Libvirt</a></h3>   
+        </div>
  
-  </header>
   <footer class="post-info mdl-color-text--grey-700 mdl-card__supporting-text meta">
-    <div class="minilogo"></div>
+    <div>
+        <span>
+            <span class="posted-on">Posted on <a href="https://aidanharr.is/freebsd-storage-server-libvirt.html" rel="bookmark">
+                <time class="entry-date published" datetime="2017-08-04T00:00:00+01:00">Fri 04 August 2017</time>
+                </a></span>
+                <span class="byline" style="display: block"> by <span class="author vcard"><a class="url fn n" href="https://aidanharr.is/author/aidanharris.html">aidanharris</a></span>
+            </span>
+        </span>
+    </div>
   </footer>
-  <div class="entry-content mdl-color-text--grey-700 mdl-card__supporting-text" style="position: relative;top: -1.47rem">
-    
+  <div class="entry-content container-fluid">
+    <p>This week I suffered a catastrophic storage failure that was entirely my fault! Needless to say this is somewhat annoying. On the other hand this gives me a perfect opportunity to check out FreeBSD and ZFS.</p>
+<h2>Getting the Installation Media</h2>
+<p>This couldn't be easier. The fine folks over at <a href="https://freebsd.org">freebsd.org</a> have virtual machine images available. Since we're using libvirt we'll want the <a href="https://download.freebsd.org/ftp/releases/VM-IMAGES/11.1-RELEASE/amd64/Latest/">qcow2</a> file.</p>
+<h2>Getting Going</h2>
+<p>I'm not going to talk too much about "getting going" since this is ridiculously easy, even more so if you are using <a href="https://virt-manager.org/">virt-manager</a>. If you're using virt-manager simply point it at the qcow2, set the CPU and RAM, boot and you're done!</p>
+<h2>First Steps</h2>
+<h3>Updating the system</h3>
+<p>FreeBSD uses the <a href="https://www.freebsd.org/doc/handbook/pkgng-intro.html">pkg</a> package manager. To look for updates simply run <code>pkg update</code> to apply any needed upgrades run <code>pkg upgrade</code>.</p>
+<h3>Allowing serial-port access</h3>
+<p>By allowing serial access to FreeBSD you can easily get a login shell using <code>virsh console freebsd11.0</code> (where freebsd11.0 is the name of your VM).</p>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;console=&quot;comconsole&quot;&#39;</span> &gt;&gt; /boot/loader.conf
+</pre></div>
+
+
+<p>Now if you restart the VM (<code>shutdown -r now</code>) you should be able to connect to it in a new terminal via <code>sudo virsh console freebsd11.0</code>.</p>
+<h3>Auto-start VM</h3>
+<p><code>sudo virsh autostart freebsd11.0</code></p>
+<h3>Creating Users</h3>
+<h4>Adding a users group</h4>
+<p>Before creating a user we should create a "users" group to house them in. This is consistent with <a href="https://archlinux.org">Arch Linux</a> and will give us less problems down the line as long as the UIDs and GIDs match up.</p>
+<p>To create a users group with a GID of 100 use the following command:</p>
+<div class="highlight"><pre><span></span>pw groupadd -n users -g <span class="m">100</span>
+</pre></div>
+
+
+<h4>Adding a user</h4>
+<div class="highlight"><pre><span></span>pw useradd -n user -g users -m <span class="c1"># Create a user named &#39;user&#39;, with a primary group &#39;users&#39; and a home directory &#39;/home/user&#39; which is created for you</span>
+</pre></div>
+
+
+<h2>Configuring Storage</h2>
+<h3>Block Device Pass-through</h3>
+<p>ZFS likes working with raw disks, luckily we can pass them through to our FreeBSD guest. RedHat has excellent documentation on this <a href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Virtualization_Administration_Guide/sect-Virtualization-Adding_storage_devices_to_guests-Adding_hard_drives_and_other_block_devices_to_a_guest.html">here</a>.</p>
+<p>For testing purposes you can use the following command to attach a block device:</p>
+<p><code>virsh attach-disk freebsd11.0 /dev/sr0 vdc</code></p>
+<p>After executing that command you should see the disk in the FreeBSD guest:</p>
+<div class="highlight"><pre><span></span>sudo virsh console freebsd11.0
+root@:~ <span class="c1"># gpart show</span>
+<span class="o">=</span>&gt;       <span class="m">3</span>  <span class="m">44040315</span>  vtbd0  GPT  <span class="o">(</span>21G<span class="o">)</span>
+         <span class="m">3</span>       <span class="m">118</span>      <span class="m">1</span>  freebsd-boot  <span class="o">(</span>59K<span class="o">)</span>
+       <span class="m">121</span>   <span class="m">2097152</span>      <span class="m">2</span>  freebsd-swap  <span class="o">(</span><span class="m">1</span>.0G<span class="o">)</span>
+   <span class="m">2097273</span>  <span class="m">41943040</span>      <span class="m">3</span>  freebsd-ufs  <span class="o">(</span>20G<span class="o">)</span>
+  <span class="m">44040313</span>         <span class="m">5</span>         - free -  <span class="o">(</span><span class="m">2</span>.5K<span class="o">)</span>
+
+<span class="o">=</span>&gt;        <span class="m">34</span>  <span class="m">3907029101</span>  vtbd1  GPT  <span class="o">(</span><span class="m">1</span>.8T<span class="o">)</span>
+          <span class="m">34</span>  <span class="m">3907029101</span>         - free -  <span class="o">(</span><span class="m">1</span>.8T<span class="o">)</span>
+</pre></div>
+
+
+<p>To make this permanent you can edit the xml configuration:</p>
+<div class="highlight"><pre><span></span>sudo -E virsh edit freebsd11.0
+</pre></div>
+
+
+<p>Add the following underneath the first <code>&lt;disk&gt;</code> entry (there should only be one <code>&lt;disk&gt;</code> in the entire file which should be our qcow2 boot medium):</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;disk</span> <span class="na">type=</span><span class="s">&#39;block&#39;</span> <span class="na">device=</span><span class="s">&#39;disk&#39;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;driver</span> <span class="na">name=</span><span class="s">&#39;qemu&#39;</span> <span class="na">type=</span><span class="s">&#39;raw&#39;</span> <span class="na">cache=</span><span class="s">&#39;none&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;source</span> <span class="na">dev=</span><span class="s">&#39;/dev/sr0&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;target</span> <span class="na">dev=</span><span class="s">&#39;vdc&#39;</span> <span class="na">bus=</span><span class="s">&#39;virtio&#39;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/disk&gt;</span>
+</pre></div>
+
+
+<p>Now if you reboot the vm (<code>sudo virsh reboot freebsd11.0</code>) and issue a <code>gpart show</code> again, you should see the disk.</p>
+<p><strong>Note</strong>: The Linux kernel makes no guarantees over the disk ordering / labelling. <strong>Do Not</strong> passthrough a disk via it's alphabetic identifier (e.g /dev/sda) instead use it's id (/dev/disk/by-id) or uuid (/dev/disk/by-uuid) which should be unique.</p>
+<h2>ZFS</h2>
+<p>I've <strong>not</strong> used ZFS before but the FreeBSD Handbook has a "Quick Start Guide" <a href="https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/zfs-quickstart.html">here</a>.</p>
+<p>For reference I'm working with 3x2tb drives which I intend to use in a Raid5 (RaidZ?) configuration.</p>
+<h3>Enable ZFS</h3>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;zfs_enable=&quot;YES&quot;&#39;</span> &gt;&gt; /etc/rc.conf
+service zfs start
+</pre></div>
+
+
+<h3>Create zpool</h3>
+<div class="highlight"><pre><span></span>zpool create storage raidz vtbd1 vtbd2 vtbd3
+</pre></div>
+
+
+<p>To verify that the zpool has been created you can issue the command <code>zpool list</code>:</p>
+<div class="highlight"><pre><span></span>root@:~ <span class="c1"># zpool list</span>
+NAME      SIZE  ALLOC   FREE  EXPANDSZ   FRAG    CAP  DEDUP  HEALTH  ALTROOT
+storage  <span class="m">5</span>.44T   161K  <span class="m">5</span>.44T         -     <span class="m">0</span>%     <span class="m">0</span>%  <span class="m">1</span>.00x  ONLINE  -
+</pre></div>
+
+
+<h3>Create Storage</h3>
+<div class="highlight"><pre><span></span>zfs create storage/home
+zfs <span class="nb">set</span> <span class="nv">copies</span><span class="o">=</span><span class="m">2</span> storage/home
+zfs <span class="nb">set</span> <span class="nv">compression</span><span class="o">=</span>lz4 storage/home
+</pre></div>
+
+
+<h3>Hammer Time</h3>
+<p>At this point I'm already in love with ZFS but now it's time to fill this sucker with data and see what it's really got:</p>
+<div class="highlight"><pre><span></span>rsync -av --progress aidan@192.168.x.x:/tmp/gparted-roview-2DZ7RV/Music /storage/home
+</pre></div>
+
+
+<p>After transfering data I ran <code>du -h /storage/home/Music</code> which size reports exactly double the size on the source disk (presumably because we ran <code>zfs set copies=2 storage/home</code>). It's nice that du tells me this since other filesystems such as btrfs on Linux often report disk usage incorrectly (yes, I know you can fix this with the <code>btrfs filesystem du</code> and <code>btrfs filesystem df</code> commands).</p>
+<h2>SSHD</h2>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;sshd_enable=&quot;YES&quot;&#39;</span> &gt;&gt; /etc/rc.conf
+service sshd start
+</pre></div>
+
+
+<h2>NFS</h2>
+<p>Detailed information regarding NFS can be found in the FreeBSD Handbook <a href="https://www.freebsd.org/doc/handbook/network-nfs.html">here</a>.</p>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;/storage/home  -alldirs  192.168.x.x&#39;</span> &gt;&gt; /etc/exports
+<span class="nb">echo</span> <span class="s1">&#39;rpcbind_enable=&quot;YES&quot;&#39;</span> &gt;&gt; /etc/rc.conf
+<span class="nb">echo</span> <span class="s1">&#39;nfs_server_enable=&quot;YES&quot;&#39;</span> &gt;&gt; /etc/rc.conf
+<span class="nb">echo</span> <span class="s1">&#39;mountd_flags=&quot;-r&quot;&#39;</span> &gt;&gt; /etc/rc.conf
+service nfsd start
+</pre></div>
+
+
+<h2>Samba</h2>
+<p>Detailed information regarding Samba can be found in the FreeBSD handbook <a href="https://www.freebsd.org/doc/handbook/network-samba.html">here</a>.</p>
+<div class="highlight"><pre><span></span>pkg install samba46
+<span class="nb">echo</span> <span class="s1">&#39;samba_enable=&quot;YES&quot;&#39;</span> &gt;&gt; /etc/rc.conf
+<span class="nb">echo</span> <span class="s1">&#39;samba_server_enable=&quot;YES&quot;&#39;</span> &gt;&gt; /etc/rc.conf
+service samba_server start
+</pre></div>
+
+
+<p>Modify the following samba at /usr/local/etc/smb4.conf for your needs:</p>
+<div class="highlight"><pre><span></span><span class="k">[global]</span>
+<span class="na">workgroup</span> <span class="o">=</span> <span class="s">WORKGROUP</span>
+<span class="na">server string</span> <span class="o">=</span> <span class="s">Samba Server Version %v</span>
+<span class="na">netbios name</span> <span class="o">=</span> <span class="s">ExampleMachine</span>
+<span class="na">wins support</span> <span class="o">=</span> <span class="s">Yes</span>
+<span class="na">security</span> <span class="o">=</span> <span class="s">user</span>
+<span class="na">passdb backend</span> <span class="o">=</span> <span class="s">tdbsam</span>
+
+<span class="c1"># Example: share /usr/src accessible only to &#39;developer&#39; user</span>
+<span class="k">[src]</span>
+<span class="na">path</span> <span class="o">=</span> <span class="s">/usr/src</span>
+<span class="na">valid users</span> <span class="o">=</span> <span class="s">developer</span>
+<span class="na">writable</span>  <span class="o">=</span> <span class="s">yes</span>
+<span class="na">browsable</span> <span class="o">=</span> <span class="s">yes</span>
+<span class="na">read only</span> <span class="o">=</span> <span class="s">no</span>
+<span class="na">guest ok</span> <span class="o">=</span> <span class="s">no</span>
+<span class="na">public</span> <span class="o">=</span> <span class="s">no</span>
+<span class="na">create mask</span> <span class="o">=</span> <span class="s">0666</span>
+<span class="na">directory mask</span> <span class="o">=</span> <span class="s">0755</span>
+</pre></div>
   </div>
+  <div id="disqus_thread" class="comments-open" style="margin: 2.5%"></div>
+  <script>
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+  */
+  var disqus_config = function () {
+      this.page.url = window.location.protocol + '//' + window.location.host + window.location.pathname;  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = 9; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+  (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+      var d = document, s = d.createElement('script');
+      
+      s.src = '//aidanharris.disqus.com/embed.js';  // IMPORTANT: Replace EXAMPLE with your forum shortname!
+      
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
   </div>
 </section>
     </main>
     </div>
+<footer id="contentinfo" class="blog-footer navbar sticky-bottom navbar-light bg-faded" style="margin-top: 2em;background: rgb(66, 66, 66);box-shadown: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12)">
+        <div class="row">
+            <div class="col-md-5">
+                <a href="/copyright" style="color: #9e9e9e;text-decoration: none"><strike>©</strike> <strike>Copyright</strike>&nbsp;2017 ‐ Aidan Harris</a>
+                <span>&nbsp;<a href="/uploads/public.txt"><i class="fa fa-key" aria-hidden="true"></i>GPG Key</a></span>
+                <div>Proudly powered by <a href="https://getpelican.com">Pelican</a>.</div>
+             </div>
+             <div class="col-centered">
+                 <button id="themeSelector" class="btn btn-secondary" data-toggle="button" aria-hidden="true" autocomplete="off">
+                     <i class="fa fa-sun-o" aria-hidden="true"></i>&nbsp;Light Theme
+                  </button>
+             </div>
+             <div class="col-md-5" style="margin-left: 8em">
+
+             </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <iframe class="btn btn-default" style="background: transparent;box-shadow: none;padding: 0;max-width: 6em" src="https://ghbtns.com/github-btn.html?user=aidanharris&repo=aidanharr.is&type=star&count=false&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+                <iframe class="btn btn-default" style="padding: 0;background: transparent;box-shadow: none" src="https://ghbtns.com/github-btn.html?user=aidanharris&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+            </div>
+        </div>
+        <script type="text/javascript">
+            (function() {
+                var fontAwesomeIcon = function(theme) {
+                    return (theme === 'Dark') ? '<i class="fa fa-moon-o" aria-hidden="true"></i>&nbsp;' : '<i class="fa fa-sun-o" aria-hidden="true"></i>&nbsp;';
+                }
+                var setCurrentTheme = function() {
+                    var theme = getCurrentTheme().charAt(0).toUpperCase() + getCurrentTheme().slice(1);
+                    document.getElementById('themeSelector').innerHTML = fontAwesomeIcon(theme) + theme + ' Theme';
+                }
+                if (window.getCurrentTheme() === 'dark') {
+                    document.getElementById('themeSelector').className += ' active';
+                }
+                document.getElementById('themeSelector').onclick = function() {
+                    window.window.toggleDarkTheme();
+                    setCurrentTheme();
+                };
+                return setCurrentTheme();
+            })();
+        </script>
+</footer>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/devicons/1.8.0/css/devicons.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
