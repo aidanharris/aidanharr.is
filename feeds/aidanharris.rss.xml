@@ -1,38 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>Aidan Harris - aidanharris</title><link>https://aidanharr.is/</link><description></description><lastBuildDate>Fri, 04 Aug 2017 00:00:00 +0100</lastBuildDate><item><title>FreeBSD Storage Server on Libvirt</title><link>https://aidanharr.is/freebsd-storage-server-libvirt.html</link><description>&lt;p&gt;This week I suffered a catastrophic storage failure that was entirely my fault! Needless to say this is somewhat annoying. On the other hand this gives me a perfect opportunity to check out FreeBSD and ZFS.&lt;/p&gt;
-&lt;h2&gt;Getting the Installation Media&lt;/h2&gt;
-&lt;p&gt;This couldn't be easier. The fine folks over at &lt;a href="https://freebsd.org"&gt;freebsd …&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">aidanharris</dc:creator><pubDate>Fri, 04 Aug 2017 00:00:00 +0100</pubDate><guid isPermaLink="false">tag:aidanharr.is,2017-08-04:/freebsd-storage-server-libvirt.html</guid></item><item><title>Installing Dotnet Core on Arch Linux</title><link>https://aidanharr.is/installing-dotnet-core-on-arch.html</link><description>&lt;article style="display: block;font-style: normal;letter-spacing: 0;font-weight: 400;font-size: 16px;margin: 0 auto;width: 75%;white-space: pre-wrap;"&gt;
-Installing and running dotnet core on ArchLinux is a bit of a pain. Thankfully there are some packages in the &lt;a href="https://aur.archlinux.org/packages/?K=dotnet%2D"&gt;AUR&lt;/a&gt; which slightly ease the process.
-
-&lt;h3&gt;Re-Compiling OpenSSL&lt;/h3&gt;
-
-Arch has removed support for openssl-v3 compatibility. This means you will need a patched version of OpenSSL before you even do anything …&lt;/article&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">aidanharris</dc:creator><pubDate>Sun, 07 May 2017 11:00:00 +0100</pubDate><guid isPermaLink="false">tag:aidanharr.is,2017-05-07:/installing-dotnet-core-on-arch.html</guid></item><item><title>Mount CloneZilla Image</title><link>https://aidanharr.is/mount-clonezilla-image.html</link><description>&lt;p&gt;The contents of this article are taken from &lt;a href="http://blog.christosoft.de/2012/05/mount-clonezilla-image-to-restore-single-file-browse"&gt;blog.christosoft.de&lt;/a&gt; which I'm referencing for future use.&lt;/p&gt;
-&lt;blockquote cite="http://blog.christosoft.de/2012/05/mount-clonezilla-image-to-restore-single-file-browse/" style="display: block;font-style: normal;letter-spacing: 0;font-weight: 400;font-size: 16px;margin: 0 auto;width: 75%;white-space: pre-wrap;"&gt;
-
-&lt;h3&gt;Mount clonezilla image to restore single file (browse)&lt;/h3&gt;
-
-&lt;a href="http://clonezilla.org/"&gt;Clonezilla&lt;/a&gt; is a fine tool to backup/restore/clone partitions or drives. It is very powerful, can handle both Linux and Windows partitions and so …&lt;/blockquote&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">aidanharris</dc:creator><pubDate>Thu, 02 Feb 2017 08:00:00 +0000</pubDate><guid isPermaLink="false">tag:aidanharr.is,2017-02-02:/mount-clonezilla-image.html</guid></item><item><title>How Not To Use Docker</title><link>https://aidanharr.is/how-not-to-use-docker.html</link><description>&lt;p&gt;&lt;a class="reference external" href="https://aidanharr.is/glossary/docker/"&gt;Docker&lt;/a&gt; is an amazing tool
-that's perfect for building Microservices. I'm still learning to use it
-and if I'm being honest, I quite like it. I could see its power from the
-onset. Docker is essentially a virtual machine (VM) without the overhead
-of a VM (note: Docker isn't actually …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">aidanharris</dc:creator><pubDate>Mon, 06 Jun 2016 17:11:00 +0100</pubDate><guid isPermaLink="false">tag:aidanharr.is,2016-06-06:/how-not-to-use-docker.html</guid></item><item><title>Creating an OS X Base Box for Vagrant with Parallels</title><link>https://aidanharr.is/creating-an-os-x-base-box-for-vagrant-with-parallels.html</link><description>&lt;div class="section" id="introduction"&gt;
-&lt;h2&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Vagrant is a useful tool for managing virtual machines. It can be used
-for setting up development and testing environments. This means code can
-be built and tested in a clean and consistent environment.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="section" id="prerequisites"&gt;
-&lt;h2&gt;Prerequisites&lt;/h2&gt;
-&lt;ul class="simple"&gt;
-&lt;li&gt;A Mac Computer - I'm using a MacBook Pro Retina 15&amp;quot; Late 2013 model
-running …&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">aidanharris</dc:creator><pubDate>Fri, 25 Mar 2016 21:11:00 +0000</pubDate><guid isPermaLink="false">tag:aidanharr.is,2016-03-25:/creating-an-os-x-base-box-for-vagrant-with-parallels.html</guid></item><item><title> Change Wordpress theme depending on visitor IP address</title><link>https://aidanharr.is/change-wordpress-theme-depending-on-visitor-ip-address.html</link><description>&lt;p&gt;Developing and testing in production is a terrible, terrible idea.
-However until I set up a virtual machine development environment I have
-little choice but to do so. Here's how to change the theme depending on
-the user's IP address:&lt;/p&gt;
-&lt;p&gt;Create a new plugin (you might want to use the …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">aidanharris</dc:creator><pubDate>Sun, 11 Oct 2015 18:46:00 +0100</pubDate><guid isPermaLink="false">tag:aidanharr.is,2015-10-11:/change-wordpress-theme-depending-on-visitor-ip-address.html</guid></item><item><title> Mount device with specific user rights</title><link>https://aidanharr.is/linux-mount-device-with-specific-user-rights.html</link><description>&lt;p&gt;Recently I bought myself a &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Raspberry_Pi"&gt;Raspberry Pi
-2&lt;/a&gt;. One of the first
-things I wanted to do was to install &lt;a class="reference external" href="https://kodi.tv"&gt;Kodi&lt;/a&gt;. This
-was easy enough thanks to the apt package manager included with
-&lt;a class="reference external" href="https://www.raspbian.org"&gt;Rasbian&lt;/a&gt;. It's as simple as
-&lt;tt class="docutils literal"&gt;sudo &lt;span class="pre"&gt;apt-get&lt;/span&gt; install kodi&lt;/tt&gt;.&lt;/p&gt;
-&lt;p&gt;However since the Kodi user data and cache …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">aidanharris</dc:creator><pubDate>Wed, 03 Jun 2015 16:11:00 +0100</pubDate><guid isPermaLink="false">tag:aidanharr.is,2015-06-03:/linux-mount-device-with-specific-user-rights.html</guid></item></channel></rss>
+<rss version="2.0"><channel><title>Aidan Harris - aidanharris</title><link>https://aidanharr.is/</link><description></description><lastBuildDate>Wed, 20 Oct 2021 10:31:00 +0100</lastBuildDate><item><title> About Blank</title><link>https://aidanharr.is/about-blank.html</link><description>&lt;p&gt;This page intentionally left blank.&lt;/p&gt;
+&lt;p&gt;There used to be a website here but it's a long-forgotten relic of the past (archived for posterity on ipfs: &lt;a class="reference external" href="https://gateway.ipfs.io/ipfs/QmSrdz5nHNZy4nWuxiGr9SeDEmPcy6qrgbz6NuZ3DmbHzA"&gt;https://gateway.ipfs.io/ipfs/QmSrdz5nHNZy4nWuxiGr9SeDEmPcy6qrgbz6NuZ3DmbHzA&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;I've been doing a lot of soul searching lately and will likely update this website soon.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">aidanharris</dc:creator><pubDate>Wed, 20 Oct 2021 10:31:00 +0100</pubDate><guid isPermaLink="false">tag:aidanharr.is,2021-10-20:/about-blank.html</guid><category>Meta</category></item></channel></rss>
