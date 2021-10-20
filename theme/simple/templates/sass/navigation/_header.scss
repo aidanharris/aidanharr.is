@@ -1,0 +1,81 @@
+#header-image-container {
+	padding: 0;
+}
+#header-image {
+	/*height: 23em;*/
+	position: relative;
+	left: 0;
+	width: 100%;
+	top: 0;
+	padding: 0;
+	margin: -0.1% 0 0;
+	background-size: 100%;
+	z-index: 0;
+}
+/*1100px*/
+
+#header-image {
+	height: 47vh;
+}
+
+@include media-breakpoint-down(md) {
+	#header-image {
+		height: 8.75em;
+	}
+}
+
+@include media-breakpoint-down(sm) {
+	#header-image {
+		height: 5em;
+	}
+}
+
+/*@media (min-width: 0) and (max-width: sm)*/
+@include media-breakpoint-down(sm) {
+	.card-three {
+		margin-top: 1em;
+		margin-left: -0.7em !important;
+	}
+	.card-four {
+		margin-top: 1em;
+	}
+}
+
+/*
+	Hacks around a MS Edge Bug?
+*/
+@media (max-width: 1142px) and (min-width: 1024px) {
+  #featurette.card-deck {
+    display: flex;
+	overflow: auto !important;
+    flex-flow: row; /* Previously 'row wrap' */
+  }
+  #navbarNavDropdown {
+	  margin-left: -2em;
+  }
+  #menu-primary-search {
+	  position: relative;
+	  left: 2em;
+  }
+}
+
+/*
+@include media-breakpoint-up(xl) {
+	 #header-image-container {
+		height: 18em;
+	}
+  }
+
+@include media-breakpoint-down(md) {
+	#header-image-container {
+		height: 10em;
+	}
+}
+
+@include media-breakpoint-down(sm) {
+	#header-image-container {
+		height: 5.5em;
+	}
+}
+*/
+

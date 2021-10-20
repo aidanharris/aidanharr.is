@@ -28,6 +28,12 @@ hr {
 	margin-bottom: 1.5em;
 }
 
+hr.half-rule { 
+  margin-left: 0;
+  text-align: left;
+  width: 50%;
+}
+
 @import "lists";
 
 img {
@@ -35,15 +41,8 @@ img {
 	max-width: 100%; /* Adhere to container width. */
 }
 
+figure {
+	margin: 1em 0; /* Extra wide images within figure tags don't overflow the content area. */
+}
+
 @import "tables";
-
-.literal-block {
-  width: 75%;
-  margin: 0 auto;
-}
-
-.entry-content .section h1, .entry-content .section h2, .entry-content .section h3, .entry-content .section h4 {
-  left: 18%;
-  position: relative;
-  width: 72%;
-}

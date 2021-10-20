@@ -1,34 +1,44 @@
 {% block footer %}
-<footer id="contentinfo" class="mdl-mini-footer">
-    <div class="mdl-mini-footer__left-section">
-        <ul class="mdl-mini-footer__link-list">
-            <li><a href="/copyright" style="color: #9e9e9e;text-decoration: none;"><strike>&copy;</strike> <strike>Copyright</strike>&nbsp;{{ CURRENT_YEAR }} ‐ Aidan Harris</a></li>
-            <!-- <li><a href="/privacy" style="color: #9e9e9e;text-decoration: none;">Privacy &amp; Terms</a></li> -->
-        </ul>
-        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="themeSelector">
-            <input type="checkbox" id="themeSelector" class="mdl-switch__input">
-            <span class="mdl-switch__label" id="themeSelectorLabel"></span>
-        </label>
+<footer id="contentinfo" class="blog-footer navbar sticky-bottom navbar-light bg-faded" style="margin-top: 2em;background: rgb(66, 66, 66);box-shadown: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);"><!--style="background: #424242;margin-top: 1em;max-width: 100%;">-->
+        <div class="row">
+            <div class="col-md-5">
+				<a href="/copyright" style="color: #9e9e9e;text-decoration: none;">🄯 Copyleft&nbsp;2021 ‐ Aidan Harris</a>
+                <span>&nbsp;<a href="/uploads/public.txt"><i class="fa fa-key" aria-hidden="true"></i>GPG Key</a></span>
+                <div>Proudly powered by <a href="https://getpelican.com">Pelican</a>.</div>
+             </div>
+             <div class="col-centered">
+                 <button id="themeSelector" class="btn btn-secondary" data-toggle="button" aria-hidden="true" autocomplete="off">
+                     <i class="fa fa-sun-o" aria-hidden="true"></i>&nbsp;Light Theme
+                  </button>
+             </div>
+             <div class="col-md-5" style="margin-left: 8em;">
 
+             </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <iframe class="btn btn-default" style="background: transparent;box-shadow: none;padding: 0;max-width: 6em;" src="https://ghbtns.com/github-btn.html?user=aidanharris&repo=aidanharr.is&type=star&count=false&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+                <iframe class="btn btn-default" style="padding: 0;background: transparent;box-shadow: none;" src="https://ghbtns.com/github-btn.html?user=aidanharris&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+            </div>
+        </div>
         <script type="text/javascript">
-            (function() { 
-                var setCurrentTheme = function() {
-                    document.getElementById('themeSelectorLabel').innerHTML = getCurrentTheme().charAt(0).toUpperCase() + getCurrentTheme().slice(1) + ' Theme';
+            (function() {
+                var fontAwesomeIcon = function(theme) {
+                    return (theme === 'Dark') ? '<i class="fa fa-moon-o" aria-hidden="true"></i>&nbsp;' : '<i class="fa fa-sun-o" aria-hidden="true"></i>&nbsp;';
                 }
-                document.getElementById('themeSelector').checked = (window.getCurrentTheme() === 'dark');
-                document.getElementById('themeSelector').onchange = function() {
+                var setCurrentTheme = function() {
+                    var theme = getCurrentTheme().charAt(0).toUpperCase() + getCurrentTheme().slice(1);
+                    document.getElementById('themeSelector').innerHTML = fontAwesomeIcon(theme) + theme + ' Theme';
+                }
+                if (window.getCurrentTheme() === 'dark') {
+                    document.getElementById('themeSelector').className += ' active';
+                }
+                document.getElementById('themeSelector').onclick = function() {
                     window.window.toggleDarkTheme();
                     setCurrentTheme();
                 };
                 return setCurrentTheme();
             })();
         </script>
-    </div>
-    <div class="mdl-mini-footer__right-section">
-        <div class="mdl-logo" style="color: #9e9e9e;text-decoration: none;">
-            Proudly powered by&nbsp;<a href="http://getpelican.com/" style="color: #9e9e9e;text-decoration: none;">Pelican</a>,
-            which takes great advantage of&nbsp;<a href="http://python.org" style="color: #9e9e9e;text-decoration: none;">Python</a>.
-        </div>
-    </div>
 </footer><!-- /#contentinfo -->
 {% endblock %}

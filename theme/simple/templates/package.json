@@ -30,5 +30,9 @@
     "postcss": "^5.2.5",
     "postcss-cli": "^2.6.0",
     "postcss-discard-comments": "^2.0.4"
+  },
+  "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6",
+    "bootswatch": "git+ssh://git@github.com/thomaspark/bootswatch.git#v4"
   }
 }
